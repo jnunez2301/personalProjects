@@ -5,6 +5,12 @@
     --link-color: rgba(93, 75, 75, 0.8);
     --background-color: rgba(190, 102, 102, 0.1);
 }
+body{
+    background-color: var(--background-color);
+}
+nav{
+    background-color: #ffffff;
+}
 .nav-link{
     color: var(--link-color);
     transition: color .3s ease-in-out;
@@ -52,7 +58,7 @@
 .mobile-container{
     display: none;
 }
-@media (max-width: 500px){
+@media (max-width: 600px){
     .nav-list{
         display: flex;
         flex-direction: column;

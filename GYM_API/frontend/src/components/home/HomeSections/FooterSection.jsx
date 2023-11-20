@@ -2,7 +2,7 @@
 
 export const FooterSection = () => {
   return (
-    <section className="footer-section">
+    <footer className="footer-section">
         
         <article>
             <header>
@@ -37,6 +37,6 @@ export const FooterSection = () => {
             </header>
         </article>
         
-    </section>
+    </footer>
   )
 }

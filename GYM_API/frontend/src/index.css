@@ -15,6 +15,9 @@ li{
 a{
   text-decoration: none;
 }
+h1{
+  text-align: center;
+}
 .main-section-container{
   background-color: var(--main-background-color);
 }
@@ -87,6 +90,26 @@ article{
 .footer-section > article{
   padding: 1rem;
 }
+.routine-section{
+  display: flex;
+  gap: 15px;
+  padding: 1rem;
+  justify-content: center;
+  text-align: center;
+  
+}
+.routine-section article{
+  padding: 1rem;
+  height: 100%;
+  width: 100%;
+}
+.routine-section img{
+  height: 250px;
+  width: 100%;
+}
+.routine-section h3{
+  font-size: 12px;
+}
 @media (max-width: 600px){
   .article-container{
     flex-wrap: wrap;
@@ -101,5 +124,8 @@ article{
   .footer-section > article{
     font-size: 10px;
     
+  }
+  .routine-section{
+    flex-wrap: wrap;
   }
 }

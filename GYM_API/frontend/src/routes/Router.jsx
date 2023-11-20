@@ -21,8 +21,6 @@ const Router = () => {
             <Route path='/register'
             element={<Register />}/>
 
-
-
             <Route path='/*' element={<PageNotFound />} />
         </Routes>
     </BrowserRouter>

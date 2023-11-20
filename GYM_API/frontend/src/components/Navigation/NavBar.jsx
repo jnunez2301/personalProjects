@@ -32,7 +32,7 @@ const NavBar = () => {
           <picture className="logo-container mobile-container">
             <img 
               className='nav-logo'
-              src="https://i.pinimg.com/originals/42/9d/63/429d631659a11a9eb666b103d811470a.jpg" alt="gym_logo" />
+              src="/gym-logo.svg" alt="gym_logo" />
               <h1>
               THE GYM API
             </h1>
@@ -55,7 +55,7 @@ const NavBar = () => {
           <picture className="logo-container mobile-logo">
             <img 
               className='nav-logo'
-              src="https://i.pinimg.com/originals/42/9d/63/429d631659a11a9eb666b103d811470a.jpg" alt="gym_logo" />
+              src="/gym-logo.svg" alt="gym_logo" />
               <h1>
               THE GYM API
             </h1>
