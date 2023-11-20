@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Arm -->
+  <rect x="26" y="10" width="12" height="44" fill="#4CAF50"/>
+  
+  <!-- Hand -->
+  <circle cx="32" cy="56" r="8" fill="#2196F3"/>
+</svg>

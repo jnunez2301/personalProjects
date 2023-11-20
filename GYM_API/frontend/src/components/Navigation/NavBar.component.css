@@ -1,0 +1,48 @@
+:root{
+    --text-experience-color: none;
+    --text-color: lightgray;
+    --link-color: rgb(93, 75, 75);
+    --link-color: rgba(93, 75, 75, 0.8);
+    --background-color: rgba(190, 102, 102, 0.1);
+}
+.nav-link{
+    color: var(--link-color);
+    transition: color .3s ease-in-out;
+    font-weight: 500;
+}
+.nav-link:hover{
+    color: var(--link-color-hover);
+}
+.nav-link-home{
+    color: rgb(0,0,0);
+    transition: color .3s ease-in-out;
+}
+.nav-link-home:hover{
+    color: rgba(0,0,0, 0.7);
+}
+.nav-list{
+    display: flex;
+    gap: 15px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.logo-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-wrap: nowrap;
+}
+.nav-logo{
+    width: 64px;
+    height: auto;
+}
+.nav-foot{
+    background-color: var(--background-color);
+    text-align: center;
+    padding: 3px;
+    font-size: 12px;
+}
+.exp{
+    color: var(--text-experience-color);
+}
