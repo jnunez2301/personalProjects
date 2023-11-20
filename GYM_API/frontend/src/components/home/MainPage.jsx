@@ -1,4 +1,4 @@
-import { MainSection, NoEquipmentSection, Recommended } from "./HomeSections/"
+import { FooterSection, MainSection, NoEquipmentSection, Recommended } from "./HomeSections/"
 
 export const MainPage = () => {
   return (
@@ -6,6 +6,7 @@ export const MainPage = () => {
       <MainSection />
       <NoEquipmentSection />
       <Recommended />
+      <FooterSection />
     </section>
   )
 }

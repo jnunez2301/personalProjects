@@ -1,10 +1,45 @@
+import { useState } from 'react';
 import './NavBar.component.css'
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
+  const [showNav, setShowNav] = useState(true);
+  
+  const handleHide = () => {
+    setShowNav(!showNav);    
+  }
+  
   return (
+    <>
+   {/*  {
+      !showNav ?
+      <button
+      className='show-nav-btn'
+       onClick={handleHide}>MENU</button>
+       :
+       <button
+    className='show-nav-btn'
+     onClick={handleHide}>CLOSE</button>
+    } */}
     <nav className='nav'>
-      <ul className='nav-list'>
+      
+      
+      {
+        showNav && 
+        <ul className='nav-list'>
+        <li>
+        <Link className='nav-link-home' to='/'>
+          <picture className="logo-container mobile-container">
+            <img 
+              className='nav-logo'
+              src="https://i.pinimg.com/originals/42/9d/63/429d631659a11a9eb666b103d811470a.jpg" alt="gym_logo" />
+              <h1>
+              THE GYM API
+            </h1>
+          </picture>
+          </Link>
+        </li>
+      
         <li>
           <Link
           className='nav-link'
@@ -17,7 +52,7 @@ const NavBar = () => {
         </li>
         <li>
         <Link className='nav-link-home' to='/'>
-          <picture className="logo-container">
+          <picture className="logo-container mobile-logo">
             <img 
               className='nav-logo'
               src="https://i.pinimg.com/originals/42/9d/63/429d631659a11a9eb666b103d811470a.jpg" alt="gym_logo" />
@@ -41,6 +76,7 @@ const NavBar = () => {
           className='nav-link'> Register</Link>
         </li>
       </ul>
+        }
       <div className="nav-foot">
         <h5>
           <span className='exp'>Already experienced? </span>
@@ -57,6 +93,7 @@ const NavBar = () => {
         </h5>
       </div>
     </nav>
+    </>
   )
 }
 

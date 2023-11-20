@@ -77,3 +77,29 @@ article{
   margin-top: .5rem;
   margin-bottom: .5rem;
 }
+.footer-section{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  gap: 10px;
+  text-align: center;
+  padding: 0 1rem;
+}
+.footer-section > article{
+  padding: 1rem;
+}
+@media (max-width: 600px){
+  .article-container{
+    flex-wrap: wrap;
+  }
+  .main-section{
+    flex-wrap: wrap;
+  }
+  .footer-section {
+    grid-template-columns: 1fr;
+    
+  }
+  .footer-section > article{
+    font-size: 10px;
+    
+  }
+}
