@@ -34,7 +34,7 @@ const NavBar = () => {
               className='nav-logo'
               src="/gym-logo.svg" alt="gym_logo" />
               <h1>
-              THE GYM API
+              THE GYM APP
             </h1>
           </picture>
           </Link>
@@ -57,7 +57,7 @@ const NavBar = () => {
               className='nav-logo'
               src="/gym-logo.svg" alt="gym_logo" />
               <h1>
-              THE GYM API
+              THE GYM APP
             </h1>
           </picture>
           </Link>
