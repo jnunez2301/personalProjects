@@ -1,5 +1,10 @@
+
 export const Challenges = () => {
+  
+
   return (
-    <div>Challenges</div>
+    <div>
+      Challenges
+    </div>
   )
 }

@@ -6,7 +6,7 @@ const config = {
         user: secret.username,
         password: secret.password,
         database: 'gym',
-        connectTimeout: 60000
+        /* connectTimeout: 60000 */
     },
     /* Pagination:
      listPerPage: 10, */
