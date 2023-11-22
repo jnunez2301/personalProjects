@@ -8,7 +8,7 @@ export const Exercises = () => {
   // Pagination
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
+  const [postsPerPage] = useState(6);
 
   
   const baseURL = 'api/gym/exercises'
@@ -27,20 +27,17 @@ export const Exercises = () => {
     
   }
 
-  console.log(filteredData);
 
+  // Pagination
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = data.slice(firstPostIndex, lastPostIndex);
+  
+
 
   return (
     <section className='exercise-main-container'>
-      <Pagination
-                totalPosts={data.length}
-                postsPerPage={postsPerPage}
-                setCurrentPage={setCurrentPage}
-                currentPage={currentPage}
-            />
+      
     <input
     className='search-bar'
      onChange={onHandleSearch}
@@ -52,10 +49,19 @@ export const Exercises = () => {
     {filteredData.map(exercise => (
       <div className='exercise-card-container' key={exercise.exercise_id}>
       <header className='exercise-title'>
-        <h2>{exercise.exercise_name}</h2>
-        <h5>{exercise.body_part}</h5>
+        <h2 className='exercise-name'>{exercise.exercise_name}</h2>
+        <hr />
+        <p>
+        Body Part:
+        <span className='body-part'>  {exercise.body_part} </span>
+        </p>
       </header>
+      
+      
+      <iframe src={exercise.youtubeSrc} ></iframe>
+
       <div className='exercise-description'>
+        
         <p>{exercise.description}</p> 
       </div>
       <div className='exercise-difficulty'>
@@ -64,7 +70,7 @@ export const Exercises = () => {
           width: `${exercise.difficulty * 20}%`}}
           >{exercise.difficulty}</div>
       </div>
-    </div>      
+    </div>   
     ))}
     </>
      : 
@@ -72,17 +78,24 @@ export const Exercises = () => {
     {currentPosts.map(exercise => (
       <div className='exercise-card-container' key={exercise.exercise_id}>
         <header className='exercise-title'>
-          <h2>{exercise.exercise_name}</h2>
-          <h5>{exercise.body_part}</h5>
+          <h2 className='exercise-name'>{exercise.exercise_name}</h2>
+          <hr />
+          <p>
+          Body Part:
+          <span className='body-part'>  {exercise.body_part} </span>
+          </p>
         </header>
+        <iframe src={exercise.youtubeSrc} ></iframe>
+
         <div className='exercise-description'>
+          
           <p>{exercise.description}</p> 
         </div>
         <div className='exercise-difficulty'>
           <div className='difficulty'
           style={{
             width: `${exercise.difficulty * 20}%`}}
-            >{exercise.difficulty}</div>
+            >{exercise.difficulty * 20}%</div>
         </div>
       </div>
     ))}
@@ -90,7 +103,12 @@ export const Exercises = () => {
     </>
     }
     </div>
-    
+    <Pagination
+                totalPosts={data.length}
+                postsPerPage={postsPerPage}
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
+            />
     </section>
 
   )
