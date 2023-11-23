@@ -131,7 +131,6 @@ article{
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 380px; 
 }
 .video{
   margin: 1rem 0;
@@ -196,6 +195,21 @@ h5{
   color: var(--title-color);
   font-weight: 500;
   margin-left: 5px;
+}
+/* Specific Routine */
+
+.exercise-table{
+  text-align: center;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: lightcyan;  
+}
+.exercise-table td{
+  outline: 1px solid rgba(0, 0, 0, 0.5);
+}
+.exercise-table>thead td{
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 800;
 }
 @media (max-width: 600px){
   .article-container{

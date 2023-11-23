@@ -1,8 +1,10 @@
 const secret = require('./utils/secret');
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const gymRouter = require('./controller/api/gym')
 
+app.use(cors());
 app.use(express.json());
 app.use(
     express.urlencoded({
