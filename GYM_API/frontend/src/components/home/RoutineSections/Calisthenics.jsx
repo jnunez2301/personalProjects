@@ -14,18 +14,19 @@ export const Calisthenics = () => {
   
   
   return (
-    <section>
+    <section className="routines">
       {
         data && data.map(routine => (
-          <div key={routine.routine_id}>
-            <Link to={`/routine-name/calisthenics/${routine.routine_alias}`}>Go to routine</Link>
+          <Link 
+          className='routine-link'          
+          to={`/routine-name/calisthenics/${routine.routine_alias}`} key={routine.routine_id}>
               <h2>{routine.routine_name}</h2>
               <img 
               width={'200px'} 
               src={routine.routine_img} alt={`${routine.routine_name}`} />
               <p>{routine.routine_description}</p>
 
-          </div>
+          </Link>
         ))
       }
     </section>

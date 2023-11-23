@@ -13,12 +13,12 @@ export const SelectedRoutine = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     /* const chestExercises = data.filter(d => d.body_part === 'Chest'); */
-    const routineInfo = [data[0]];
-    console.log(routineInfo);
+    const routineInfo = data.length > 0 ? [data[0]] : [];
+
     return (
         <section className='routine-container'>
-            {routineInfo.map(info => (
-                <div key={info.user_id}>
+            {routineInfo.length > 0 && routineInfo.map(info => (
+                <div className='routine-header' key={info.user_id}>
                     <h2>{info.routine_name}</h2>
                     <h5>{info.body_part}</h5>
                     <p>{info.routine_description}</p>

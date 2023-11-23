@@ -16,6 +16,7 @@ li{
 a{
   text-decoration: none;
 }
+
 h1{
   text-align: center;
 }
@@ -196,13 +197,31 @@ h5{
   font-weight: 500;
   margin-left: 5px;
 }
+/* Routine */
+.routine-container{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+.routine-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+.routine-header > p{
+  width: 50ch;
+  text-align: center;
+  margin: 1.5rem 0;
+}
 /* Specific Routine */
 
 .exercise-table{
   text-align: center;
-  margin: 1rem;
-  padding: 1rem;
-  background-color: lightcyan;  
 }
 .exercise-table td{
   outline: 1px solid rgba(0, 0, 0, 0.5);
@@ -210,6 +229,31 @@ h5{
 .exercise-table>thead td{
   color: rgba(0, 0, 0, 0.8);
   font-weight: 800;
+}
+/* Routine by type*/
+.routines{
+  display: grid;
+  margin: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 370px));
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+}
+.routines h2{
+  padding: 1rem 0;
+}
+.routines a{
+  color: rgba(255, 68, 0);
+  background-color: white;
+  transition: background-color .2s ease-in-out;
+  border-radius: 5px;
+}
+.routines p{
+  color: rgba(0, 0, 0, 0.8);
+  margin: 1rem;
+}
+.routines a:hover{
+  background-color: rgba(234, 217, 211, 0.6);
 }
 @media (max-width: 600px){
   .article-container{

@@ -50,7 +50,7 @@ router.get('/routine/:type/:name', async function(req, res, next){
     JOIN users u ON ur.user_id = u.user_id
     JOIN routines r ON ur.user_id = r.user_id
     WHERE ur.weights_calisthenics = ? AND ur.routine_name LIKE ?
-    ORDER BY ur.routine_name; -- Specify the table for ORDER BY as well
+    ORDER BY ur.routine_name;
     `
     try {
         const results = await db.query(sql, [typeParam, routineName]);
