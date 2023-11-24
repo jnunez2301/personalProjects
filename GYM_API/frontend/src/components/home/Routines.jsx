@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
 export const Routines = () => {
-  const sampleImg = 'https://st.depositphotos.com/2274151/4841/i/450/depositphotos_48410095-stock-photo-sample-blue-square-grungy-stamp.jpg'
   return (
     <section className="routine-section">
       <Link to='/routine/weights'>
@@ -10,7 +9,7 @@ export const Routines = () => {
             <h3>WITH WEIGHTS</h3>
           </header>
           <picture>
-            <img src={sampleImg} alt="sample-img" />
+            <img src={'https://www.workoutforless.co.uk/cdn/shop/articles/luis-reyes-mTorQ9gFfOg-unsplash_2_640x.jpg?v=1657122621'} alt="sample-img" />
           </picture>
         </article>
       </Link>
@@ -21,7 +20,7 @@ export const Routines = () => {
             <h3>NO GYM? NO WEIGHTS? YOUR BODY IS YOUR BEST FRIEND</h3>
           </header>
           <picture>
-            <img src={sampleImg} alt="sample-img" />
+            <img src={'https://gravity.fitness/cdn/shop/articles/Get_your_kids_into_calisthenics_to_avoid_child_obesity_-_Gravity_Fitness_1600x.jpg?v=1677067732'} alt="sample-img" />
           </picture>
         </article>
       </Link>

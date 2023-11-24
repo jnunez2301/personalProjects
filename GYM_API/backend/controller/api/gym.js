@@ -44,14 +44,14 @@ router.get('/routines/:uses_weights',async function(req, res, next){
 router.get('/routine/:type/:name', async function(req, res, next){
     const typeParam = req.params.type;
     const routineName = `%${req.params.name}%`;
-    const sql = `SELECT ur.exercise_id, ur.user_id, e.body_part, e.exercise_name, e.description, e.youtubeSrc, u.user_handle, ur.routine_name, ur.weights_calisthenics, r.routine_img, r.routine_name, r.routine_description
+    const sql = `SELECT ur.exercise_id, ur.user_id, e.body_part, e.exercise_name, e.description, e.youtubeSrc, u.user_handle, ur.routine_name, ur.weights_calisthenics, ur.sets, ur.reps, ur.rest, r.routine_img, r.routine_name, r.routine_description
     FROM user_routines ur
     JOIN exercises e ON ur.exercise_id = e.exercise_id
     JOIN users u ON ur.user_id = u.user_id
     JOIN routines r ON ur.user_id = r.user_id
-    WHERE ur.weights_calisthenics = ? AND ur.routine_name LIKE ?
-    ORDER BY ur.routine_name;
-    `
+    WHERE r.uses_weights = ? AND ur.routine_name LIKE ?
+    ORDER BY ur.routine_name AND ur.exercise_id
+    `;
     try {
         const results = await db.query(sql, [typeParam, routineName]);
         res.json(results); 

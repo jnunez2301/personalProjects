@@ -16,7 +16,11 @@ li{
 a{
   text-decoration: none;
 }
-
+img{
+  width: 100%;
+  padding: 1rem;
+  border-radius: 5px;
+}
 h1{
   text-align: center;
 }
@@ -100,6 +104,10 @@ article{
   text-align: center;
   
 }
+.routine-section > a:hover {
+  opacity: 0.7;
+}
+
 .routine-section article{
   padding: 1rem;
   height: 100%;
@@ -204,7 +212,6 @@ h5{
   flex-wrap: wrap;
   margin: 1rem;
   align-items: center;
-  justify-content: center;
 }
 .routine-header{
   display: flex;
@@ -216,7 +223,6 @@ h5{
 .routine-header > p{
   width: 50ch;
   text-align: center;
-  margin: 1.5rem 0;
 }
 /* Specific Routine */
 
@@ -224,11 +230,17 @@ h5{
   text-align: center;
 }
 .exercise-table td{
-  outline: 1px solid rgba(0, 0, 0, 0.5);
+  outline: 1px solid rgba(102, 63, 128, 0.3);
+  padding: 1rem;
 }
 .exercise-table>thead td{
   color: rgba(0, 0, 0, 0.8);
   font-weight: 800;
+}
+.exercise-table > thead > tr > td{
+  background-color: #005599;
+  color: #FEFEFB;
+  font-weight: 500;
 }
 /* Routine by type*/
 .routines{
@@ -239,21 +251,55 @@ h5{
   text-align: center;
   gap: 15px;
 }
+.routine-img{
+  width: auto;
+  border-radius: 10px;
+  height: 480px;
+  margin: 1rem 0;  
+}
 .routines h2{
   padding: 1rem 0;
 }
-.routines a{
+.routine-link{
   color: rgba(255, 68, 0);
   background-color: white;
   transition: background-color .2s ease-in-out;
   border-radius: 5px;
+  height: 100%;
+}
+.routines a:hover{
+  background-color: rgba(234, 217, 211, 0.6);
 }
 .routines p{
   color: rgba(0, 0, 0, 0.8);
   margin: 1rem;
 }
-.routines a:hover{
-  background-color: rgba(234, 217, 211, 0.6);
+/* Selected Routine */
+.selected-routine{
+  background-color: white;
+  margin: 1rem;
+  border-radius: 5px;
+}
+/* buttons */
+.btn-container{
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+  position: relative;
+}
+.btn-download{
+  border: none;
+  cursor: pointer;
+  background-color: rgba(66, 135, 245, 0.5);
+  margin: 1rem;
+  padding: .5rem;
+  border-radius: 5px;
+  font-weight: 800;
+  color:  #4B0082;
+  transition: background-color .2s ease-in-out;
+}
+.btn-download:hover{
+  background-color: rgba(66, 135, 245);
 }
 @media (max-width: 600px){
   .article-container{
@@ -275,5 +321,26 @@ h5{
   }
   .pagination{
     flex-wrap: wrap;
+  }
+  .routine-container{
+    margin: 0;
+    align-items: center;
+  }
+  .exercise-table td{
+    outline: 1px solid rgba(102, 63, 128, 0.3);
+    padding: 0;    
+  }
+  .routine-header{
+    text-align: center;
+  }
+  .routine-header p{
+    max-width: 30ch;
+  }
+  .selected-routine{
+    margin: .3rem;
+  }
+  .routine-img{
+    width: 320px;
+    height: auto;
   }
 }

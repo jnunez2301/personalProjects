@@ -18,11 +18,11 @@ export const Calisthenics = () => {
       {
         data && data.map(routine => (
           <Link 
+          
           className='routine-link'          
-          to={`/routine-name/calisthenics/${routine.routine_alias}`} key={routine.routine_id}>
+          to={`/routine-name/0/${routine.routine_alias}`} key={routine.routine_id}>
               <h2>{routine.routine_name}</h2>
               <img 
-              width={'200px'} 
               src={routine.routine_img} alt={`${routine.routine_name}`} />
               <p>{routine.routine_description}</p>
 
