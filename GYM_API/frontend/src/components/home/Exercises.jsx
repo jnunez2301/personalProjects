@@ -14,7 +14,7 @@ export const Exercises = () => {
   const [postsPerPage] = useState(6);
   
 
-  const baseURL = 'api/gym/exercises'
+  const baseURL = 'https://gymapi23.onrender.com/api/gym/exercises'
   useEffect(() =>{
     axios
     .get(baseURL)
