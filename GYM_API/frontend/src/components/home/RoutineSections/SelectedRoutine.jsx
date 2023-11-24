@@ -5,7 +5,7 @@ import { usePDF } from 'react-to-pdf';
 
 export const SelectedRoutine = () => {
     const { type, name } = useParams();
-    const baseURL = `https://gymapi23.onrender.com/api/gym/routine/${type}/${name}`
+    const baseURL = `/api/gym/routine/${type}/${name}`
     const [data, setData] = useState([]);
     const uniqueBodyParts = new Set();
 

@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3001,
-    /* proxy: {
-      '/api': 'https://gymapi23.onrender.com'
-    } */
+    proxy: {
+      '/api': 'http://localhost:3000'
+    }
   }
 })

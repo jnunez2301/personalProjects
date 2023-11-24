@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 
 export const Weights = () => {
-  const baseUrl = 'https://gymapi23.onrender.com/api/gym/routines/1'
+  const baseUrl = '/api/gym/routines/1'
   const [data, setData] = useState([]);
   useEffect(() => {
     axios

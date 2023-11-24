@@ -104,6 +104,9 @@ article{
   text-align: center;
   
 }
+.routine-section a{
+  transition: opacity .3s ease-in-out;
+}
 .routine-section > a:hover {
   opacity: 0.7;
 }
