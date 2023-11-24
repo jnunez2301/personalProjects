@@ -20,7 +20,7 @@ export const Calisthenics = () => {
           <Link 
           
           className='routine-link'          
-          to={`/routine-name/0/${routine.routine_alias}`} key={routine.routine_id}>
+          to={`/routine-name/calisthenics/${routine.routine_alias}`} key={routine.routine_id}>
               <h2>{routine.routine_name}</h2>
               <img 
               src={routine.routine_img} alt={`${routine.routine_name}`} />

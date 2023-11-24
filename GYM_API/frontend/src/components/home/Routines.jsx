@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export const Routines = () => {
   return (
-    <section className="routine-section">
+    <section className="routine-type">
       <Link to='/routine/weights'>
         <article>
           <header>

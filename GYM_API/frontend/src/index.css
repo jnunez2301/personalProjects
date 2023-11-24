@@ -98,11 +98,18 @@ article{
 }
 .routine-section{
   display: flex;
+  flex-direction: column;
   gap: 15px;
   padding: 1rem;
   justify-content: center;
   text-align: center;
-  
+}
+.routine-type{
+  display: flex;
+  gap: 15px;
+  padding: 1rem;
+  justify-content: center;
+  text-align: center;
 }
 .routine-section a{
   transition: opacity .3s ease-in-out;

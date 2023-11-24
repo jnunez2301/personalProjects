@@ -49,11 +49,11 @@ router.get('/routine/:type/:name', async function(req, res, next){
     JOIN exercises e ON ur.exercise_id = e.exercise_id
     JOIN users u ON ur.user_id = u.user_id
     JOIN routines r ON ur.user_id = r.user_id
-    WHERE r.uses_weights = ? AND ur.routine_name LIKE ?
+    WHERE r.uses_weights = ? AND e.uses_weights = ? AND ur.routine_name LIKE ?
     ORDER BY ur.routine_name AND ur.exercise_id
     `;
     try {
-        const results = await db.query(sql, [typeParam, routineName]);
+        const results = await db.query(sql, [typeParam, typeParam, routineName]);
         res.json(results); 
     } catch (err) {// Send the results as JSON
         console.error(`Error while getting data from the database: `, err.message);
