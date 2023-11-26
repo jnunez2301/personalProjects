@@ -28,6 +28,18 @@ router.get('/exercises/:id', async function(req, res, next) {
     }
 });
 
+// Influencers
+router.get('/influencer', async function(req, res, next){
+    const sql= `SELECT * FROM influencers`;
+    try{
+        const results = await db.query(sql);
+        res.json(results);
+    }catch(err){
+        console.log(err.message);
+        next(err);
+    }
+})
+
 router.get('/routines/:uses_weights',async function(req, res, next){
     const uses_weightsParam = req.params.uses_weights;
     

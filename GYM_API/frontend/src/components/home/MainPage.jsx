@@ -1,11 +1,11 @@
-import { FooterSection, MainSection, NoEquipmentSection, Recommended } from "./HomeSections/"
+import { FooterSection, MainSection  } from "./HomeSections/"
 
 export const MainPage = () => {
+  
   return (
     <section className="main-section-container">
       <MainSection />
-      <NoEquipmentSection />
-      <Recommended />
+      {/* <Recommended /> */}
       <FooterSection />
     </section>
   )

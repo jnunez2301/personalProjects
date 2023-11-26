@@ -76,7 +76,7 @@ export const SelectedRoutine = () => {
                             <thead>
                                 <tr>
                                     <td>Exercise Name</td>
-                                    <td>Description</td>
+                                    <td className='routine-description'>Description</td>
                                     <td>Sets</td>
                                     <td>Reps</td>
                                     <td>Rest</td>
@@ -96,7 +96,8 @@ export const SelectedRoutine = () => {
                                                     {exercise.exercise_name}
                                                 </a>
                                             </td>
-                                            <td style={{ width: '10ch' }}>{exercise.description}</td>
+                                            <td
+                                            className='routine-description' style={{ width: '10ch' }}>{exercise.description}</td>
                                             <td>{exercise.sets}</td>
                                             <td>{exercise.reps}</td>
                                             <td>{exercise.rest}</td>

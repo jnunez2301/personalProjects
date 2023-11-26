@@ -45,10 +45,15 @@ const NavBar = () => {
           className='nav-link'
            to='/exercises'>Exercises</Link>
         </li>
-        <li>
+        {/* <li>
           <Link
           className='nav-link'
            to='/challenges'>Challenges</Link>
+        </li> */}
+        <li>
+          <Link
+            className='nav-link'
+           to='/routines'>Routines</Link>
         </li>
         <li>
         <Link className='nav-link-home' to='/'>
@@ -62,19 +67,17 @@ const NavBar = () => {
           </picture>
           </Link>
         </li>
-        <li>
-          <Link
-            className='nav-link'
-           to='/routines'>Routines</Link>
-        </li>
-        <li className="login-register">
+        
+          <li>
           <Link 
           className='nav-link'
           to='/login'>Login </Link>
-          <span> | </span>
+          </li>
+          <li>
           <Link to='/register'
           className='nav-link'> Register</Link>
-        </li>
+          </li>
+        
       </ul>
         }
       <div className="nav-foot">

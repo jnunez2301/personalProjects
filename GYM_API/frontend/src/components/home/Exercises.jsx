@@ -76,7 +76,7 @@ export const Exercises = () => {
         <div className='difficulty'
         style={{
           width: `${exercise.difficulty * 20}%`}}
-          >{exercise.difficulty}</div>
+          >{exercise.difficulty * 20}%</div>
       </div>
     </div>   
     ))}
