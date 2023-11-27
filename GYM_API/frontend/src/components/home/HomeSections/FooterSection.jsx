@@ -54,9 +54,9 @@ export const FooterSection = () => {
                     <a href="https://tdeecalculator.net/" target="_blank" rel="noreferrer">TDEE Calculator</a>
                 </li>
                 <li>
-                    <a href="https://www.bodybuilding.com/"
+                    <a href="https://www.muscleandstrength.com/"
                     rel='noreferrer'
-                    target="_blank">BodyBuilding</a>
+                    target="_blank">Muscle & Strength</a>
                 </li>
                 <li>
                     <a href="https://darebee.com/"

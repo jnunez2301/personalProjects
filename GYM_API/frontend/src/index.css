@@ -135,6 +135,7 @@ article{
 .routine-type{
   display: flex;
   gap: 15px;
+  flex-wrap: wrap;
   padding: 1rem;
   justify-content: center;
   text-align: center;
@@ -152,8 +153,8 @@ article{
   width: 100%;
 }
 .routine-type img{
-  height: 250px;
-  width: 100%;
+  height: auto;
+  width: 320px;
 }
 .routine-type h3{
   font-size: 12px;

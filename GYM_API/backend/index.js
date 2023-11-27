@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const gymRouter = require('./controller/api/gym')
+const authRouter = require('./controller/auth/auth')
 const path = require('path')
 
 app.use(cors());
@@ -19,7 +20,8 @@ app.get('/', (req, res) => {
 })
 
 // Router
-app.use('/api/gym', gymRouter)
+app.use('/api/gym', gymRouter);
+app.use('/api/auth/', authRouter);
 
 app.listen(secret.port, () => {
     console.log(`App running and listening on PORT: ${secret.port}`);
