@@ -25,7 +25,7 @@ export const FooterSection = () => {
                 {/* https://github.com/jnunez2301 */}
                 <a 
                 className="brand-container"
-                href="https://www.linkedin.com/in/jnunez99/" target="_blank"
+                href="https://github.com/jnunez2301" target="_blank"
                 rel="noreferrer">
                     <img
                     className="brand-logo" 
