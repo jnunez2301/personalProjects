@@ -1,31 +1,42 @@
 import { useState } from 'react';
 import './NavBar.component.css'
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/auth/AuthContext';
+import axios from 'axios'
 
 const NavBar = () => {
-  const [showNav, setShowNav] = useState(true);
+ 
+  const { isAuthenticated, user, loading, error } = useAuth();
+  const logoutURL = '/api/auth/logout';
   
-  const handleHide = () => {
-    setShowNav(!showNav);    
-  }
   
+  const handleLogOut = async () => {
+    try {
+      const response = await axios.get(logoutURL, {withCredentials: true});
+  
+      // Check the response status and handle accordingly
+      if (response.status === 200) {
+        alert('Logout successful');
+        window.location.reload();
+      } else {
+        console.error('Logout failed:', response.data);
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+      if (!error.response) {
+        console.log('Network error. Check your connection.');
+      }
+    }
+  };
+ 
   return (
     <>
-   {/*  {
-      !showNav ?
-      <button
-      className='show-nav-btn'
-       onClick={handleHide}>MENU</button>
-       :
-       <button
-    className='show-nav-btn'
-     onClick={handleHide}>CLOSE</button>
-    } */}
+  
     <nav className='nav'>
       
       
       {
-        showNav && 
+        
         <ul className='nav-list'>
         <li>
         <Link className='nav-link-home' to='/'>
@@ -68,7 +79,17 @@ const NavBar = () => {
           </Link>
         </li>
         
-          <li>
+          {
+            isAuthenticated && user ?
+            <>
+            <Link to={`/user/${user.user_handle}`}>
+            <h4>{user.user_handle}</h4>
+            </Link>
+            <button className='btn' onClick={handleLogOut}>Logout</button>
+            </>
+             :
+            <>
+            <li>
           <Link 
           className='nav-link'
           to='/login'>Login </Link>
@@ -77,10 +98,14 @@ const NavBar = () => {
           <Link to='/register'
           className='nav-link'> Register</Link>
           </li>
-        
+          </>
+        }
       </ul>
         }
-      <div className="nav-foot">
+      {
+        isAuthenticated && user ? ''
+        :
+        <div className="nav-foot">
         <h5>
           <span className='exp'>Already experienced? </span>
           <Link 
@@ -94,7 +119,7 @@ const NavBar = () => {
               </Link>
            to make your own routine
         </h5>
-      </div>
+      </div>}
     </nav>
     </>
   )

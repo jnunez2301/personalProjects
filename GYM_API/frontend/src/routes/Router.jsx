@@ -7,6 +7,7 @@ import { Routine } from "../components/home/RoutineSections/Routine"
 import { SelectedRoutine } from "../components/home/RoutineSections/SelectedRoutine"
 
 const Router = () => {
+
   return (
     <>
     <BrowserRouter>

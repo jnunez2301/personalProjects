@@ -8,7 +8,11 @@ export const NoEquipmentSection = ({ beginner }) => {
   return (
     <section className="section-container">
         <div>
-            <h4>NO EQUIPMENT? Floor and Gravity is all you need!</h4>
+            <h4
+            style={{
+              color: '#606c38'
+            }}
+            >NO EQUIPMENT? Floor and Gravity is all you need!</h4>
         </div>
         <div className="article-container">
             {
@@ -28,7 +32,7 @@ export const NoEquipmentSection = ({ beginner }) => {
             </>}
         </div>
         <div>
-            <h6>ADAPT AS NEEDED IF YOU CAN NOT DO AN EXERCISE DO AN EASIER VARIATION I BELIEVE IN YOU!</h6>
+            <h6>ADAPT AS NEEDED IF YOU CAN NOT DO AN EXERCISE DO AN EASIER VARIATION</h6>
         </div>
     </section>
   )

@@ -93,7 +93,8 @@ article{
 }
 
 .section-article{
-  background-color: var(--section-background);
+  background-color: rgba(221, 223, 215, 0.4);
+  
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -123,7 +124,7 @@ article{
   margin: .3rem 0;
 }
 .footer-section a{
-  color: orangered;
+  color: #012131;
 }
 .footer-section a:hover{
   color: lightcoral;
@@ -266,7 +267,7 @@ iframe{
   color: rgb(106, 144, 30);
 }
 h5{
-  color: orangered;
+  color: #575440;
   margin: .3rem 0;
 }
 .body-part{
@@ -381,16 +382,24 @@ h5{
   justify-content: center;
   padding: 1rem;
 }
+.influencer-container a {
+  border-radius: 100%;
+  transition: opacity 150ms linear;
+}
+.influencer-container a:hover, .routine-link:hover{
+  opacity: .8;
+}
 .influencer-img{
   height: 150px;
   width: 100%;
+  border-radius: 100%;
 }
 .brand-container{
   display: flex;
   justify-content: center;
   gap: 5px;
   align-items: center;
-  color: black;
+  color: #cdb4db;
   transition: all .2s ease-in-out;
 }
 .brand-logo{
@@ -400,7 +409,67 @@ h5{
 }
 .brand-container:hover{
   opacity: .5;
-  color: orangered;
+  color: #8ecae6;
+}
+/* FORM */
+form{
+  display: grid;
+  place-content: center;
+  min-height: 50vh;
+  row-gap: 15px;
+  padding: 1rem;
+}
+form input{
+  border: none;
+  border-radius: 5px;
+  padding: .8rem;
+}
+form input:focus-visible{
+  outline: 1px solid #005599;
+}
+form button[type='submit']{
+  border: none;
+  cursor: pointer;
+  background-color: #cdb4db;
+  padding: .5rem;
+  border-radius: 5px;
+}
+.label-container{
+  display: grid;
+  position: relative;
+}
+/* .label-container label{
+  position: absolute;
+  top: 10px;
+  left: 10px;  
+  width: 90%;
+  z-index: 10;
+  transition: all .3s ease-in-out;
+}
+.label-container:focus-within label {
+  position: relative;
+  top: -10px;
+  background-color: #f2f2f2;
+} */
+.register-error{
+  padding: .5rem;
+  border-radius: 10px;
+  background-color: #575440;
+}
+.register-error h5{
+  color: white;
+}
+.btn{
+  border: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: rgba(222, 184, 135, 0.5);
+  color: rgba(0, 0, 0, 0.8);
+  
+}
+.btn:hover{
+  background-color: rgba(222, 184, 135);
 }
 @media (max-width: 600px){
   .article-container{
@@ -432,6 +501,7 @@ h5{
     outline: 1px solid rgba(102, 63, 128, 0.3);
     padding: 0;    
   }
+ 
   .routine-header{
     text-align: center;
   }

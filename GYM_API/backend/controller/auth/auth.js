@@ -3,6 +3,7 @@ const session = require('express-session');
 
 const db = require('../../services/db');
 const router = express.Router();
+const cors = require('cors');
 
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
@@ -11,6 +12,7 @@ const jwt = require('jsonwebtoken');
 
 // Add express-session middleware
 router.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: false }));
+
 
 // Configure Passport.js
 router.use(passport.initialize());
@@ -76,12 +78,37 @@ passport.deserializeUser(async (user_handle, done) => {
     }
 });
 
+router.get('/logout', (req, res) => {
+    try {
+      req.logout(() =>{
+        res.status(200).json({ message: 'logged out successfully' });
+      });
+    } catch (error) {
+      console.error('Error during logout:', error);
+      res.status(500).json({ message: 'logout failed', error: error.message });
+    }
+  });
+  
 // WITHOUT JSON WEB TOKEN
-router.post('/login', passport.authenticate('login', {
-    successRedirect: '/', 
-    failureRedirect: '/login',
-    failureFlash: true,  
-}));
+router.post('/login', (req, res, next) => {
+    passport.authenticate('login', (err, user, info) => {
+      if (err) {
+        return next(err);
+      }  
+      if (!user) {
+        // Authentication failed
+        return res.status(401).json({ message: 'failed to log in', error: info });
+      }
+      // Log in the user
+      req.login(user, (loginErr) => {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        // Authentication successful
+        return res.status(200).json({ message: 'logged in successfully', user });
+      });
+    })(req, res, next);
+  });
 // WITH JWT
 /* router.post('/login', async (req, res, next) => {
     passport.authenticate('login', async (err, user, info) => {
