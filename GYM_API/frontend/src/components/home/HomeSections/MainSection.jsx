@@ -18,6 +18,8 @@ export const MainSection = () => {
     // ${Math.floor(Math.random() * 60)}
     // to={`/routine-name/calisthenics/${routine.routine_alias}`}
     
+
+    //TODO: AÑADIR CONDICIONAL EN BASE A LOADING...
     useEffect(() => {
         axios
             .get(baseURL)

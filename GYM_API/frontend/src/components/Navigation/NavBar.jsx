@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLocation } from 'react-router-dom'
 import './NavBar.component.css'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth/AuthContext';
@@ -8,7 +8,7 @@ const NavBar = () => {
  
   const { isAuthenticated, user, loading, error } = useAuth();
   const logoutURL = '/api/auth/logout';
-  
+  const location = useLocation();
   
   const handleLogOut = async () => {
     try {
@@ -28,7 +28,7 @@ const NavBar = () => {
       }
     }
   };
- 
+  console.log(location.pathname);
   return (
     <>
   
@@ -89,16 +89,29 @@ const NavBar = () => {
             </>
              :
             <>
-            <li>
-          <Link 
+            
+          {
+          location.pathname !== '/login' ?
+             
+             <li>
+            <Link 
           className='nav-link'
           to='/login'>Login </Link>
           </li>
-          <li>
+          : ''
+        }
+          {
+            location.pathname !== '/register' ?
+            <li>
           <Link to='/register'
           className='nav-link'> Register</Link>
           </li>
+          : ''
+          }
           </>
+          
+          
+
         }
       </ul>
         }

@@ -1,5 +1,6 @@
 const secret = require('./utils/secret');
 
+
 const config = {
     db: {
         host: 'localhost',
@@ -11,5 +12,6 @@ const config = {
     /* Pagination:
      listPerPage: 10, */
 }
+
 
 module.exports = config;

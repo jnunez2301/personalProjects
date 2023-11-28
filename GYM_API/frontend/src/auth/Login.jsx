@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import useForm from './hooks/UseForm';
 import { useAuth } from '../context/auth/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const [inputValue, setInputValue] = useState('');
@@ -74,6 +74,7 @@ export const Login = () => {
         />
       </div>
       <button type='submit'>Log In</button>
+      <p>Don not have an account? <Link to={'/register'}>Register</Link></p>
     </form>
   );
 };

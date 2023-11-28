@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { useAuth } from "../context/auth/AuthContext";
 
@@ -98,6 +98,7 @@ export const Register = () => {
         onChange={onInputChange} type="password" name="confirm_password" id="confirm_password" required/>
       </div>
       <button type="submit">Register</button>
+      <p>Already have an user? <Link to={'/login'}>Sign in</Link></p>
     </form>
   )
 }

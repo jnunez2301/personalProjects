@@ -153,7 +153,7 @@ router.post('/register', async(req, res, next) => {
         values.push(user, hash,email_address, first_name, last_name)
     }
     try{
-        console.log(values);
+        
         const results = await db.query(sql, values);
         res.status(201).json(results);
     }catch(error){
