@@ -11,7 +11,7 @@ export const Calisthenics = () => {
     .then(response => setData(response.data))
     .catch(error => console.log(error))
   },[])
-  
+
   
   return (
     <section className="routines">

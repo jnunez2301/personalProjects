@@ -5,8 +5,14 @@ import NavBar from "../components/Navigation/NavBar"
 import { PageNotFound } from "../components/error/PageNotFound"
 import { Routine } from "../components/home/RoutineSections/Routine"
 import { SelectedRoutine } from "../components/home/RoutineSections/SelectedRoutine"
+import { useAuth } from "../context/auth/AuthContext"
+import { UserPage } from "../components/user/UserPage"
+import { NotLogged } from "../components/user/NotLogged"
+import { RoutineBuilder } from "../components/user/RoutineBuilder"
 
 const Router = () => {
+
+  const { isAuthenticated, user } =  useAuth();
 
   return (
     <>
@@ -29,7 +35,15 @@ const Router = () => {
             <Route path='/register'
             element={<Register />}/>
     
-
+            {
+              isAuthenticated && user ? 
+              <>
+              <Route path="/user/:user_handle" element={<UserPage />} />
+              <Route path="/user/routine-builder" element={<RoutineBuilder />} />
+              </> :
+              <Route path='/user/:user_handle' element={<NotLogged />} />
+            }
+            
             <Route path='/*' element={<PageNotFound />} />
         </Routes>
     </BrowserRouter>

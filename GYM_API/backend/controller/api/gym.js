@@ -27,8 +27,55 @@ router.get('/exercises/:id', async function(req, res, next) {
         next(err);
     }
 });
+// USER INFO
+router.get('/user/:user_handle', async(req, res, next)=>{
+    const user_handle = req.params.user_handle;
+    const sql = `SELECT 
+    u.user_id, u.user_handle, u.email_address, u.first_name, u.last_name, u.user_img, u.created_at, u.user_background_img,
+    r.routine_alias, r.routine_name, r.routine_description, r.routine_img, r.uses_weights, r.routine_id
+    FROM users u
+    JOIN routines r ON r.user_id = u.user_id
+    WHERE user_handle = ?`;
+    try{
+        const results = await db.query(sql, [user_handle]);
+        if(results.length > 0){
+        res.status(200).json(results);
+        }else{
+            res.status(403).json({msg: 'user does not exist'})
+        }
+    }catch(error){
+        res.status(404).json({msg: error.message})
+    }
+})
+// Update profile pic
 
-// Influencers
+router.put('/user/photo/:user_handle', async(req, res) => {
+    const username =  req.params.user_handle;
+    const { user_img, user_background_img } = req.body;
+    if (!user_img && !user_background_img) {
+        return res.status(400).json({ error: 'Provide at least one update field.' });
+    }
+    let updateFields = [];
+    let updateValues = [];
+    if (user_img) {
+        updateFields.push('user_img = ?');
+        updateValues.push(user_img);
+    }
+    if (user_background_img) {
+        updateFields.push('user_background_img = ?');
+        updateValues.push(user_background_img);
+      }
+    const updateQuery = `UPDATE users SET ${updateFields.join(', ')} WHERE user_handle = ?`;
+    try{
+        const results = await db.query(updateQuery, [...updateValues, username]);
+        res.status(203).json(results);
+    }catch(error){
+        console.log(error);
+        res.status(500).json({msg: 'BAD REQUEST'})
+    }
+})
+
+// Influencer
 router.get('/influencer', async function(req, res, next){
     const sql= `SELECT * FROM influencers`;
     try{

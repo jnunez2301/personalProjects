@@ -75,6 +75,7 @@ export const MainSection = () => {
                             <h5>{currentInfluencer.influencer_name}</h5>
                             {                          
                              <a 
+                             className='influencer-container'
                         target='_blank'
                         rel='noreferrer'
                         href={currentInfluencer.influencer_url}>

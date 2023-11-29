@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import './NavBar.component.css'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth/AuthContext';
@@ -9,6 +9,7 @@ const NavBar = () => {
   const { isAuthenticated, user, loading, error } = useAuth();
   const logoutURL = '/api/auth/logout';
   const location = useLocation();
+  const navigate = useNavigate();
   
   const handleLogOut = async () => {
     try {
@@ -28,7 +29,11 @@ const NavBar = () => {
       }
     }
   };
-  console.log(location.pathname);
+  /* console.log(location.pathname); */
+  const userHomePage = () => {
+    navigate(`/user/${user.user_handle}`)
+    window.location.reload();
+  }
   return (
     <>
   
@@ -82,7 +87,7 @@ const NavBar = () => {
           {
             isAuthenticated && user ?
             <>
-            <Link to={`/user/${user.user_handle}`}>
+            <Link onClick={userHomePage} >
             <h4>{user.user_handle}</h4>
             </Link>
             <button className='btn' onClick={handleLogOut}>Logout</button>
