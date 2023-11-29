@@ -11,14 +11,16 @@ export const MainSection = () => {
     const [data, setData] = useState([]);
     const [beginner, setBeginner] = useState([]);
     const [influencer, setInfluencer] = useState([]);
-
+    const [currentInfluencer, setCurrentInfluencer] = useState([]);
     const baseURL = `/api/gym/exercises/`
     const beginnerURL = `/api/gym/routine/calisthenics/FBB`
     const influencerURL = `/api/gym/influencer`
     // ${Math.floor(Math.random() * 60)}
     // to={`/routine-name/calisthenics/${routine.routine_alias}`}
     
-
+    const getRandomInfluencer = async () =>{
+        await setCurrentInfluencer(influencer[Math.floor(Math.random() * influencer.length)])
+    }
     //TODO: AÑADIR CONDICIONAL EN BASE A LOADING...
     useEffect(() => {
         axios
@@ -35,13 +37,19 @@ export const MainSection = () => {
             .catch(error => console.log(error))
         axios
             .get(influencerURL)
-            .then(response => setInfluencer(response.data))
+            .then(response => {
+                setInfluencer(response.data)
+                
+            })
             .catch(error => console.log(error))
+            
     }, [])
-    let currentInfluencer = [];
-    if(influencer.length > 0){
-        currentInfluencer = influencer[Math.floor(Math.random() * influencer.length)];
-    }
+    useEffect(()=>{if(influencer.length > 0){
+        getRandomInfluencer();
+    }},[influencer])
+    
+    console.log('hi')
+    
     
     return (
         <>
@@ -72,6 +80,7 @@ export const MainSection = () => {
                         {
                             influencer.length > 0 && 
                             <>
+                            <button className='btn' onClick={getRandomInfluencer}>Random</button>
                             <h5>{currentInfluencer.influencer_name}</h5>
                             {                          
                              <a 
