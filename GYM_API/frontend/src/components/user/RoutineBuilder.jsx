@@ -13,6 +13,7 @@ export const RoutineBuilder = () => {
     const [routineData, setRoutineData] = useState([]);
     const [routineName, setRoutineName ] = useState('');
     const [routineDescription, setRoutineDescription] = useState('');
+    const [routineImg, setRoutineImg] = useState('');
     const [usesWeights, setUseWeights] = useState('');
     const [infoError, setInfoError] = useState('');
     const [bodyPart, setBodyPart] = useState('');
@@ -26,7 +27,6 @@ export const RoutineBuilder = () => {
         .get(baseURL)
         .then(response => {
           setData(response.data)
-          console.log("Called the API");
         })
         .catch(error => console.log(error))
       }
@@ -49,6 +49,16 @@ export const RoutineBuilder = () => {
         setInfoError('Routine name must be longer than 5 characters')
       }
     }
+    const onRoutineImg = (event) =>{
+      const newRoutineImg = event.target.value;
+      const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+      if(urlRegex.test(newRoutineImg)){
+        setRoutineImg(newRoutineImg.trim());
+        setInfoError('')
+      }else{
+        setInfoError('You must add an URL as an IMG')
+      }
+    }
     const onRoutineDescription = (event) =>{
       const newRoutineDescription = event.target.value;
       if(newRoutineDescription.length > 10){
@@ -60,11 +70,10 @@ export const RoutineBuilder = () => {
     }
     const onBodyPartChange = (event) =>{
       const { value } = event.target;
-      setBodyPart(value.trim())
+      setBodyPart(value.trim());
     }
     const onExerciseChange = (event) => {
       const { name, value, checked } = event.target;
-    
       if (checked) {
         // Checkbox is checked, add the item to selectedExercise
         setSelectedExercise([...selectedExercise, { [name]: value }]);
@@ -79,62 +88,73 @@ export const RoutineBuilder = () => {
         console.log('Routine posted');
     }
 
+    console.log(selectedExercise);
+
   return (
     <section className='routine-builder-container'>
       {infoError.length > 0 && 
-      <h5>{infoError}</h5>
+      <h5 className="info-error">
+        {infoError}
+      </h5>
       }
-      <form onSubmit={handleBuilderSubmit}>
-        <header>
+      <form 
+      style={{padding: 0}}
+      onSubmit={handleBuilderSubmit}>
+        
           <h5>Add Routine</h5>
           <label htmlFor="routine_name">Routine Name</label>
           <input
-          onChange={onRoutineName}
+            onChange={onRoutineName}
            type="text" name="routine_name" id="routine_name" placeholder="Name your routine" required/>
+           
            <label htmlFor="routine_description">Routine Description</label>
            <input 
            onChange={onRoutineDescription}
-           type="text" name="routine_description" id="routine_description" placeholder="Describe your routine"/>
+           type="text" name="routine_description" id="routine_description" placeholder="Describe your routine" required/>
 
-           <label htmlFor="uses_weights">With weights?</label>
-           <input 
-           onChange={onUsesWeights}
-           type="checkbox" name="uses_weights" id="uses_weights" required/>
-        </header>
-        <div className="filter-body-part" 
-        style={usesWeights.length > 0 ? {display: 'block'} : {display: 'none'}}
-        >
-          <header>
-          <h5>Filter by Body Part</h5>
-          </header>
-          <label htmlFor="chest">Chest</label>
-          <input
-            onChange={onBodyPartChange}
-          type="radio" name="body_part" id="chest" value={'Chest'}/>
-          <label htmlFor="back">Back</label>
-          <input
-            onChange={onBodyPartChange}
-          type="radio" name="body_part" id="back" value={'Back'}/>
-          
-          <label htmlFor="legs">Legs</label>
-          <input
-          onChange={onBodyPartChange}
-          type="radio" name="body_part" id="legs" value={'Legs'} />
+          <label htmlFor="routine_img">Routine Image</label>
+          <input 
+          onChange={onRoutineImg}
+          type="url" name="routine_img" id="routine_img" 
+          placeholder="Place your img URL"
+          required/>
+          <div className="builder-search-bar">
+            <div className="builder-uses-weights">
+                <label htmlFor="uses_weights">With weights?</label>
+                <input 
+                onChange={onUsesWeights}
+                type="checkbox" name="uses_weights" id="uses_weights" required/>
+            </div>
+          <div className="filter-body-part" 
+          style={usesWeights.length > 0 ? {display: 'block'} : {display: 'none'}}
+          >
+            <h5>Filter by Body Part</h5>
+            <select onChange={onBodyPartChange} name="body_part" id="body_part">
+              <option value="chest">Chest</option>
+              <option value="back">Back</option>
+              <option value="legs">Legs</option>
+              <option value="shoulders">Shoulders</option>
+              <option value="biceps">Biceps</option>
+              <option value="triceps">Triceps</option>
+            </select>
+          </div>
         </div>
         <div className="builder-exercises">
           {data.length > 0 &&
             data.map(e => (
-              <React.Fragment key={e.exercise_id}>
-                  <label htmlFor={e.exercise_name}>
-                    <h5>{e.exercise_name}</h5>
-                    <iframe src={e.youtubeSrc}></iframe>
-                  </label>
+              <div className="builder-exercise" key={e.exercise_id}>
                   <input type="checkbox"
                   onChange={onExerciseChange}
                    name={e.body_part}
-                    id={e.exercise_name}
+                    id={e.exercise_id}
                    value={e.exercise_name}/>
-              </React.Fragment>
+                  <label htmlFor={e.exercise_id}>
+                    <h5>{e.exercise_name}</h5>
+                    <iframe src={e.youtubeSrc} allowFullScreen></iframe>
+                  </label>
+                  
+                  
+              </div>
             ))
           }
         </div>
