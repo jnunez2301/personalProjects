@@ -27,6 +27,18 @@ router.get('/exercises/:id', async function(req, res, next) {
         next(err);
     }
 });
+router.get('/exercises/body_part/:body_part', async(req, res, next)=>{
+    const bodyPartParam = req.params.body_part;
+    const sql = `SELECT * FROM exercises WHERE body_part = ?`
+    try{
+        const results = await db.query(sql, [bodyPartParam]);
+        res.status(200).json(results);
+    }catch(err){
+        console.error(err.message);
+        res.status(404).json({msg: 'Exercises not found'});
+        next(err)
+    }
+})
 // USER INFO
 router.get('/user/:user_handle', async(req, res, next)=>{
     const user_handle = req.params.user_handle;

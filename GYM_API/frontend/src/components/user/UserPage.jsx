@@ -132,15 +132,15 @@ export const UserPage = () => {
                                 <Link 
                                 target='_blank'
                                 rel='noreferrer'
-                                 to={`/routine-name/${info.uses_weights === 0 ? 'calisthenics' : 'weights'}/${info.routine_alias}`}
-                                 key={info.routine_id}>
-                                    <h2>{info.routine_name}</h2>
+                                to={`/routine-name/${info.uses_weights === 0 ? 'calisthenics' : 'weights'}/${info.routine_alias}`}
+                                key={info.routine_id}>
+                                <h2>{info.routine_name}</h2>
                                     <img 
                                     className='user-routine-img'
                                     src={info.routine_img}
                                      alt={info.routine_name} />
                                      <p>{info.routine_description}</p>
-                                </Link>
+                            </Link>
                         ))
                     }
                 </div>

@@ -34,9 +34,7 @@ export const Exercises = () => {
   const onHandleSearch = (e) => {
     const searchTerm = e.target.value.toLowerCase().trim();
     const newData = data.filter(d => d.exercise_name.toLowerCase().includes(searchTerm) || d.body_part.toLowerCase().includes(searchTerm))
-    
     setFilteredData(newData);
-    
   }
 
 

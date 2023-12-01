@@ -611,6 +611,10 @@ form button[type="submit"]:hover {
 .routine-builder-icon img{
   width: 128px;
 }
+/* RoutineBuilder */
+input{
+  width: 100%;
+}
 @media (max-width: 600px) {
   .article-container {
     flex-wrap: wrap;
