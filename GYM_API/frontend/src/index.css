@@ -10,6 +10,9 @@
   --section-background: #f0e6e6;
   --title-color: rgb(90, 151, 90);
 }
+strong{
+  color: #686445;
+}
 li {
   list-style-type: none;
 }

@@ -27,11 +27,12 @@ router.get('/exercises/:id', async function(req, res, next) {
         next(err);
     }
 });
-router.get('/exercises/body_part/:body_part', async(req, res, next)=>{
+router.get('/exercises/:uses_weights/:body_part', async(req, res, next)=>{
     const bodyPartParam = req.params.body_part;
-    const sql = `SELECT * FROM exercises WHERE body_part = ?`
+    const usesWeightsParam = req.params.uses_weights;
+    const sql = `SELECT * FROM exercises WHERE body_part = ? AND uses_weights = ?`
     try{
-        const results = await db.query(sql, [bodyPartParam]);
+        const results = await db.query(sql, [bodyPartParam, usesWeightsParam]);
         res.status(200).json(results);
     }catch(err){
         console.error(err.message);

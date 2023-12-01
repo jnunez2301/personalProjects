@@ -12,19 +12,34 @@ export const RoutineBuilder = () => {
     const [data, setData] = useState([]);
     const [routineData, setRoutineData] = useState([]);
     const [routineName, setRoutineName ] = useState('');
+    const [routineDescription, setRoutineDescription] = useState('');
+    const [usesWeights, setUseWeights] = useState('');
     const [infoError, setInfoError] = useState('');
     const [bodyPart, setBodyPart] = useState('');
     const [selectedExercise, setSelectedExercise] = useState([]);
-    const baseURL = `/api/gym/exercises/body_part/${bodyPart}`
+    const baseURL = `/api/gym/exercises/${usesWeights}/${bodyPart}`
 
     useEffect(() => {
-      if(bodyPart.length > 0){
+      if(bodyPart.length > 0 && usesWeights.length > 0){
+        
         axios
         .get(baseURL)
-        .then(response => setData(response.data))
+        .then(response => {
+          setData(response.data)
+          console.log("Called the API");
+        })
         .catch(error => console.log(error))
       }
-    }, [bodyPart])
+    }, [bodyPart, usesWeights])
+    const onUsesWeights = (event) => {
+      const {checked} = event.target;
+      if(checked){
+        setUseWeights('1')
+      }else{
+        setUseWeights('0')
+      }
+    }
+    
     const onRoutineName = (event) =>{
       const newRoutineName = event.target.value;
       if(newRoutineName.length > 5){
@@ -32,6 +47,15 @@ export const RoutineBuilder = () => {
         setInfoError('')
       }else{
         setInfoError('Routine name must be longer than 5 characters')
+      }
+    }
+    const onRoutineDescription = (event) =>{
+      const newRoutineDescription = event.target.value;
+      if(newRoutineDescription.length > 10){
+        setRoutineDescription(newRoutineDescription.trim());
+        setInfoError('')
+      }else{
+        setInfoError('Routine name must be longer than 10 characters')
       }
     }
     const onBodyPartChange = (event) =>{
@@ -50,8 +74,7 @@ export const RoutineBuilder = () => {
         setSelectedExercise(updatedSelectedExercise);
       }
     }
-/*     console.log(selectedExercise);
- */    const handleBuilderSubmit = (event) =>{
+    const handleBuilderSubmit = (event) =>{
         event.preventDefault();
         console.log('Routine posted');
     }
@@ -68,8 +91,19 @@ export const RoutineBuilder = () => {
           <input
           onChange={onRoutineName}
            type="text" name="routine_name" id="routine_name" placeholder="Name your routine" required/>
+           <label htmlFor="routine_description">Routine Description</label>
+           <input 
+           onChange={onRoutineDescription}
+           type="text" name="routine_description" id="routine_description" placeholder="Describe your routine"/>
+
+           <label htmlFor="uses_weights">With weights?</label>
+           <input 
+           onChange={onUsesWeights}
+           type="checkbox" name="uses_weights" id="uses_weights" required/>
         </header>
-        <div className="filter-body-part">
+        <div className="filter-body-part" 
+        style={usesWeights.length > 0 ? {display: 'block'} : {display: 'none'}}
+        >
           <header>
           <h5>Filter by Body Part</h5>
           </header>

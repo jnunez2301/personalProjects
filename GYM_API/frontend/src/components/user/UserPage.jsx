@@ -124,7 +124,7 @@ export const UserPage = () => {
                          src="/gym-logo.svg" alt="builder-logo" />
                         </Link>
                 </div>: ''}
-                <h3 className='user-routines-title'>My Routines ({data.length})</h3>
+                <h3 className='user-routines-title'>My <strong>APPROVED</strong> Routines ({data.length})</h3>
                 <div className='user-routines-container'>
                     
                     {
