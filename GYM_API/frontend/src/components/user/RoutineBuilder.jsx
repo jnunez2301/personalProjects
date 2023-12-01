@@ -98,9 +98,8 @@ export const RoutineBuilder = () => {
       </h5>
       }
       <form 
-      style={{padding: 0}}
       onSubmit={handleBuilderSubmit}>
-        
+          <div className="builder-header">
           <h5>Add Routine</h5>
           <label htmlFor="routine_name">Routine Name</label>
           <input
@@ -118,6 +117,7 @@ export const RoutineBuilder = () => {
           type="url" name="routine_img" id="routine_img" 
           placeholder="Place your img URL"
           required/>
+          </div>
           <div className="builder-search-bar">
             <div className="builder-uses-weights">
                 <label htmlFor="uses_weights">With weights?</label>
@@ -145,9 +145,9 @@ export const RoutineBuilder = () => {
               <div className="builder-exercise" key={e.exercise_id}>
                   <input type="checkbox"
                   onChange={onExerciseChange}
-                   name={e.body_part}
+                   name={e.exercise_name}
                     id={e.exercise_id}
-                   value={e.exercise_name}/>
+                   value={e.exercise_id}/>
                   <label htmlFor={e.exercise_id}>
                     <h5>{e.exercise_name}</h5>
                     <iframe src={e.youtubeSrc} allowFullScreen></iframe>

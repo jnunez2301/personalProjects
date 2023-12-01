@@ -194,6 +194,9 @@ h6{
   display: grid;
   padding: 1rem;
 }
+.filter-body-part h5{
+  color: #f2f2f2;
+}
 .exercise-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 320px));
@@ -615,6 +618,14 @@ form button[type="submit"]:hover {
   width: 128px;
 }
 /* RoutineBuilder */
+.builder-header{
+  padding: 1rem;
+}
+.routine-builder-container form{
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
 .info-error{
   width: 100%;
   display: flex;
@@ -646,7 +657,7 @@ select{
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: #459be2;
+  background-color: #115892;
   color: #f2f2f2;
   padding: 1rem;
 }
