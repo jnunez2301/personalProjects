@@ -24,6 +24,8 @@ export const RoutineBuilder = () => {
     const [selectedExercise, setSelectedExercise] = useState([]);
     const baseURL = `/api/gym/exercises/${usesWeights}/${bodyPart}`;
 
+    const [postRoutine, setPostRoutine] = useState([]);
+
     const [newRoutine, setNewRoutine] = useState([]);
 
     useEffect(() => {
@@ -197,17 +199,22 @@ export const RoutineBuilder = () => {
         {
           return {
             id: e.id,
+            routine_name: routineName,
+            routine_description: routineDescription,
+            routineImg: routineImg,
             reps: e.reps[0].reps,
             rest: e.rest[0].rest,
             sets: e.sets[0].sets,
           }
         });
         setNewRoutine([newArr]);
-        axios
-        .post(`/api/gym/new-routine/${user.user_id}`, newRoutine)
-        .then(response => console.log(response))
-        .catch(error => console.log(error))
+  }
 
+  const handlePostRoutine = () =>{
+    axios
+        .post(`/api/gym/new-routine/${user.user_id}`, newRoutine)
+        .then(response => setPostRoutine(response.data))
+        .catch(error => console.log(error))
   }
   
   

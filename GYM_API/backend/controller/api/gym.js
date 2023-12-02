@@ -134,10 +134,27 @@ router.get('/routine/:type/:name', async function(req, res, next){
 })
 // POST ROUTINE BY USER
 
-router.post('/new-routine/:user_id', async(req, res) =>{
+router.post('/new-routine/:user_id', async (req, res) => {
     const userParam = req.params.user_id;
-    const body = req.body;
-    
-    console.log(body);
-})
+    const routines = req.body; // Assuming the request body is an array of routines
+
+    try{
+        // Iterate over each routine and insert into the database
+    for (const routine of routines) {
+        const { id, routine_name, reps, rest, sets } = routine;
+        // Assuming you have a MySQL connection object named 'connection'
+        const query = `
+            INSERT INTO user_routines(exercise_id, user_id, routine_name, weights_calisthenics, sets, reps, rest)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+        // Assuming you have a function to execute queries, for example 'executeQuery'
+        await executeQuery(query, [id, userParam, routine_name, 'weights_calisthenics_placeholder', sets, reps, rest]);
+    }
+
+    // Send a response back to the client
+    res.status(201).json({ message: 'Routines added successfully!' });
+    }catch(error){
+        res.status(500).json({msg: 'bad request'});
+    }
+});
 module.exports = router;

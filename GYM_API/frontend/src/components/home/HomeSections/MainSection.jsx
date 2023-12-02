@@ -15,13 +15,12 @@ export const MainSection = () => {
     const baseURL = `/api/gym/exercises/`
     const beginnerURL = `/api/gym/routine/calisthenics/FBB`
     const influencerURL = `/api/gym/influencer`
-    // ${Math.floor(Math.random() * 60)}
-    // to={`/routine-name/calisthenics/${routine.routine_alias}`}
+    
     
     const getRandomInfluencer = async () =>{
         await setCurrentInfluencer(influencer[Math.floor(Math.random() * influencer.length)])
     }
-    //TODO: AÑADIR CONDICIONAL EN BASE A LOADING...
+    
     useEffect(() => {
         axios
             .get(baseURL)
@@ -46,9 +45,7 @@ export const MainSection = () => {
     }, [])
     useEffect(()=>{if(influencer.length > 0){
         getRandomInfluencer();
-    }},[influencer])
-    
-    console.log('hi')
+    }},[influencer]);
     
     
     return (
