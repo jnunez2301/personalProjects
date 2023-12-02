@@ -2,6 +2,7 @@ import { Pagination } from "../Navigation/Pagination";
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useAuth } from "../../context/auth/AuthContext";
+import { RoutineView } from "./RoutineView";
 
 export const RoutineBuilder = () => {
     //TODO: ADD CHECKBOX WITH THE LIST
@@ -24,7 +25,7 @@ export const RoutineBuilder = () => {
     const [selectedExercise, setSelectedExercise] = useState([]);
     const baseURL = `/api/gym/exercises/${usesWeights}/${bodyPart}`;
 
-    const [postRoutine, setPostRoutine] = useState([]);
+    
 
     const [newRoutine, setNewRoutine] = useState([]);
 
@@ -201,21 +202,16 @@ export const RoutineBuilder = () => {
             id: e.id,
             routine_name: routineName,
             routine_description: routineDescription,
-            routineImg: routineImg,
+            routine_img: routineImg,
             reps: e.reps[0].reps,
             rest: e.rest[0].rest,
             sets: e.sets[0].sets,
           }
         });
-        setNewRoutine([newArr]);
+        setNewRoutine(newArr);
   }
 
-  const handlePostRoutine = () =>{
-    axios
-        .post(`/api/gym/new-routine/${user.user_id}`, newRoutine)
-        .then(response => setPostRoutine(response.data))
-        .catch(error => console.log(error))
-  }
+  
   
   
     
@@ -253,7 +249,8 @@ export const RoutineBuilder = () => {
                 <label htmlFor="uses_weights">With weights?</label>
                 <input 
                 onChange={onUsesWeights}
-                type="checkbox" name="uses_weights" id="uses_weights" required/>
+                type="checkbox" name="uses_weights" id="uses_weights"/>
+                
             </div>
           <div className="filter-body-part" 
           style={usesWeights.length > 0 ? {opacity: '1'} : {opacity: '0'}}
@@ -268,6 +265,7 @@ export const RoutineBuilder = () => {
               <option value="triceps">Triceps</option>
             </select>
           </div>
+          <button type="submit">Show My Routine Changes</button>
         </div>
         <div className="builder-exercises"
         >
@@ -324,12 +322,9 @@ export const RoutineBuilder = () => {
             ))
           }
         </div>
-        <button type="submit">Submit</button>
+        
       </form>
-      <div>
-        This is how your routine will look like
-
-      </div>
+      <RoutineView newRoutine={newRoutine}/>
     </section>
   )
 }
