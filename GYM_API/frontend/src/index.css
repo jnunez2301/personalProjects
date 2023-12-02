@@ -621,10 +621,15 @@ form button[type="submit"]:hover {
 .builder-header{
   padding: 1rem;
 }
+.routine-builder-container{
+  display: flex;
+  flex-wrap: wrap;
+}
 .routine-builder-container form{
   display: flex;
   flex-direction: column;
   padding: 0;
+  max-width: 768px;
 }
 .info-error{
   width: 100%;
@@ -649,6 +654,7 @@ select{
   justify-content: center;
   align-items: center;
   gap: 16px;
+  
 }
 .builder-search-bar{
   display: flex;
@@ -663,7 +669,15 @@ select{
 }
 .builder-exercise{
     width: 320px;
+    background-color: rgba(255, 255, 255, 0.3);;
     position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 5px;
+    transition: border .2s ease-in;
+}
+.builder-exercise:hover{
+  border: 1px solid #115892;
 }
 .builder-uses-weights{
   display: flex;
@@ -680,8 +694,8 @@ select{
   height: 16px;
   margin: .3rem;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 7px;
 }
 
 @media (max-width: 600px) {

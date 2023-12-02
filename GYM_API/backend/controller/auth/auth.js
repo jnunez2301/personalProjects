@@ -19,7 +19,7 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 // Configure the LocalStrategy
-// Without JWT
+
 passport.use('login', new LocalStrategy(
     {
         usernameField: 'user_handle',
@@ -53,13 +53,13 @@ passport.use('login', new LocalStrategy(
 ));
 
 // Serialize user into session
-// Without JWT
+
 passport.serializeUser((user, done) => {
     done(null, user.user_handle);
 });
 
 // Deserialize user from session
-// Without JWT
+
 passport.deserializeUser(async (user_handle, done) => {
     try {
         // Fetch user data from the database based on the user_handle
@@ -89,7 +89,7 @@ router.get('/logout', (req, res) => {
     }
   });
   
-// WITHOUT JSON WEB TOKEN
+
 router.post('/login', (req, res, next) => {
     passport.authenticate('login', (err, user, info) => {
       if (err) {
@@ -109,32 +109,6 @@ router.post('/login', (req, res, next) => {
       });
     })(req, res, next);
   });
-// WITH JWT
-/* router.post('/login', async (req, res, next) => {
-    passport.authenticate('login', async (err, user, info) => {
-        try {
-            if (err || !user) {
-                const error = new Error('An error occurred.');
-                return next(error);
-            }
-
-            // Use the 'session: false' option to disable session creation
-            req.login(user, { session: false }, async (error) => {
-                if (error) return next(error);
-
-                // Generate a JWT token
-                const body = { _id: user._id, email: user.email };
-                const token = jwt.sign({ user: body }, 'TOP_SECRET');
-
-                // Return the token in the response
-                return res.json({ token });
-            });
-        } catch (error) {
-            return next(error);
-        }
-    })(req, res, next);
-});
- */
 
 router.post('/register', async(req, res, next) => {
     const sql = `INSERT INTO users(user_handle, password_hash, email_address, first_name, last_name)
@@ -171,11 +145,6 @@ const isAuthenticated = (req, res, next) => {
         res.redirect('/login'); // User is not authenticated, redirect to the login page
     }
 };
-
-/* // Protected route that requires authentication
-router.get('/dashboard', isAuthenticated, (req, res) => {
-    res.render('<h1>dashboard</h1>'); // Render the dashboard if the user is authenticated
-}); */
 
 // Example route to check authentication status
 router.get('/status', (req, res) => {

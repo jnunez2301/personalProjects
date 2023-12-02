@@ -18,6 +18,7 @@ const NavBar = () => {
       // Check the response status and handle accordingly
       if (response.status === 200) {
         alert('Logout successful');
+        navigate('/');
         window.location.reload();
       } else {
         console.error('Logout failed:', response.data);

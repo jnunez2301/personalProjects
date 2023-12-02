@@ -10,19 +10,23 @@ export const RoutineBuilder = () => {
     // ROUTINE WITH THE USER_ID, USER_HANDLE, EXERCISES_ID
     
     const [data, setData] = useState([]);
-    const [routineData, setRoutineData] = useState([]);
     const [routineName, setRoutineName ] = useState('');
     const [routineDescription, setRoutineDescription] = useState('');
     const [routineImg, setRoutineImg] = useState('');
+    const [exerciseChecked, setExercisesChecked] = useState(false);
+    const [newSets, setSets] = useState([]);
+    const [newReps, setReps] = useState([]);
+    const [newRest, setRest] = useState([]);
     const [usesWeights, setUseWeights] = useState('');
     const [infoError, setInfoError] = useState('');
     const [bodyPart, setBodyPart] = useState('');
     const [selectedExercise, setSelectedExercise] = useState([]);
-    const baseURL = `/api/gym/exercises/${usesWeights}/${bodyPart}`
+    const baseURL = `/api/gym/exercises/${usesWeights}/${bodyPart}`;
+
+    const [newRoutine, setNewRoutine] = useState([]);
 
     useEffect(() => {
       if(bodyPart.length > 0 && usesWeights.length > 0){
-        
         axios
         .get(baseURL)
         .then(response => {
@@ -30,7 +34,8 @@ export const RoutineBuilder = () => {
         })
         .catch(error => console.log(error))
       }
-    }, [bodyPart, usesWeights])
+    }, [bodyPart, usesWeights]);
+
     const onUsesWeights = (event) => {
       const {checked} = event.target;
       if(checked){
@@ -68,28 +73,144 @@ export const RoutineBuilder = () => {
         setInfoError('Routine name must be longer than 10 characters')
       }
     }
+    const onSetsChange = (event) => {
+      const { name, value } = event.target;
+      // Check if the array already includes the id
+      const index = newSets.findIndex((item) => item.id === name);
+      if (index !== -1) {
+        // If the id is found, update the value
+        const updatedSets = [...newSets];
+        updatedSets[index] = { id: name, sets: value };
+        setSets(updatedSets);
+      } else {
+        // If the id is not found, add a new entry
+        setSets(newSets.concat({ id: name, sets: value }));
+      }
+    };
+
+    const onRepsChange = (event) => {
+      const { name, value } = event.target;
+      // Check if the array already includes the id
+      const index = newReps.findIndex((item) => item.id === name);
+      if (index !== -1) {
+        // If the id is found, update the value
+        const updatedReps = [...newReps];
+        updatedReps[index] = { id: name, reps: value };
+        setReps(updatedReps);
+      } else {
+        // If the id is not found, add a new entry
+        setReps(newReps.concat({ id: name, reps: value }));
+      }
+    };
+    const onRestChange = (event) => {
+      const { name, value } = event.target;
+      // Check if the array already includes the id
+      const index = newRest.findIndex((item) => item.id === name);
+      if (index !== -1) {
+        // If the id is found, update the value
+        const updatedRest = [...newRest];
+        updatedRest[index] = { id: name, rest: value };
+        setRest(updatedRest);
+      } else {
+        // If the id is not found, add a new entry
+        setRest(newRest.concat({ id: name, rest: value }));
+      }
+    };
     const onBodyPartChange = (event) =>{
       const { value } = event.target;
       setBodyPart(value.trim());
+      
     }
+    
     const onExerciseChange = (event) => {
       const { name, value, checked } = event.target;
       if (checked) {
         // Checkbox is checked, add the item to selectedExercise
         setSelectedExercise([...selectedExercise, { [name]: value }]);
+        setExercisesChecked(!checked);
       } else {
         // Checkbox is unchecked, remove the item from selectedExercise
         const updatedSelectedExercise = selectedExercise.filter(item => item[name] !== value);
+        setExercisesChecked(!checked);
         setSelectedExercise(updatedSelectedExercise);
       }
     }
     const handleBuilderSubmit = (event) =>{
-        event.preventDefault();
-        console.log('Routine posted');
-    }
-
-    console.log(selectedExercise);
-
+      event.preventDefault();
+      if(selectedExercise.length < 1){
+        setInfoError('You must choose at least 5 exercises');
+        return;
+      }
+      if(newSets.length < 0){
+        setInfoError('Make sure to choose the amount of sets on all exercises');
+        return;
+      }
+      if(newReps.length <0){
+        setInfoError('Make sure to choose the amount of reps on all exercises');
+        return;
+      }
+      if(newRest.length < 0){
+        setInfoError('Make sure to choose a rest time on all exercises');
+        return
+      }
+      const organizeDataById = (exerciseIds, sets, reps, rest) => {
+        const organizedData = {};
+      
+        // Initialize the organizedData object with empty arrays for each ID
+        exerciseIds.forEach((id) => {
+          organizedData[id] = { id, sets: [], reps: [], rest: [] };
+        });
+      
+        // Populate the arrays in organizedData with the corresponding data
+        sets.forEach((set) => {
+          const { id, sets } = set;
+          organizedData[id].sets.push({ id, sets });
+        });
+      
+        reps.forEach((rep) => {
+          const { id, reps } = rep;
+          organizedData[id].reps.push({ id, reps });
+        });
+      
+        rest.forEach((restItem) => {
+          const { id, rest } = restItem;
+          organizedData[id].rest.push({ id, rest });
+        });
+      
+        // Convert the organizedData object to an array and filter out entries without any data
+        const organizedArray = Object.values(organizedData).filter(
+          (entry) => entry.sets.length > 0 || entry.reps.length > 0 || entry.rest.length > 0
+        );
+      
+        return organizedArray;
+      };
+      
+      // Example usage:
+      const organizedDataArray = organizeDataById(
+        selectedExercise.map((item) => item.id),
+        newSets,
+        newReps,
+        newRest
+      );
+      
+      const newArr = organizedDataArray.map(e => 
+        {
+          return {
+            id: e.id,
+            reps: e.reps[0].reps,
+            rest: e.rest[0].rest,
+            sets: e.sets[0].sets,
+          }
+        });
+      
+      console.log(newArr);
+      
+      
+      setNewRoutine({});
+  }
+    
+    
+   
   return (
     <section className='routine-builder-container'>
       {infoError.length > 0 && 
@@ -126,7 +247,7 @@ export const RoutineBuilder = () => {
                 type="checkbox" name="uses_weights" id="uses_weights" required/>
             </div>
           <div className="filter-body-part" 
-          style={usesWeights.length > 0 ? {display: 'block'} : {display: 'none'}}
+          style={usesWeights.length > 0 ? {opacity: '1'} : {opacity: '0'}}
           >
             <h5>Filter by Body Part</h5>
             <select onChange={onBodyPartChange} name="body_part" id="body_part">
@@ -139,21 +260,57 @@ export const RoutineBuilder = () => {
             </select>
           </div>
         </div>
-        <div className="builder-exercises">
+        <div className="builder-exercises"
+        >
           {data.length > 0 &&
             data.map(e => (
-              <div className="builder-exercise" key={e.exercise_id}>
-                  <input type="checkbox"
-                  onChange={onExerciseChange}
-                   name={e.exercise_name}
-                    id={e.exercise_id}
-                   value={e.exercise_id}/>
-                  <label htmlFor={e.exercise_id}>
+              <div className="builder-exercise" 
+              key={e.exercise_id}
+              
+              >
+                <label  htmlFor={e.exercise_id}>
                     <h5>{e.exercise_name}</h5>
                     <iframe src={e.youtubeSrc} allowFullScreen></iframe>
                   </label>
-                  
-                  
+                  <input type="checkbox"
+                  onChange={onExerciseChange}
+                   name={'id'}
+                    id={e.exercise_id}
+                   value={e.exercise_id}/>
+                  <label htmlFor={`sets ${e.exercise_id}`}>Sets</label>
+                  <select 
+                  onChange={onSetsChange}
+                  name={e.exercise_id} 
+                  id={`sets ${e.exercise_id}`}
+                   required>
+                    <option defaultValue={''} disabled selected>--Choose an option--</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <label htmlFor={`reps ${e.exercise_id}`}>Reps</label>
+                  <select
+                  onChange={onRepsChange}
+                   name={e.exercise_id} 
+                   id={`reps ${e.exercise_id}`}
+                   required>
+                    <option defaultValue={''} disabled selected>--Choose an option--</option>
+                    <option value="8-12">8-12</option>
+                    <option value="3-5">3-5</option>
+                    <option value="10-15">10-15</option>
+                  </select>
+
+                  <label htmlFor={`rest ${e.exercise_id}`}>Rest time</label>
+                  <select 
+                  onChange={onRestChange}
+                  name={e.exercise_id} 
+                  id={`rest ${e.exercise_id}`}>
+                    <option defaultValue={''} disabled selected>--Choose an option--</option>
+                    <option value="1-2 minutes">1-2 minutes</option>
+                    <option value="3-5 minutes">3-5 minutes</option>
+                  </select>
               </div>
             ))
           }
