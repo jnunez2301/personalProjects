@@ -132,4 +132,12 @@ router.get('/routine/:type/:name', async function(req, res, next){
         next(err);
     }
 })
+// POST ROUTINE BY USER
+
+router.post('/new-routine/:user_id', async(req, res) =>{
+    const userParam = req.params.user_id;
+    const body = req.body;
+    
+    console.log(body);
+})
 module.exports = router;

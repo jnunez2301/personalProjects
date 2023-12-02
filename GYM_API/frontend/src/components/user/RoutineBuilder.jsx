@@ -1,6 +1,7 @@
 import { Pagination } from "../Navigation/Pagination";
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { useAuth } from "../../context/auth/AuthContext";
 
 export const RoutineBuilder = () => {
     //TODO: ADD CHECKBOX WITH THE LIST
@@ -8,7 +9,7 @@ export const RoutineBuilder = () => {
     // WHEN DONE JUST SUBMIT THE FORM
     // ON THE BACKEND IT WILL INSERT A
     // ROUTINE WITH THE USER_ID, USER_HANDLE, EXERCISES_ID
-    
+    const { isAuthenticated, user } = useAuth();
     const [data, setData] = useState([]);
     const [routineName, setRoutineName ] = useState('');
     const [routineDescription, setRoutineDescription] = useState('');
@@ -185,7 +186,6 @@ export const RoutineBuilder = () => {
         return organizedArray;
       };
       
-      // Example usage:
       const organizedDataArray = organizeDataById(
         selectedExercise.map((item) => item.id),
         newSets,
@@ -202,13 +202,15 @@ export const RoutineBuilder = () => {
             sets: e.sets[0].sets,
           }
         });
-      
-      console.log(newArr);
-      
-      
-      setNewRoutine({});
+        setNewRoutine([newArr]);
+        axios
+        .post(`/api/gym/new-routine/${user.user_id}`, newRoutine)
+        .then(response => console.log(response))
+        .catch(error => console.log(error))
+
   }
-    
+  
+  
     
    
   return (
