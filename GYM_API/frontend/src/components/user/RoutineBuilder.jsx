@@ -24,6 +24,8 @@ export const RoutineBuilder = () => {
     const [bodyPart, setBodyPart] = useState('');
     const [selectedExercise, setSelectedExercise] = useState([]);
     const baseURL = `/api/gym/exercises/${usesWeights}/${bodyPart}`;
+    const [exerciseCheckedState, setExerciseCheckedState] = useState({});
+
 
     
 
@@ -106,6 +108,7 @@ export const RoutineBuilder = () => {
         setReps(newReps.concat({ id: name, reps: value }));
       }
     };
+
     const onRestChange = (event) => {
       const { name, value } = event.target;
       // Check if the array already includes the id
@@ -128,17 +131,23 @@ export const RoutineBuilder = () => {
     
     const onExerciseChange = (event) => {
       const { name, value, checked } = event.target;
+    
       if (checked) {
         // Checkbox is checked, add the item to selectedExercise
         setSelectedExercise([...selectedExercise, { [name]: value }]);
-        setExercisesChecked(!checked);
+    
+        // Update the exerciseCheckedState for the current exercise
+        setExerciseCheckedState((prev) => ({ ...prev, [value]: true }));
       } else {
         // Checkbox is unchecked, remove the item from selectedExercise
-        const updatedSelectedExercise = selectedExercise.filter(item => item[name] !== value);
-        setExercisesChecked(!checked);
+        const updatedSelectedExercise = selectedExercise.filter((item) => item[name] !== value);
         setSelectedExercise(updatedSelectedExercise);
+    
+        // Update the exerciseCheckedState for the current exercise
+        setExerciseCheckedState((prev) => ({ ...prev, [value]: false }));
       }
-    }
+    };
+    
     const handleBuilderSubmit = (event) =>{
       event.preventDefault();
       if(selectedExercise.length < 1){
@@ -283,7 +292,9 @@ export const RoutineBuilder = () => {
                   onChange={onExerciseChange}
                    name={'id'}
                     id={e.exercise_id}
-                   value={e.exercise_id}/>
+                   value={e.exercise_id}
+                   checked={exerciseCheckedState[e.exercise_id] || false}
+                   />
                   <label htmlFor={`sets ${e.exercise_id}`}>Sets</label>
                   <select 
                   onChange={onSetsChange}

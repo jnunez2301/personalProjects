@@ -45,7 +45,7 @@ export const RoutineView = ({ newRoutine }) => {
             .catch(error => console.log(error))
     }, [newRoutine])
    
-    console.log(exercisesData);
+    
 
     const handlePostRoutine = () =>{
         axios
