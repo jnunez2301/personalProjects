@@ -47,8 +47,8 @@ router.get('/user/:user_handle', async (req, res, next) => {
     u.user_id, u.user_handle, u.email_address, u.first_name, u.last_name, u.user_img, u.created_at, u.user_background_img,
     r.routine_alias, r.routine_name, r.routine_description, r.routine_img, r.uses_weights, r.routine_id
     FROM users u
-    JOIN routines r ON r.user_id = u.user_id
-    WHERE user_handle = ?`;
+    LEFT JOIN routines r ON r.user_id = u.user_id
+    WHERE u.user_handle = ?`;
     try {
         const results = await db.query(sql, [user_handle]);
         if (results.length > 0) {
@@ -191,4 +191,31 @@ router.get('/routine/personal/:routine_alias/:user_id', async (req, res) => {
     }
 
     })
+router.get('/personalRoutines/:user_id', async (req, res) => {
+    const {user_id} = req.params;
+
+    const sql = `SELECT DISTINCT routine_name, user_id, routine_img, routine_description, routine_alias, deleted_routine FROM personal_routines WHERE user_id = ?`;
+    try{
+        const results = await db.query(sql, [user_id]);
+        res.status(200).json(results);
+    }catch(error){
+        console.error(`Error while getting data from the database: `, err.message);
+        res.status(404).json({msg: 'routines not found'});
+    }
+})
+router.put('/deleteRoutine/:routine_alias/:user_id', async (req, res) =>{
+    const {routine_alias, user_id} = req.params;
+    const sql = `UPDATE personal_routines SET deleted_routine = 0
+    WHERE routine_alias = ? AND user_id = ?`;
+    try{
+        const results = await db.query(sql, [routine_alias, user_id]);
+        res.status(201).json({msg: 'Routine DELETED'})
+    }catch(error){
+        console.log(error.message);
+        res.status(501).json({msg: 'failed to delete bad request'});
+    }
+})
+
+
+
 module.exports = router;

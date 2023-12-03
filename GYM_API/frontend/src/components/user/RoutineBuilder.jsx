@@ -300,7 +300,7 @@ export const RoutineBuilder = () => {
           style={usesWeights.length > 0 ? {opacity: '1'} : {opacity: '0'}}
           >
             <h5>Filter by Body Part</h5>
-            <select onChange={onBodyPartChange} name="body_part" id="body_part">
+            <select onChange={onBodyPartChange} name="body_part" id="body_part" >
               <option value="chest">Chest</option>
               <option value="back">Back</option>
               <option value="legs">Legs</option>
@@ -335,8 +335,9 @@ export const RoutineBuilder = () => {
                   onChange={onSetsChange}
                   name={e.exercise_id} 
                   id={`sets ${e.exercise_id}`}
+                  defaultValue={'DEFAULT'}
                    required>
-                    <option defaultValue={''} disabled selected>--Choose an option--</option>
+                    <option value={'DEFAULT'} disabled>--Choose an option--</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -348,8 +349,9 @@ export const RoutineBuilder = () => {
                   onChange={onRepsChange}
                    name={e.exercise_id} 
                    id={`reps ${e.exercise_id}`}
+                   defaultValue={'DEFAULT'}
                    required>
-                    <option defaultValue={''} disabled selected>--Choose an option--</option>
+                    <option value={'DEFAULT'} disabled>--Choose an option--</option>
                     <option value="8-12">8-12</option>
                     <option value="3-5">3-5</option>
                     <option value="10-15">10-15</option>
@@ -359,8 +361,9 @@ export const RoutineBuilder = () => {
                   <select 
                   onChange={onRestChange}
                   name={e.exercise_id} 
-                  id={`rest ${e.exercise_id}`}>
-                    <option defaultValue={''} disabled selected>--Choose an option--</option>
+                  id={`rest ${e.exercise_id}`}
+                  defaultValue={'DEFAULT'}>
+                    <option value={'DEFAULT'} disabled>--Choose an option--</option>
                     <option value="1-2 minutes">1-2 minutes</option>
                     <option value="3-5 minutes">3-5 minutes</option>
                   </select>
@@ -370,7 +373,9 @@ export const RoutineBuilder = () => {
         </div>
         
       </form>
-      <RoutineView newRoutine={newRoutine} setInfoError={setInfoError}/>
+      {
+        newRoutine.length > 0 &&  <RoutineView newRoutine={newRoutine} setInfoError={setInfoError}/>
+      }
     </section>
   )
 }

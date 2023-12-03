@@ -500,6 +500,22 @@ form button[type="submit"]:hover {
   background-color: rgba(222, 184, 135);
 }
 /* User info */
+.personal-routine{
+  position: relative;
+  display: flex;
+}
+.btn-delete{
+  border: none;
+  cursor: pointer;
+  background-color: rgb(158, 47, 6);
+  color: #ffff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  z-index: 10;
+}
 .user-info{
   display: flex;
   flex-direction: column;
@@ -545,6 +561,7 @@ form button[type="submit"]:hover {
 .user-routines-container a{
   text-align: center;
   background-color: #e9ecef;
+  position: relative;
   color: #ac9b2e;
   padding: 1rem;
   border-radius: 5px;
@@ -556,6 +573,7 @@ form button[type="submit"]:hover {
 .user-routines-container a:hover{
   background-color: #d5d9db;
 }
+
 .user-routines-title{
   color: #ac9b2e;
   padding: 1rem;

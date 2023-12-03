@@ -61,6 +61,10 @@ export const PersonalRoutines = () => {
                             className='routine-img'
                             src={info.routine_img}
                             alt={info.routine_name}
+                            onError={({ currentTarget }) => {
+                                currentTarget.onerror = null; // prevents looping
+                                currentTarget.src = "https://media.tenor.com/StMx6F8h5RQAAAAC/psyduck-confused.gif";
+                            }}
                         />
                         <p>{info.routine_description}</p>
                     </div>
