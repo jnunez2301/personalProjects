@@ -199,7 +199,7 @@ router.get('/personalRoutines/:user_id', async (req, res) => {
         const results = await db.query(sql, [user_id]);
         res.status(200).json(results);
     }catch(error){
-        console.error(`Error while getting data from the database: `, err.message);
+        console.error(`Error while getting data from the database: `, error.message);
         res.status(404).json({msg: 'routines not found'});
     }
 })
