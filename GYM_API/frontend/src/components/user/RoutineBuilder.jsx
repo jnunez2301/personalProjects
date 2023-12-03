@@ -15,7 +15,6 @@ export const RoutineBuilder = () => {
     const [routineName, setRoutineName ] = useState('');
     const [routineDescription, setRoutineDescription] = useState('');
     const [routineImg, setRoutineImg] = useState('');
-    const [exerciseChecked, setExercisesChecked] = useState(false);
     const [newSets, setSets] = useState([]);
     const [newReps, setReps] = useState([]);
     const [newRest, setRest] = useState([]);
@@ -25,7 +24,7 @@ export const RoutineBuilder = () => {
     const [selectedExercise, setSelectedExercise] = useState([]);
     const baseURL = `/api/gym/exercises/${usesWeights}/${bodyPart}`;
     const [exerciseCheckedState, setExerciseCheckedState] = useState({});
-
+    
 
     
 
@@ -71,10 +70,11 @@ export const RoutineBuilder = () => {
       }
     }
     const onRoutineDescription = (event) =>{
+      
       const newRoutineDescription = event.target.value;
       if(newRoutineDescription.length > 10){
         setRoutineDescription(newRoutineDescription.trim());
-        setInfoError('')
+        
       }else{
         setInfoError('Routine name must be longer than 10 characters')
       }
@@ -150,6 +150,37 @@ export const RoutineBuilder = () => {
     
     const handleBuilderSubmit = (event) =>{
       event.preventDefault();
+
+      const missingFields = [];
+
+      // Check for missing fields by exercise_id
+      selectedExercise.forEach((exercise) => {
+        const exerciseId = Object.values(exercise)[0];
+
+        const missingSet = newSets.find((set) => set.id === exerciseId) === undefined;
+        const missingRep = newReps.find((rep) => rep.id === exerciseId) === undefined;
+        const missingRest = newRest.find((rest) => rest.id === exerciseId) === undefined;
+
+        if (missingSet || missingRep || missingRest) {
+          missingFields.push(exerciseId);
+        }
+      });
+
+      if (missingFields.length > 0) {
+        const missingExercises = missingFields
+          .map((exerciseId) => {
+            const exerciseName = data.find((exercise) => exercise.exercise_id === exerciseId)?.exercise_name;
+            return exerciseName ? `"${exerciseName}"` : `Exercise ID ${exerciseId}`;
+          })
+        .join(', ');
+        setInfoError(`Make sure to choose the amount of sets, reps, and rest time for ${missingExercises}`);
+        return;
+      }
+      if(missingFields.length === 0){
+        setInfoError('');
+      }
+      
+
       if(selectedExercise.length < 1){
         setInfoError('You must choose at least 5 exercises');
         return;
@@ -177,17 +208,23 @@ export const RoutineBuilder = () => {
         // Populate the arrays in organizedData with the corresponding data
         sets.forEach((set) => {
           const { id, sets } = set;
-          organizedData[id].sets.push({ id, sets });
+          if (organizedData[id]) {
+            organizedData[id].sets.push({ id, sets });
+          }
         });
       
         reps.forEach((rep) => {
           const { id, reps } = rep;
-          organizedData[id].reps.push({ id, reps });
+          if (organizedData[id]) {
+            organizedData[id].reps.push({ id, reps });
+          }
         });
       
         rest.forEach((restItem) => {
           const { id, rest } = restItem;
-          organizedData[id].rest.push({ id, rest });
+          if (organizedData[id]) {
+            organizedData[id].rest.push({ id, rest });
+          }
         });
       
         // Convert the organizedData object to an array and filter out entries without any data
@@ -220,11 +257,6 @@ export const RoutineBuilder = () => {
         setNewRoutine(newArr);
   }
 
-  
-  
-  
-    
-   
   return (
     <section className='routine-builder-container'>
       {infoError.length > 0 && 
@@ -233,6 +265,7 @@ export const RoutineBuilder = () => {
       </h5>
       }
       <form 
+      
       onSubmit={handleBuilderSubmit}>
           <div className="builder-header">
           <h5>Add Routine</h5>
@@ -242,9 +275,12 @@ export const RoutineBuilder = () => {
            type="text" name="routine_name" id="routine_name" placeholder="Name your routine" required/>
            
            <label htmlFor="routine_description">Routine Description</label>
-           <input 
+           <div>
+           <textarea 
+            maxLength={250}
            onChange={onRoutineDescription}
            type="text" name="routine_description" id="routine_description" placeholder="Describe your routine" required/>
+           </div>
 
           <label htmlFor="routine_img">Routine Image</label>
           <input 
@@ -259,7 +295,6 @@ export const RoutineBuilder = () => {
                 <input 
                 onChange={onUsesWeights}
                 type="checkbox" name="uses_weights" id="uses_weights"/>
-                
             </div>
           <div className="filter-body-part" 
           style={usesWeights.length > 0 ? {opacity: '1'} : {opacity: '0'}}
@@ -335,7 +370,7 @@ export const RoutineBuilder = () => {
         </div>
         
       </form>
-      <RoutineView newRoutine={newRoutine}/>
+      <RoutineView newRoutine={newRoutine} setInfoError={setInfoError}/>
     </section>
   )
 }

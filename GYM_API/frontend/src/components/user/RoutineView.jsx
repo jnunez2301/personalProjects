@@ -2,12 +2,14 @@
 import { useAuth } from "../../context/auth/AuthContext";
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export const RoutineView = ({ newRoutine }) => {
+export const RoutineView = ({ newRoutine, setInfoError }) => {
     const {isAunthenticated, user} = useAuth();
     const [ postRoutine, setPostRoutine ] = useState([]);
     const [ exercisesData, setExercisesData ]= useState([]);
     const uniqueBodyParts = new Set();
+    const navigate = useNavigate();
     
     const filteredExercises = exercisesData.reduce((result, exercise) => {
         if (!uniqueBodyParts.has(exercise.body_part)) {
@@ -42,7 +44,10 @@ export const RoutineView = ({ newRoutine }) => {
             
                 setExercisesData(exercisesWithInfo);
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+              
+            })
     }, [newRoutine])
    
     
@@ -50,8 +55,16 @@ export const RoutineView = ({ newRoutine }) => {
     const handlePostRoutine = () =>{
         axios
             .post(`/api/gym/new-routine/${user.user_id}`, exercisesData)
-            .then(response => setPostRoutine(response.data))
-            .catch(error => console.log(error.response.data))
+            .then(response => {
+                setPostRoutine(response.data)
+                if(response.status === 201){
+                    navigate('/user/routine-builder/success');
+                }
+            })
+            .catch(error =>{
+                 setInfoError(error.response.data.msg)
+                 console.log(error);
+                })
       }
       
       
@@ -65,7 +78,8 @@ export const RoutineView = ({ newRoutine }) => {
                     <>
                     <h2>{newRoutine[0].routine_name}</h2>
                     <hr />
-                    <img src={newRoutine[0].routine_img} alt={newRoutine[0].routine_name + 'img'} />
+                    <img
+                    className="routine-view-img" src={newRoutine[0].routine_img} alt={newRoutine[0].routine_name + 'img'} />
                     <p>
                         {newRoutine[0].routine_description}
                     </p>
@@ -81,7 +95,7 @@ export const RoutineView = ({ newRoutine }) => {
                             <thead>
                                 <tr>
                                     <td>Exercise Name</td>
-                                    <td className='routine-description'>Description</td>
+                                    <td className='routine-description' style={{textAlign: 'center'}}>Description</td>
                                     <td>Sets</td>
                                     <td>Reps</td>
                                     <td>Rest</td>

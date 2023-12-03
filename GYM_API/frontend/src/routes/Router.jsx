@@ -9,6 +9,8 @@ import { useAuth } from "../context/auth/AuthContext"
 import { UserPage } from "../components/user/UserPage"
 import { NotLogged } from "../components/user/NotLogged"
 import { RoutineBuilder } from "../components/user/RoutineBuilder"
+import { Success } from "../components/user/Success"
+import { PersonalRoutines } from "../components/user/PersonalRoutines"
 
 const Router = () => {
 
@@ -29,7 +31,7 @@ const Router = () => {
             
             <Route path='/routine/:type' element={<Routine />} />
             <Route path='/routine-name/:type/:name' element={<SelectedRoutine />} />
-
+            <Route path='/personal-routine/' element={<PersonalRoutines />} />
             <Route path='/login' 
             element={<Login />}/>
             <Route path='/register'
@@ -40,6 +42,7 @@ const Router = () => {
               <>
               <Route path="/user/:user_handle" element={<UserPage />} />
               <Route path="/user/routine-builder" element={<RoutineBuilder />} />
+              <Route path="/user/routine-builder/success" element={<Success />} />
               </> :
               <Route path='/user/:user_handle' element={<NotLogged />} />
             }
