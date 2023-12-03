@@ -31,7 +31,7 @@ const Router = () => {
             
             <Route path='/routine/:type' element={<Routine />} />
             <Route path='/routine-name/:type/:name' element={<SelectedRoutine />} />
-            <Route path='/personal-routine/' element={<PersonalRoutines />} />
+            <Route path='/personal/routine/:alias/:id' element={<PersonalRoutines />} />
             <Route path='/login' 
             element={<Login />}/>
             <Route path='/register'
