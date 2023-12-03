@@ -42,7 +42,7 @@ const Router = () => {
               <>
               <Route path="/user/:user_handle" element={<UserPage />} />
               <Route path="/user/routine-builder" element={<RoutineBuilder />} />
-              <Route path="/user/routine-builder/success" element={<Success />} />
+              <Route path="/user/routine-builder/success/:alias/:id" element={<Success />} />
               </> :
               <Route path='/user/:user_handle' element={<NotLogged />} />
             }

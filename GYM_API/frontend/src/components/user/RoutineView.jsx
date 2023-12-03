@@ -50,17 +50,21 @@ export const RoutineView = ({ newRoutine, setInfoError }) => {
             })
     }, [newRoutine])
    
-    
 
     const handlePostRoutine = () =>{
+        
+        const words = exercisesData[0].routine_name.split(' ');
+        const initials = words.map(word => word.charAt(0).toUpperCase());
+        const routine_alias = initials.join(''); 
         axios
             .post(`/api/gym/new-routine/${user.user_id}`, exercisesData)
             .then(response => {
                 setPostRoutine(response.data)
                 if(response.status === 201){
-                    navigate('/user/routine-builder/success');
+                    navigate(`/user/routine-builder/success/${user.user_id}/${routine_alias}`);
                 }
             })
+            
             .catch(error =>{
                  setInfoError(error.response.data.msg)
                  console.log(error);

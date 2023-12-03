@@ -173,4 +173,22 @@ router.post('/new-routine/:user_id', async (req, res) => {
         res.status(500).json({ msg: 'bad request' });
     }
 });
+// Get Personal Routine
+router.get('/routine/personal/:routine_alias/:user_id', async (req, res) => {
+    const { routine_alias, user_id } = req.params;
+    sql = `SELECT 
+    e.body_part, e.exercise_name, e.description, e.youtubeSrc,
+    pr.routine_name, pr.routine_description, pr.routine_img, pr.exercise_id, pr.sets, pr.reps, pr.rest
+    FROM personal_routines pr
+    JOIN exercises e ON pr.exercise_id = e.exercise_id 
+    WHERE routine_alias = ? AND user_id = ?`;
+    try {
+        const results = await db.query(sql, [routine_alias, user_id]);
+        res.status(200).json(results);
+    } catch (err) {// Send the results as JSON
+        console.error(`Error while getting data from the database: `, err.message);
+        res.status(404).json({msg: 'routine not found'});
+    }
+
+    })
 module.exports = router;
