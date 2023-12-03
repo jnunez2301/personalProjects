@@ -50,7 +50,7 @@ export const RoutineView = ({ newRoutine, setInfoError }) => {
             })
     }, [newRoutine])
    
-
+    
     const handlePostRoutine = () =>{
         
         const words = exercisesData[0].routine_name.split(' ');

@@ -309,7 +309,7 @@ export const RoutineBuilder = () => {
               <option value="triceps">Triceps</option>
             </select>
           </div>
-          <button type="submit">Show My Routine Changes</button>
+          <button type="submit">Show My Routine</button>
         </div>
         <div className="builder-exercises"
         >

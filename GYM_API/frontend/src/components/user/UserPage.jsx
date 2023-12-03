@@ -19,6 +19,21 @@ export const UserPage = () => {
     const [userRoutines, setUserRoutines] = useState([]);
     const personalRoutinesURL = `/api/gym/personalRoutines/${user.user_id}`
 
+    const handleDeleteRoutine = (alias, user_id) => {
+        const deleteURL = `/api/gym/deleteRoutine/${alias}/${user_id}`
+        if (window.confirm("Do you really want to delete this routine?") && isAuthenticated && user_handle === user.user_handle) {
+            axios
+                .put(deleteURL)
+                .then(response => {
+                    console.log(response.data.msg);  
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    
+                });
+        }
+    }
+
     useEffect(() => {
         axios
             .get(baseURL)
@@ -34,7 +49,7 @@ export const UserPage = () => {
             .then(response => setUserRoutines(response.data))
             .catch(error => console.log(error))
 
-    }, [])
+    }, [handleDeleteRoutine])
 
     const openSettings = () => {
         if (isAuthenticated && user_handle === user.user_handle) {
@@ -68,21 +83,7 @@ export const UserPage = () => {
         }
     }
     
-    const handleDeleteRoutine = (alias, user_id) => {
-        const deleteURL = `/api/gym/deleteRoutine/${alias}/${user_id}`
-        if (window.confirm("Do you really want to delete this routine?") && isAuthenticated && user_handle === user.user_handle) {
-            axios
-                .put(deleteURL)
-                .then(response => {
-                    console.log(response.data.msg);  // Log the response message
-                    window.location.reload();
-                })
-                .catch(error => {
-                    console.error(error.message);
-                    // Handle errors as needed
-                });
-        }
-    }
+   
     
     return (
         <section>

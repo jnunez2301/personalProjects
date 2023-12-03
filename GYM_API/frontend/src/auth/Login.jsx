@@ -58,6 +58,7 @@ export const Login = () => {
           type='text'
           name='user_handle'
           id='user_handle'
+          placeholder='Username or email'
           required
         />
       </div>
@@ -70,6 +71,7 @@ export const Login = () => {
           type='password'
           name='password'
           id='password'
+          placeholder='Your password'
           required
         />
       </div>
