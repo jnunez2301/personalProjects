@@ -143,7 +143,7 @@ export const UserPage = () => {
                             </div>
                             {
                                 isAuthenticated && user.user_handle === user_handle ?
-                                    <div >
+                                    <div className='user-tools-container'>
                                         <Link
                                             className='routine-builder-icon'
                                             to={'/user/routine-builder'}>
@@ -154,6 +154,17 @@ export const UserPage = () => {
                                                     currentTarget.src = "https://media.tenor.com/StMx6F8h5RQAAAAC/psyduck-confused.gif";
                                                 }}
                                                 src="/gym-logo.svg" alt="builder-logo" />
+                                        </Link>
+                                        <Link
+                                            className='routine-builder-icon'
+                                            to={`/user/${user.user_handle}/weight-progress`}>
+                                            <p>Track your weight progress!</p>
+                                            <img
+                                                onError={({ currentTarget }) => {
+                                                    currentTarget.onerror = null; // prevents looping
+                                                    currentTarget.src = "https://media.tenor.com/StMx6F8h5RQAAAAC/psyduck-confused.gif";
+                                                }}
+                                                src="/assets/logos/scale.svg" alt="builder-logo" />
                                         </Link>
                                     </div> : ''}
                             
@@ -190,10 +201,11 @@ export const UserPage = () => {
                                         key={info.routine_alias}
                                         style={{ display: info.deleted_routine === 0 ? 'none' : 'block' }}
                                         >
-                                        
                                         <button 
                                         className='btn-delete'
-                                        onClick={() => handleDeleteRoutine(info.routine_alias, info.user_id)}>DELETE</button>
+                                        onClick={() => handleDeleteRoutine(info.routine_alias, info.user_id)}>
+                                            <img src="/assets/logos/trash.svg" alt="delete_btn" />
+                                        </button>
                                         <Link
                                             target='_blank'
                                             rel='noreferrer'

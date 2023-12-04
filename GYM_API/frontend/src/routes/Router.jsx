@@ -11,6 +11,7 @@ import { NotLogged } from "../components/user/NotLogged"
 import { RoutineBuilder } from "../components/user/RoutineBuilder"
 import { Success } from "../components/user/Success"
 import { PersonalRoutines } from "../components/user/PersonalRoutines"
+import { WeightChart } from "../components/user/Progress/WeightChart"
 
 const Router = () => {
 
@@ -43,6 +44,7 @@ const Router = () => {
               <Route path="/user/:user_handle" element={<UserPage />} />
               <Route path="/user/routine-builder" element={<RoutineBuilder />} />
               <Route path="/user/routine-builder/success/:alias/:id" element={<Success />} />
+              <Route path="/user/:userHandle/weight-progress" element={<WeightChart />} />
               </> :
               <Route path='/user/:user_handle' element={<NotLogged />} />
             }

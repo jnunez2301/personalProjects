@@ -56,12 +56,13 @@ export const RoutineView = ({ newRoutine, setInfoError }) => {
         const words = exercisesData[0].routine_name.split(' ');
         const initials = words.map(word => word.charAt(0).toUpperCase());
         const routine_alias = initials.join(''); 
-        axios
+        if(window.confirm('Are you sure you want to post your routine?')){
+            axios
             .post(`/api/gym/new-routine/${user.user_id}`, exercisesData)
             .then(response => {
                 setPostRoutine(response.data)
                 if(response.status === 201){
-                    navigate(`/user/routine-builder/success/${user.user_id}/${routine_alias}`);
+                    navigate(`/user/routine-builder/success/${routine_alias}/${user.user_id}`);
                 }
             })
             
@@ -69,6 +70,7 @@ export const RoutineView = ({ newRoutine, setInfoError }) => {
                  setInfoError(error.response.data.msg)
                  console.log(error);
                 })
+        }
       }
       
       

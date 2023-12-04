@@ -7,33 +7,29 @@ export const NoEquipmentSection = ({ beginner }) => {
   
   return (
     <section className="section-container">
-        <div>
             <h4
             style={{
-              color: '#606c38'
+              color: '#606c38',
+              marginBottom: '1rem'
             }}
             >NO EQUIPMENT? Floor and Gravity is all you need!</h4>
-        </div>
         <div className="article-container">
             {
               beginner &&
               <>
-              {/* <article className="section-article">Exercise</article> */}
               {filteredBeginner.map(exercise =>(
                 <article 
                 className="section-article"
                 key={exercise.exercise_id}>
-                  <div>
                     <h5>{exercise.exercise_name}</h5>
                     <iframe src={exercise.youtubeSrc} allowFullScreen/>
-                  </div>
                 </article>
               ))}
             </>}
         </div>
-        <div>
-            <h6>ADAPT AS NEEDED IF YOU CAN NOT DO AN EXERCISE DO AN EASIER VARIATION</h6>
-        </div>
+            <br />
+            <hr />
+            <h6>ADAPT ROUTINE AS NEEDED IF YOU CAN NOT DO AN EXERCISE DO AN EASIER VARIATION</h6>
     </section>
   )
 }

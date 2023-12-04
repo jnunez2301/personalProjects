@@ -35,11 +35,6 @@ export const SelectedRoutine = () => {
 
     return (
         <section className='selected-routine'>
-            <div className='btn-container'>
-                <button className='btn-download' onClick={() => toPDF()}>
-                    Download PDF
-                </button>
-            </div>
             <section ref={targetRef} className='routine-container'>
                 {routineInfo.length > 0 && routineInfo.map((info) => (
                     <div className='routine-header' key={info.user_id}>

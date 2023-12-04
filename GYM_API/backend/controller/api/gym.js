@@ -216,6 +216,33 @@ router.put('/deleteRoutine/:routine_alias/:user_id', async (req, res) =>{
     }
 })
 
+router.get('/weight_progress/:user_id', async (req, res) =>{
+     const { user_id } = req.params;
+     const sql = `SELECT * FROM user_weight_progress WHERE user_id = ? ORDER BY created_at;`
+     try{
+        const results = await db.query(sql, [user_id]);
+        res.status(201).json(results)
+     }catch(error){
+        console.log(error.message);
+        res.status(404).json({msg: 'failed to find the weight_progress'})
+     }
+})
+router.post('/weight_progress/:user_id', async(req, res) =>{
+    const { weight_progress } = req.body;
+    const {user_id} = req.params;
+    console.log(user_id, weight_progress);
+    const sql = `INSERT INTO user_weight_progress(weight_progress, user_id)
+    VALUES(?, ?)`;
+
+    try{
+        const results = await db.query(sql, [weight_progress,user_id])
+        console.log(results);
+        res.status(201).json({msg: 'Updated weight_progress'})
+    }catch(error){
+        console.log(error.message);
+        res.status(500).json({msg: 'bad request could not find the user'})
+    }
+})
 
 
 module.exports = router;

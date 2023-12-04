@@ -309,18 +309,19 @@ export const RoutineBuilder = () => {
               <option value="triceps">Triceps</option>
             </select>
           </div>
-          <button type="submit">Show My Routine</button>
+          <button type="submit">Show Routine</button>
         </div>
         <div className="builder-exercises"
         >
           {data.length > 0 &&
             data.map(e => (
               <div className="builder-exercise" 
+              style={{ outline: exerciseCheckedState[e.exercise_id] ? '1px solid blue' : 'none' }}
               key={e.exercise_id}
               
               >
-                <label  htmlFor={e.exercise_id}>
-                    <h5>{e.exercise_name}</h5>
+                <label  htmlFor={e.exercise_id} >
+                    <h5 style={{fontSize: '18px', marginBottom: '.6rem'}}>{e.exercise_name}</h5>
                     <iframe src={e.youtubeSrc} allowFullScreen></iframe>
                   </label>
                   <input type="checkbox"

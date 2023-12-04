@@ -52,8 +52,7 @@ export const MainSection = () => {
         <>
         <section className="main-section">
             <article className="main-article">
-                <div>
-                    <h3>Most recommended routine for beginners!</h3>
+                   <h3>Most recommended routine for beginners</h3>
                     {beginner.length > 0 && <Link
                         className='routine-link'
                         to={`/routine-name/calisthenics/FBB`}>
@@ -62,17 +61,15 @@ export const MainSection = () => {
                             src={beginner[0].routine_img} alt={`${beginner[0].routine_name}`} />
                         <p>{beginner[0].routine_description}</p>
                     </Link>}
-                </div>
+                
             </article>
             <div className="second-container">
                 <article className="variation-exercise">
                     <iframe
-                        className="home-push-ups"
+                        
                         src="https://www.youtube.com/embed/zkU6Ok44_CI" title="You CAN do pushups, my friend! (2022 Version)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
                 </article>
                 <article>
-                    <div
-                    className='influencer-container'>
                         <h3>Recommended Influencer</h3>
                         {
                             influencer.length > 0 && 
@@ -81,7 +78,7 @@ export const MainSection = () => {
                             <h5>{currentInfluencer.influencer_name}</h5>
                             {                          
                              <a 
-                             className='influencer-container'
+                            
                         target='_blank'
                         rel='noreferrer'
                         href={currentInfluencer.influencer_url}>
@@ -91,13 +88,11 @@ export const MainSection = () => {
                         </a>
                             }
                         
-                            </>
+                        </>
                         }
-                    </div>
                 </article>
-                <div className="third-container">
-                    <article>
-                        <div>
+                <article>
+                        
                             <h3>Random Exercise of the Day!</h3>
                             {
                                 data.length > 0 &&
@@ -105,9 +100,8 @@ export const MainSection = () => {
                                     <iframe src={data[Math.floor(Math.random() * data.length)].youtubeSrc} allowFullScreen/>
                                 )
                             }
-                        </div>
-                    </article>
-                </div>
+                        
+                </article>
             </div>
         </section>
         <NoEquipmentSection 

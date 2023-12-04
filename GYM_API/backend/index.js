@@ -6,6 +6,7 @@ const gymRouter = require('./controller/api/gym')
 const authRouter = require('./controller/auth/auth')
 const path = require('path')
 
+
 app.use(cors());
 app.use(express.json());
 app.use(
