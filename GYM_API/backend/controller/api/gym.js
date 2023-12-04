@@ -236,7 +236,7 @@ router.post('/weight_progress/:user_id', async(req, res) =>{
 
     try{
         const results = await db.query(sql, [weight_progress,user_id])
-        console.log(results);
+        
         res.status(201).json({msg: 'Updated weight_progress'})
     }catch(error){
         console.log(error.message);
