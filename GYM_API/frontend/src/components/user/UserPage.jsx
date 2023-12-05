@@ -201,11 +201,13 @@ export const UserPage = () => {
                                         key={info.routine_alias}
                                         style={{ display: info.deleted_routine === 0 ? 'none' : 'block' }}
                                         >
+                                        {user_handle === user.user_handle ?
                                         <button 
                                         className='btn-delete'
                                         onClick={() => handleDeleteRoutine(info.routine_alias, info.user_id)}>
                                             <img src="/assets/logos/trash.svg" alt="delete_btn" />
                                         </button>
+                                        : ''}
                                         <Link
                                             target='_blank'
                                             rel='noreferrer'

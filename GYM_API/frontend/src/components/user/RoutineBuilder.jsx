@@ -167,12 +167,14 @@ export const RoutineBuilder = () => {
       });
 
       if (missingFields.length > 0) {
+        
         const missingExercises = missingFields
           .map((exerciseId) => {
             const exerciseName = data.find((exercise) => exercise.exercise_id === exerciseId)?.exercise_name;
             return exerciseName ? `"${exerciseName}"` : `Exercise ID ${exerciseId}`;
           })
         .join(', ');
+        
         setInfoError(`Make sure to choose the amount of sets, reps, and rest time for ${missingExercises}`);
         return;
       }
@@ -321,7 +323,7 @@ export const RoutineBuilder = () => {
               
               >
                 <label  htmlFor={e.exercise_id} >
-                    <h5 style={{fontSize: '18px', marginBottom: '.6rem'}}>{e.exercise_name}</h5>
+                    <h5 style={{fontSize: '18px', marginBottom: '.6rem'}}>{e.exercise_name} | id:{e.exercise_id}</h5>
                     <iframe src={e.youtubeSrc} allowFullScreen></iframe>
                   </label>
                   <input type="checkbox"
