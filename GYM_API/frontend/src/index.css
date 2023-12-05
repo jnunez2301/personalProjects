@@ -60,11 +60,10 @@ article {
   background-color: white;
 }
 .second-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 15px;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-wrap: wrap;
  
 }
@@ -498,16 +497,8 @@ form button[type="submit"]:hover {
   background-color: rgba(222, 184, 135);
 }
 /* User info */
-.personal-routine{
-  position: relative;  
-}
-.personal-routine a{
-  display: flex;
-  
-  flex-direction: column;
-  justify-content: baseline;
-  margin: 1rem;
-}
+
+
 
 .btn-delete{
   border: none;
@@ -815,6 +806,7 @@ select{
 .routine-view p{
   text-align: center;
   font-size: 16px;
+  width: 60ch;
   max-width: 100%;
   text-wrap: wrap;
   word-wrap: break-word;
@@ -851,6 +843,19 @@ select{
 }
 .nav{
   padding-bottom: 15px;
+}
+.personal-routine{
+  position: relative;  
+}
+.personal-routine a{
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  /* justify-content: space-between; */
+  margin: 1rem;
+}
+.personal-routine p{
+  overflow-y: scroll;
 }
 @media (max-width: 1024px) {
   .article-container {

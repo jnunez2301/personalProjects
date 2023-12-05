@@ -230,7 +230,7 @@ router.get('/weight_progress/:user_id', async (req, res) =>{
 router.post('/weight_progress/:user_id', async(req, res) =>{
     const { weight_progress } = req.body;
     const {user_id} = req.params;
-    console.log(user_id, weight_progress);
+    
     const sql = `INSERT INTO user_weight_progress(weight_progress, user_id)
     VALUES(?, ?)`;
 

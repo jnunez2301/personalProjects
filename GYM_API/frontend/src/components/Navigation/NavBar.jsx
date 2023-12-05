@@ -14,8 +14,6 @@ const NavBar = () => {
   const handleLogOut = async () => {
     try {
       const response = await axios.get(logoutURL, {withCredentials: true});
-  
-      // Check the response status and handle accordingly
       if (response.status === 200) {
         alert('Logout successful');
         navigate('/');

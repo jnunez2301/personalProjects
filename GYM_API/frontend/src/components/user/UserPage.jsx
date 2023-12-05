@@ -173,8 +173,8 @@ export const UserPage = () => {
                                 {
                                     data.map(info => (
                                         <Link
-                                            target='_blank'
-                                            rel='noreferrer'
+                                            /* target='_blank'
+                                            rel='noreferrer' */
                                             to={`/routine-name/${info.uses_weights === 0 ? 'calisthenics' : 'weights'}/${info.routine_alias}`}
                                             key={info.routine_id}>
                                             <h2>{info.routine_name}</h2>
@@ -209,8 +209,8 @@ export const UserPage = () => {
                                         </button>
                                         : ''}
                                         <Link
-                                            target='_blank'
-                                            rel='noreferrer'
+                                           /*  target='_blank'
+                                            rel='noreferrer' */
                                             to={`/personal/routine/${info.routine_alias}/${info.user_id}`}
                                             
                                             >

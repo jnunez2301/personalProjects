@@ -74,6 +74,7 @@ export const RoutineBuilder = () => {
       const newRoutineDescription = event.target.value;
       if(newRoutineDescription.length > 10){
         setRoutineDescription(newRoutineDescription.trim());
+        setInfoError('');
         
       }else{
         setInfoError('Routine name must be longer than 10 characters')
