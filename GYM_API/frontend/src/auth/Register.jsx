@@ -68,33 +68,39 @@ export const Register = () => {
         <label htmlFor="user_handle">Username</label>
         <input
         onChange={onInputChange}
-         type="text" name="user_handle" id="user_handle" required/>
+         type="text" name="user_handle" id="user_handle" 
+         placeholder="Username" required/>
       </div>
       <div className="label-container">
         <label htmlFor="first_name">First Name</label>
         <input
         onChange={onInputChange}
+        placeholder="First name"
         type="text" name="first_name" id="first_name" required/>
       </div>
       <div className="label-container">
         <label htmlFor="last_name">Last Name</label>
         <input
+        placeholder="Last name"
         onChange={onInputChange}
          type="text" name="last_name" id="last_name" required/>
       </div>
       <div className="label-container">
         <label htmlFor="email_address">Email</label>
         <input 
+        placeholder="Your e-mail"
         onChange={onInputChange} type="email" name="email_address" id="email_address" required/>
       </div>
       <div className="label-container">
         <label htmlFor="password">Password</label>
         <input 
+        placeholder="Password"
         onChange={onInputChange} type="password" name="password" id="password" required/>
       </div>
       <div className="label-container">
         <label htmlFor="confirm_password">Confirm Password</label>
         <input 
+        placeholder="Confirm password"
         onChange={onInputChange} type="password" name="confirm_password" id="confirm_password" required/>
       </div>
       <button type="submit">Register</button>

@@ -18,6 +18,7 @@ export const UserPage = () => {
     const [showSettings, setShowSettings] = useState(false);
     const [userRoutines, setUserRoutines] = useState([]);
     const personalRoutinesURL = `/api/gym/personalRoutines/${user.user_id}`
+    
 
     const handleDeleteRoutine = (alias, user_id) => {
         const deleteURL = `/api/gym/deleteRoutine/${alias}/${user_id}`
@@ -25,7 +26,8 @@ export const UserPage = () => {
             axios
                 .put(deleteURL)
                 .then(response => {
-                    console.log(response.data.msg);  
+                    console.log(response.data.msg);
+                    window.location.reload();
                 })
                 .catch(error => {
                     console.error(error.message);
@@ -49,7 +51,7 @@ export const UserPage = () => {
             .then(response => setUserRoutines(response.data))
             .catch(error => console.log(error))
 
-    }, [handleDeleteRoutine])
+    }, [])
 
     const openSettings = () => {
         if (isAuthenticated && user_handle === user.user_handle) {
@@ -82,8 +84,6 @@ export const UserPage = () => {
                 })
         }
     }
-    
-   
     
     return (
         <section>
@@ -168,10 +168,10 @@ export const UserPage = () => {
                                         </Link>
                                     </div> : ''}
                             
-                            <h3 className='user-routines-title'>My <strong>APPROVED</strong> Routines ({data.length})</h3>
+                            { data[0].routine_alias && <h3 className='user-routines-title'>My <strong>APPROVED</strong> Routines ({data.length})</h3>}
                             <div className='user-routines-container'>
                                 {
-                                    data.map(info => (
+                                    data[0].routine_alias && data.map(info => (
                                         <Link
                                             /* target='_blank'
                                             rel='noreferrer' */
@@ -188,7 +188,7 @@ export const UserPage = () => {
                                                 alt={info.routine_name} />
                                             <p>{info.routine_description}</p>
                                         </Link>
-                                    ))
+                                    )) 
                                 }
                             </div>
                             

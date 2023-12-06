@@ -85,6 +85,10 @@ export const RoutineView = ({ newRoutine, setInfoError }) => {
                     <h2>{newRoutine[0].routine_name}</h2>
                     <hr />
                     <img
+                    onError={({ currentTarget }) => {
+                        currentTarget.onerror = null; // prevents looping
+                        currentTarget.src = "https://media.tenor.com/Rc1GWDr71WIAAAAC/psyduck.gif";
+                    }}
                     className="routine-view-img" src={newRoutine[0].routine_img} alt={newRoutine[0].routine_name + 'img'} />
                     <p>
                         {newRoutine[0].routine_description}

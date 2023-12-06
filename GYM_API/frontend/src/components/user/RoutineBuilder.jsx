@@ -18,9 +18,9 @@ export const RoutineBuilder = () => {
     const [newSets, setSets] = useState([]);
     const [newReps, setReps] = useState([]);
     const [newRest, setRest] = useState([]);
-    const [usesWeights, setUseWeights] = useState('');
+    const [usesWeights, setUseWeights] = useState('0');
     const [infoError, setInfoError] = useState('');
-    const [bodyPart, setBodyPart] = useState('');
+    const [bodyPart, setBodyPart] = useState('chest');
     const [selectedExercise, setSelectedExercise] = useState([]);
     const baseURL = `/api/gym/exercises/${usesWeights}/${bodyPart}`;
     const [exerciseCheckedState, setExerciseCheckedState] = useState({});
@@ -70,7 +70,6 @@ export const RoutineBuilder = () => {
       }
     }
     const onRoutineDescription = (event) =>{
-      
       const newRoutineDescription = event.target.value;
       if(newRoutineDescription.length > 10){
         setRoutineDescription(newRoutineDescription.trim());
