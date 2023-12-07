@@ -1,5 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap");
+@keyframes bounceIn {
+  0%{
+    transform: translate(0px, 0px);
+    opacity: 0;
+  }
+  50%{
+    transform: translate(0px, 10px);
+    
+  }
+  100%{
+    transform: translate(0px, 0px);
+    opacity: 1;
+  }
+}
+
 * {
+
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -843,6 +859,7 @@ select{
 }
 .nav{
   padding-bottom: 15px;
+  
 }
 .personal-routine{
   position: relative;  
@@ -852,7 +869,26 @@ select{
   flex-direction: column;
   margin: 1rem;
 }
+section{
+  animation: bounceIn .8s;
+}
+.error-section{
+  text-align: center;
+  margin: 1rem;
+  display: grid;
+  height: 50vh;
+  width: 100%;
+  justify-items: center;
+  place-content: center;
+}
+.error-img{
+  width: 320px;
+}
 @media (max-width: 1024px) {
+  .error-section{
+    font-size: 12px;
+    margin: 0;
+  }
   .article-container {
     flex-wrap: wrap;
   }
@@ -860,7 +896,9 @@ select{
     flex-wrap: wrap;
     padding: 0.3rem;
     justify-content: center;
+    
   }
+
   .footer-section {
     grid-template-columns: 1fr;
     flex-wrap: wrap;

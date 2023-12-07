@@ -218,7 +218,7 @@ router.put('/deleteRoutine/:routine_alias/:user_id', async (req, res) =>{
 
 router.get('/weight_progress/:user_id', async (req, res) =>{
      const { user_id } = req.params;
-     const sql = `SELECT * FROM user_weight_progress WHERE user_id = ? ORDER BY created_at;`
+     const sql = `SELECT * FROM user_weight_progress WHERE user_id = ? ORDER BY created_at DESC LIMIT 10;`
      try{
         const results = await db.query(sql, [user_id]);
         res.status(201).json(results)

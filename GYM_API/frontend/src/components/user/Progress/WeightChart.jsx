@@ -55,9 +55,9 @@ export const WeightChart = () => {
     const labels = data.map((progress) => {
         const date = new Date(progress.created_at);
         return date.toLocaleDateString(); 
-      });
+      }).reverse();
     
-    const dataPoints = data.map((progress) => progress.weight_progress);
+    const dataPoints = data.map((progress) => progress.weight_progress).reverse();
 
     const chartData = {
       labels: labels,
