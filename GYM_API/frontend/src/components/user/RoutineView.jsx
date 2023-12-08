@@ -57,6 +57,7 @@ export const RoutineView = ({ newRoutine, setInfoError }) => {
         const initials = words.map(word => word.charAt(0).toUpperCase());
         const routine_alias = initials.join(''); 
         if(window.confirm('Are you sure you want to post your routine?')){
+
             axios
             .post(`/api/gym/new-routine/${user.user_id}`, exercisesData)
             .then(response => {

@@ -145,7 +145,6 @@ h6{
   margin: 1rem;
 }
 .section-article {
-  background-color: rgb(234 233 235);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -159,11 +158,11 @@ h6{
 }
 .footer-section {
   display: flex;
-  
+  margin: 1rem;
   justify-content: space-evenly;
   gap: 16px;
   text-align: center;
-  padding: 0 1rem;
+  padding: 1rem 0;
 }
 .footer-section h3 {
   color: black;
@@ -438,10 +437,9 @@ h5 {
   opacity: 0.8;
 }
 .influencer-img {
-  height: 150px;
-  width: 100%;
+  height: auto;
+  width: 250px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  
 }
 .brand-container {
   display: flex;
@@ -912,6 +910,7 @@ section{
   .footer-section {
     grid-template-columns: 1fr;
     flex-wrap: wrap;
+    margin: 1rem 0;
   }
   .footer-section > article {
     font-size: 10px;
