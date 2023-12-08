@@ -3,10 +3,12 @@ import './NavBar.component.css'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth/AuthContext';
 import axios from 'axios'
+import { useState, useEffect } from 'react';
 
 const NavBar = () => {
  
-  const { isAuthenticated, user, loading, error } = useAuth();
+  const { isAuthenticated, user} = useAuth();
+  const [showMenu, setShowMenu] = useState(false);
   const logoutURL = '/api/auth/logout';
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,7 +30,15 @@ const NavBar = () => {
       }
     }
   };
-  /* console.log(location.pathname); */
+  useEffect(() => {
+    // Set showMenu to true when the component mounts and the device width is below 600px
+    if (window.innerWidth < 600) {
+      setShowMenu(true);
+    }else{
+      setShowMenu(false);
+    }
+  }, []);
+
   const userHomePage = () => {
     navigate(`/user/${user.user_handle}`)
     window.location.reload();
@@ -38,11 +48,16 @@ const NavBar = () => {
   
     <nav className='nav'>
       
+        <button 
+        className='nav-btn'
+        onClick={() => setShowMenu(!showMenu)}>{
+           showMenu ? <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6l16 0" /><path d="M4 12l16 0" /><path d="M4 18l16 0" /></svg>
+        : 
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>}</button>
       
       {
-        
         <ul className='nav-list'>
-        <li>
+        <li className='mobile'>
         <Link className='nav-link-home' to='/'>
           <picture className="logo-container mobile-container">
             <img 
@@ -51,20 +66,17 @@ const NavBar = () => {
               <h1>
               THE GYM APP
             </h1>
+            
           </picture>
           </Link>
         </li>
-      
+        {!showMenu ? 
+        <>
         <li>
           <Link
           className='nav-link'
            to='/exercises'>Exercises</Link>
         </li>
-        {/* <li>
-          <Link
-          className='nav-link'
-           to='/challenges'>Challenges</Link>
-        </li> */}
         <li>
           <Link
             className='nav-link'
@@ -83,13 +95,14 @@ const NavBar = () => {
           </Link>
         </li>
         
+        
           {
             isAuthenticated && user ?
             <>
-            <Link onClick={userHomePage} >
+            <Link className='nav-user_handle' onClick={userHomePage} >
             <h4>{user.user_handle}</h4>
             </Link>
-            <button className='btn' onClick={handleLogOut}>Logout</button>
+            <button className='btn-logout' onClick={handleLogOut}>Log out</button>
             </>
              :
             <>
@@ -115,10 +128,11 @@ const NavBar = () => {
           </>
           
           
-
-        }
+        
+        }</>
+        : ''}
       </ul>
-        }
+      }
       {
         isAuthenticated && user ? ''
         :

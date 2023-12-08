@@ -52,29 +52,110 @@ nav{
 .exp{
     color: var(--text-experience-color);
 }
-.show-nav-btn{
+
+
+.nav-btn{
     display: none;
 }
 .mobile-container{
     display: none;
 }
+
+.nav-link {
+    animation: moveIn .3s linear;
+    position: relative;   
+}
+.btn-logout{
+    animation: moveIn .3s linear;
+    position: relative;
+}
+.nav-user_handle{
+    animation: moveIn .3s linear;
+    position: relative;
+}
+.btn-logout{
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
+    color: orangered;
+    font-weight: 800;
+    transition: all .3s ease-in-out;
+}
+.nav-user_handle:hover{
+    color: blueviolet;
+    transition: all .3s ease-in-out;
+}
+.btn-logout:hover{
+    color: rgb(152, 55, 20);
+}
 @media (max-width: 600px){
+    .nav{
+        padding: 1rem;
+        position: relative;
+    }
+    @keyframes fadeIn {
+        0%{
+            opacity: 0;
+        }100%{
+            opacity: 1;
+        }
+    }
+    .nav-btn{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 1rem;
+        z-index: 12;
+        border: none;
+        border-radius: 5px;
+        background-color: inherit;
+        padding: 1rem;
+        width: 68px;
+    }
+    
+    .nav-btn div{
+        display: flex;
+    }
     .nav-list{
         display: flex;
         flex-direction: column;
         position: relative;
+        width: 100%;
         margin-bottom: 1rem;
+        
     }
+    
     .mobile-logo{
         display: none;
     }
     .mobile-container{
         display: flex;
+        position: relative;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-wrap: nowrap;
     }
+   
+    .mobile{
+        position: relative;
+    }
+    .mobile button{
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    
+    .mobile button{
+        padding: 1rem;
+        border: none;
+        background-color: #ffffff;
+        cursor: pointer;
+    }
+    
     .show-nav-btn{
         display: block;
         position: relative;
