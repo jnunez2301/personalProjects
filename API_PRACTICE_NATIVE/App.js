@@ -4,7 +4,7 @@ import { TabNavigation } from './components/TabNavigation';
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.body}>
       <TabNavigation />
     </SafeAreaView>
   );
