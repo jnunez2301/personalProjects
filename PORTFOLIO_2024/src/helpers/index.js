@@ -1,0 +1,5 @@
+export * from './getLogos'
+export * from './getCertificates'
+export * from './getSkills'
+export * from './getProjects'
+export * from './getContacts'
