@@ -319,8 +319,39 @@ a{
   list-style: none;
   display: flex;
 }
+.skills-section{
+  margin: 3rem;
+  padding-bottom: .5rem;
+  gap: 16px;
+  display: flex;
+  justify-content: space-around;
+}
+.skills-section h3{
+  margin: 0 !important;
+}
+.skills-section ul{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.skill-card{
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+  width: 120px;
+}
+.skill-card:hover{
+  background-color: plum;
+}
 
 @media (max-width: 768px) {
+  .skills-section{
+    margin: 0;
+  }
   .nav-list {
     display: none;
     flex-direction: column;
@@ -358,7 +389,6 @@ a{
     margin: 5px 0;
   }
 }
-
 @media (max-width: 800px) {
     .profile-pic{
       margin: 0;
@@ -368,6 +398,7 @@ a{
     }
     .home-container{
       text-align: center;
+      flex-direction: column-reverse;
     }
     .nav-container{
       padding: 0;

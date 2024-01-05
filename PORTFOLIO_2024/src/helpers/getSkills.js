@@ -21,12 +21,7 @@ export const skills = [{
     url: '/icons/brand-react.svg',
     type: 'Frontend'
 },
-{
-    id: 5,
-    name: 'Git',
-    url: '/icons/brand-git.svg',
-    type: 'Utilities'
-},
+
 {
     id: 6,
     name: 'MongoDB',
@@ -62,4 +57,10 @@ export const skills = [{
     url: '/icons/brand-angular.svg',
     type: 'Frontend'
 }
+,/* {
+    id: 5,
+    name: 'Git',
+    url: '/icons/brand-git.svg',
+    type: 'Frontend'
+} */
 ]
