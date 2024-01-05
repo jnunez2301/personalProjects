@@ -1,24 +1,24 @@
 export const certificates = [{
     id: 1,
-    name: 'java',
-    url: '/assets/certificates/java.jpg'
+    name: 'Desarrollo de Aplicaciones con Java',
+    url: '/certificates/java.jpg'
     },{
     id: 2,
-    name: 'javascript',
-    url: '/assets/certificates/javascript.png'
+    name: 'JavaScript Algorithms and Data Structures',
+    url: '/certificates/javascript.png'
 },{
     id: 3,
-    name: 'mean',
-    url: '/assets/certificates/mean.png'
+    name: 'MongoDB, Express, Angular, NodeJS Full Stack',
+    url: '/certificates/mean.png'
 },
 {
     id: 4,
-    name: 'responsive',
-    url: '/assets/certificates/responsive.png'
+    name: 'Responsive Design',
+    url: '/certificates/responsive.png'
 },
 {
     id: 5,
-    name: 'MERN',
-    url: '/assets/certificates/MERN.jpg'
+    name: 'MongoDB, React, Express, NodeJS Full Stack',
+    url: '/certificates/MERN.jpg'
 }
 ]
