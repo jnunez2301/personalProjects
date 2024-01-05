@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Skills } from "../pages"
+import { Contact, Skills } from "../pages"
 import { Certificates } from "../pages/Certificates"
 import { Info } from "./Info"
 import Projects from "./Projects"
@@ -11,6 +11,7 @@ export const Home = () => {
     <Skills />
     <Projects />
     <Certificates />
+    <Contact/>
     </>
   )
 }
