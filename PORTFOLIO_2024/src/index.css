@@ -126,7 +126,7 @@ a{
   padding: 1rem;
   /* border: 1px solid rgba(0, 0, 0, 0.1); */
   border-radius: 5px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   transition: all .3s ease-in-out;
 }
 .project-card:hover{
@@ -347,7 +347,30 @@ a{
 .skill-card:hover{
   background-color: plum;
 }
-
+@keyframes fadeIn {
+  0% {
+    transform: translateY(-15px);
+  }
+  50%{
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.nav-container,
+.home-container,
+.brand-logo-container,
+.projects-container,
+.project-card,
+.btn-container,
+.certificates,
+.certificates-container,
+.modal,
+.resume-container,
+.skills-section {
+  animation: fadeIn .3s ease-in-out; /* Adjust the delay as needed */
+}
 @media (max-width: 768px) {
   .skills-section{
     margin: 0;
@@ -399,6 +422,7 @@ a{
     .home-container{
       text-align: center;
       flex-direction: column-reverse;
+      align-items: center;
     }
     .nav-container{
       padding: 0;

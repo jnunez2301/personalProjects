@@ -19,7 +19,7 @@ export const Skills = () => {
 
     return skillTypes.map(type => (
       <div key={type} style={{textAlign: 'center'}}>
-        <h3>{type}</h3>
+        <h3 className="gradient-text">{type}</h3>
         <ul>
           {groupedSkills[type].map(skill => (
             <li key={skill.id} className="skill-card">
