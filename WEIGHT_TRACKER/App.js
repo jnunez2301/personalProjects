@@ -1,25 +1,20 @@
 import { SafeAreaView, StatusBar, StyleSheet, useColorScheme } from "react-native";
 import { Tabs } from "./router/Tabs";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 export default function App() {
-  const colorScheme = useColorScheme();
-
-  const lightModeBackgroundColor = '#ffffff';
-  const darkModeBackgroundColor = '#000000';
-  
-
-  const backgroundColor = colorScheme === 'dark' ? darkModeBackgroundColor : lightModeBackgroundColor;
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor }]}>
-      <Tabs />
-    </SafeAreaView>
+    <ThemeProvider>
+      <SafeAreaView style={styles.container}>
+        <Tabs/>
+      </SafeAreaView>
+    </ThemeProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    /* padding: StatusBar.currentHeight, */
   },
 });
