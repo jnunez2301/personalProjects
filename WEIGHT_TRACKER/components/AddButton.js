@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable, Modal, TextInput, Button } from 'react-native'
 import { useTheme } from '../context/ThemeProvider'
-import { memo, useMemo, useState } from 'react';
-import { DateTimePicker, DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import { useState } from 'react';
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import WheelPickerExpo from 'react-native-wheel-picker-expo';
 import { weightLossJourneyData } from '../helpers/Info';
 
@@ -46,8 +46,15 @@ export const AddButton = () => {
     const onTextChange = (newText) => {
         setText(newText)
     }
-    // console.log(new Date(form.date).getDay());
-
+    const handleWeightSubmit= () => {
+        setForm({
+            weight: selectedWeight,
+            date: date
+        })
+        setModalVisible(!modalVisible)
+    }
+    
+    // console.log(form);
     return (
         <View style={styles.container}>
             <Modal
@@ -60,8 +67,8 @@ export const AddButton = () => {
                 <View style={styles.centeredView}>
                     <View style={[styles.modalView, { backgroundColor: themeColor }]}>
                         <Pressable onPress={showDatepicker}
-                            style={[styles.dateSelector, { backgroundColor: themeBackgroundColor }]}>
-                            <Text style={{ color: themeTextColor }}>{`${date.getDay()}/${date.getMonth()}`}</Text>
+                            style={[styles.dateSelector, { backgroundColor: themeColor }]}>
+                            <Text style={{ color: themeTextColor }}>{`${new Date(date).getDay()}/${new Date(date).getMonth()}`}</Text>
                         </Pressable>
                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                             <WheelPickerExpo
@@ -77,18 +84,14 @@ export const AddButton = () => {
                         <View style={{ flexDirection: 'row', gap: 30 }}>
                             <Pressable
                                 onPress={() => setModalVisible(!modalVisible)}>
-                                <Text style={styles.textStyle}>Cancel</Text>
+                                <Text style={[styles.textStyle, {color: themeTextColor}]}>Cancel</Text>
                             </Pressable>
                             <Pressable
                                 onPress={() => {
-                                    setForm({
-                                        weight: selectedWeight,
-                                        date: date
-                                    })
-                                    setModalVisible(!modalVisible)
+                                    handleWeightSubmit()
                                 }
                                 }>
-                            <Text style={styles.textStyle}>Add</Text>
+                            <Text style={[styles.textStyle, {color: themeTextColor}]}>Add</Text>
                         </Pressable>
                     </View>
 
@@ -162,7 +165,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#2196F3',
     },
     textStyle: {
-        color: 'white',
+        
         fontWeight: 'bold',
         textAlign: 'center',
     },
