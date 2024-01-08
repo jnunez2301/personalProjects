@@ -17,10 +17,8 @@ const generateWeights = () => {
 export const AddButton = () => {
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
-    const [text, setText] = useState('');
     const [form, setForm] = useState({});
     const [date, setDate] = useState(new Date());
-    const [city, setCity] = useState('');
     const [selectedWeight, setSelectedWeight] = useState(weightLossJourneyData[weightLossJourneyData.length - 1].weight);
 
     const initialSelectedIndex = generateWeights().findIndex(weight => weight.label === selectedWeight);
@@ -43,9 +41,6 @@ export const AddButton = () => {
         showMode('date');
     };
 
-    const onTextChange = (newText) => {
-        setText(newText)
-    }
     const handleWeightSubmit= () => {
         setForm({
             weight: selectedWeight,
