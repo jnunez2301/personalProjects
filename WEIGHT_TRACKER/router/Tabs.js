@@ -1,9 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen, BMRScreen, HistoryScreen, ProfileScreen, } from '../screens';
-import { StatusBar } from 'react-native';
+import { StatusBar, Text } from 'react-native';
 import { useTheme } from '../context/ThemeProvider';
 
+import { userInfo } from '../helpers/UserInfo';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,6 +27,16 @@ export const Tabs = () => {
                 tabBarLabelStyle: {
                     color: themeTextColor
                 },
+                headerRight: () => {
+                    return (
+                    <>
+                    <Text style={{
+                        color: themeTextColor,
+                        marginRight: 16,
+                        fontWeight: 'bold'
+                    }}>{`${userInfo.alias}`}</Text>
+                    </>)
+                }
             }}>
                 <Tab.Screen name="Home" component={HomeScreen}/>
                 <Tab.Screen name="BMR" component={BMRScreen} />

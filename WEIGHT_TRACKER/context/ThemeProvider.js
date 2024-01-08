@@ -6,15 +6,17 @@ const ThemeContext = createContext();
 export const ThemeProvider = ({ children }) => {
   const colorScheme = useColorScheme();
   const lightModeBackgroundColor = '#f2f2f2';
-  const darkModeBackgroundColor = '#030712';
-  const backgroundDarkMode = '#111827';
+  const darkModeBackgroundColor = '#111827';
+  const backgroundDarkMode = '#030712';
 
   const themeColor = colorScheme === 'dark' ? darkModeBackgroundColor : lightModeBackgroundColor;
   
   const themeTextColor = colorScheme !== 'dark' ? darkModeBackgroundColor : lightModeBackgroundColor;
 
+  const themeBackgroundColor = colorScheme === 'dark' ? backgroundDarkMode : lightModeBackgroundColor;
+
   return (
-    <ThemeContext.Provider value={{ themeColor, themeTextColor, backgroundDarkMode }}>
+    <ThemeContext.Provider value={{ themeColor, themeTextColor, themeBackgroundColor }}>
       {children}
     </ThemeContext.Provider>
   );
