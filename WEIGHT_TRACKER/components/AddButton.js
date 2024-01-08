@@ -9,17 +9,17 @@ import { weightLossJourneyData } from '../helpers/Info';
 const generateWeights = () => {
     const weights = [];
     for (let i = 40; i <= 250; i++) {
-      weights.push({ label: i, value: i });
+        weights.push({ label: i, value: i });
     }
     return weights;
-  };
+};
 
 export const AddButton = () => {
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
     const [text, setText] = useState('');
     const [form, setForm] = useState({});
-    const [date, setDate] = useState(new Date(1598051730000));
+    const [date, setDate] = useState(new Date());
     const [city, setCity] = useState('');
     const [selectedWeight, setSelectedWeight] = useState(weightLossJourneyData[weightLossJourneyData.length - 1].weight);
 
@@ -36,7 +36,8 @@ export const AddButton = () => {
             onChange: onDateChange,
             mode: currentMode,
             is24Hour: true,
-        });
+            maximumDate: Date.now()
+            });
     };
     const showDatepicker = () => {
         showMode('date');
@@ -45,7 +46,7 @@ export const AddButton = () => {
     const onTextChange = (newText) => {
         setText(newText)
     }
-
+    // console.log(new Date(form.date).getDay());
 
     return (
         <View style={styles.container}>
@@ -57,42 +58,57 @@ export const AddButton = () => {
                     setModalVisible(!modalVisible);
                 }}>
                 <View style={styles.centeredView}>
-                    <View style={[styles.modalView, {backgroundColor: themeColor}]}>
+                    <View style={[styles.modalView, { backgroundColor: themeColor }]}>
                         <Pressable onPress={showDatepicker}
-                        style={[styles.dateSelector, {backgroundColor: themeBackgroundColor}]}>
+                            style={[styles.dateSelector, { backgroundColor: themeBackgroundColor }]}>
                             <Text style={{ color: themeTextColor }}>{`${date.getDay()}/${date.getMonth()}`}</Text>
                         </Pressable>
-                        <WheelPickerExpo
-                            height={200}
-                            width={200}
-                            backgroundColor={themeColor}
-                            initialSelectedIndex={initialSelectedIndex}
-                            items={generateWeights()}
-                            onChange={({ item }) => setSelectedWeight(item.label)}
-                        />
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}>
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                            <WheelPickerExpo
+                                height={200}
+                                width={40}
+                                backgroundColor={themeColor}
+                                initialSelectedIndex={initialSelectedIndex}
+                                items={generateWeights()}
+                                onChange={({ item }) => setSelectedWeight(item.label)}
+                            />
+                            <Text style={[{ color: themeTextColor }]}>KG</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', gap: 30 }}>
+                            <Pressable
+                                onPress={() => setModalVisible(!modalVisible)}>
+                                <Text style={styles.textStyle}>Cancel</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={() => {
+                                    setForm({
+                                        weight: selectedWeight,
+                                        date: date
+                                    })
+                                    setModalVisible(!modalVisible)
+                                }
+                                }>
                             <Text style={styles.textStyle}>Add</Text>
                         </Pressable>
-
                     </View>
+
                 </View>
-            </Modal>
-            <Pressable
-                onPress={() => setModalVisible(true)}
-                style={[
-                    styles.btnCircle
-                ]}>
-                <Text
-                    style={{
-                        color: '#f2f2f2',
-                        fontSize: 24,
-                        fontWeight: 'bold',
-                        textAlign: 'center'
-                    }}>+</Text>
-            </Pressable>
         </View>
+            </Modal >
+    <Pressable
+        onPress={() => setModalVisible(true)}
+        style={[
+            styles.btnCircle
+        ]}>
+        <Text
+            style={{
+                color: '#f2f2f2',
+                fontSize: 24,
+                fontWeight: 'bold',
+                textAlign: 'center'
+            }}>+</Text>
+    </Pressable>
+        </View >
     )
 }
 
@@ -165,9 +181,10 @@ const styles = StyleSheet.create({
     },
     dateSelector: {
         position: 'absolute',
-        bottom: 16,
-        left: 30,
+        bottom: 0,
+        left: 0,
         padding: 10,
-        borderRadius: 10
+        borderRadius: 10,
+        margin: 28
     }
 })
