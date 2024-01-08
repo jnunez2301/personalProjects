@@ -101,11 +101,12 @@ export const AddButton = () => {
     <Pressable
         onPress={() => setModalVisible(true)}
         style={[
-            styles.btnCircle
+            styles.btnCircle,
+            {backgroundColor: themeTextColor}
         ]}>
         <Text
             style={{
-                color: '#f2f2f2',
+                color: themeColor,
                 fontSize: 24,
                 fontWeight: 'bold',
                 textAlign: 'center'
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         height: 50,
         width: 50,
-        backgroundColor: 'plum',
+        // backgroundColor: 'plum',
         justifyContent: 'center',
         alignItems: 'center'
     },
