@@ -1,23 +1,51 @@
-import { View, Text, StyleSheet, Pressable, Modal, TextInput } from 'react-native'
+import { View, Text, StyleSheet, Pressable, Modal, TextInput, Button } from 'react-native'
 import { useTheme } from '../context/ThemeProvider'
-import { useState } from 'react';
-import DatePicker from 'react-native-date-picker'
+import { memo, useMemo, useState } from 'react';
+import { DateTimePicker, DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import WheelPickerExpo from 'react-native-wheel-picker-expo';
+import { weightLossJourneyData } from '../helpers/Info';
 
+
+const generateWeights = () => {
+    const weights = [];
+    for (let i = 40; i <= 250; i++) {
+      weights.push({ label: i, value: i });
+    }
+    return weights;
+  };
 
 export const AddButton = () => {
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
-
     const [modalVisible, setModalVisible] = useState(false);
     const [text, setText] = useState('');
     const [form, setForm] = useState({});
-    const [date, setDate] = useState(new Date())
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [city, setCity] = useState('');
+    const [selectedWeight, setSelectedWeight] = useState(weightLossJourneyData[weightLossJourneyData.length - 1].weight);
+
+    const initialSelectedIndex = generateWeights().findIndex(weight => weight.label === selectedWeight);
+
+
+    const onDateChange = (event, selectedDate) => {
+        const currentDate = selectedDate;
+        setDate(currentDate);
+    };
+    const showMode = (currentMode) => {
+        DateTimePickerAndroid.open({
+            value: date,
+            onChange: onDateChange,
+            mode: currentMode,
+            is24Hour: true,
+        });
+    };
+    const showDatepicker = () => {
+        showMode('date');
+    };
 
     const onTextChange = (newText) => {
         setText(newText)
     }
-    const onDateChange = (newDate) => {
-        setSelectedDate(newDate)
-    }
+
 
     return (
         <View style={styles.container}>
@@ -29,33 +57,23 @@ export const AddButton = () => {
                     setModalVisible(!modalVisible);
                 }}>
                 <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <TextInput
-                            style={styles.inputStyle}
-                            placeholder="Todays Weight"
-                            keyboardType='numeric'
-                            maxLength={2}
-                            onChangeText={newText => onTextChange(newText)}
-                            defaultValue={text}
-                            keyboardAppearance='default'
-
-                        />
-                        <DatePicker
-                            modal
-                            open={modalVisible}
-                            date={date}
-                            /* onConfirm={(date) => {
-                                setOpen(false)
-                                setDate(date)
-                            }}
-                            onCancel={() => {
-                                setOpen(false)
-                            }} */
+                    <View style={[styles.modalView, {backgroundColor: themeColor}]}>
+                        <Pressable onPress={showDatepicker}
+                        style={[styles.dateSelector, {backgroundColor: themeBackgroundColor}]}>
+                            <Text style={{ color: themeTextColor }}>{`${date.getDay()}/${date.getMonth()}`}</Text>
+                        </Pressable>
+                        <WheelPickerExpo
+                            height={200}
+                            width={200}
+                            backgroundColor={themeColor}
+                            initialSelectedIndex={initialSelectedIndex}
+                            items={generateWeights()}
+                            onChange={({ item }) => setSelectedWeight(item.label)}
                         />
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => setModalVisible(!modalVisible)}>
-                            <Text style={styles.textStyle}>Hide Modal</Text>
+                            <Text style={styles.textStyle}>Add</Text>
                         </Pressable>
 
                     </View>
@@ -113,7 +131,8 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         height: 300,
-        width: 300
+        width: 300,
+        position: 'relative'
     },
     button: {
         borderRadius: 20,
@@ -143,5 +162,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: 16,
         textAlign: 'center'
+    },
+    dateSelector: {
+        position: 'absolute',
+        bottom: 16,
+        left: 30,
+        padding: 10,
+        borderRadius: 10
     }
 })
