@@ -3,4 +3,5 @@ export const userInfo = {
     age: 25,
     user_height: 170,
     alias: 'Jonathan',
+    startWeight: 80,
 }

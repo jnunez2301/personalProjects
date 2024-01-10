@@ -1,5 +1,4 @@
 export const diet_phrases = [
-    "Eat the rainbow for a healthier you!",
     "Balance is the key to a successful diet.",
     "Fuel your body with nutritious foods.",
     "Portion control is crucial for weight management.",
@@ -19,5 +18,8 @@ export const diet_phrases = [
     "Limit added sugars and salt for better health.",
     "Preparation is key to sticking to a healthy diet.",
     "Celebrate small victories on your wellness journey.",
-    "Opt for whole grains for added fiber and nutrients."
+    "Opt for whole grains for added fiber and nutrients.",
+    "Going for a 45 will help you out to stay lean",
+    "Enough protein is crucial for gaining muscle",
+    "Don't force yourself into strict diets Balance is key"
   ]

@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { HomeScreen, BMRScreen, HistoryScreen, ProfileScreen, } from '../screens';
 import { StatusBar, Text } from 'react-native';
 import { useTheme } from '../context/ThemeProvider';
@@ -9,7 +10,7 @@ import { userInfo } from '../helpers/UserInfo';
 const Tab = createBottomTabNavigator();
 
 export const Tabs = () => {
-     const { themeColor, themeTextColor } = useTheme();
+     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
 
     return (
         <NavigationContainer>
@@ -36,12 +37,27 @@ export const Tabs = () => {
                         fontWeight: 'bold'
                     }}>{`${userInfo.alias}`}</Text>
                     </>)
-                }
+                },
+                tabBarActiveBackgroundColor: themeBackgroundColor
             }}>
-                <Tab.Screen name="Home" component={HomeScreen}/>
-                <Tab.Screen name="BMR" component={BMRScreen} />
-                <Tab.Screen name="History" component={HistoryScreen} />
-                <Tab.Screen name="Profile" component={ProfileScreen} />
+                <Tab.Screen name="Home" component={HomeScreen}
+                options={{
+                    tabBarIcon: () => <Ionicons name='home' color={themeTextColor} size={20}/>
+                }}/>
+                <Tab.Screen name="TDEE" component={BMRScreen} 
+                options={{
+                    tabBarIcon: () => <Text style={{fontWeight: 'bold', 
+                    color: themeTextColor}}>TDEE</Text>
+                }}/>
+                <Tab.Screen name="History" component={HistoryScreen} 
+                options={{
+                    tabBarIcon: () => <Ionicons name='document-text-sharp' color={themeTextColor} size={20}/>
+                }}/>
+                
+                <Tab.Screen name="Profile" component={ProfileScreen} 
+                options={{
+                    tabBarIcon: () => <Ionicons name='person-circle-outline' color={themeTextColor} size={20}/>
+                }}/>
             </Tab.Navigator>
         </NavigationContainer>
     )

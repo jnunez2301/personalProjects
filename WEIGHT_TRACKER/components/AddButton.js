@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Pressable, Modal, TextInput, Button } from 'react-native'
 import { useTheme } from '../context/ThemeProvider'
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import WheelPickerExpo from 'react-native-wheel-picker-expo';
 import { weightLossJourneyData } from '../helpers/Info';
@@ -15,6 +15,8 @@ const generateWeights = () => {
 };
 
 export const AddButton = () => {
+    const weights = useMemo(generateWeights, []);
+    
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
     const [form, setForm] = useState({});
@@ -47,9 +49,8 @@ export const AddButton = () => {
             date: date
         })
         setModalVisible(!modalVisible)
+        // weightLossJourneyData.push(form) This must be a post to the server or local server
     }
-    
-    // console.log(form);
     return (
         <View style={styles.container}>
             <Modal
@@ -71,12 +72,12 @@ export const AddButton = () => {
                                 width={40}
                                 backgroundColor={themeColor}
                                 initialSelectedIndex={initialSelectedIndex}
-                                items={generateWeights()}
+                                items={weights}
                                 onChange={({ item }) => setSelectedWeight(item.label)}
                             />
                             <Text style={[{ color: themeTextColor }]}>KG</Text>
                         </View>
-                        <View style={{ flexDirection: 'row', gap: 30 }}>
+                        <View style={{ flexDirection: 'row', gap: 45 }}>
                             <Pressable
                                 onPress={() => setModalVisible(!modalVisible)}>
                                 <Text style={[styles.textStyle, {color: themeTextColor}]}>Cancel</Text>

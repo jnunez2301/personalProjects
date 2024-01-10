@@ -2,6 +2,7 @@ import { View, Text, Dimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { useTheme } from '../context/ThemeProvider';
 import { weightLossJourneyData } from '../helpers/Info'
+import { useEffect } from 'react';
 
 export const ChartContainer = () => {
 

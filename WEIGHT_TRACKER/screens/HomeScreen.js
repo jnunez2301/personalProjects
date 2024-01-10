@@ -19,7 +19,7 @@ export const HomeScreen = () => {
       <View style={style.goalsBar}>
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Start</Text>
-          <Text style={[{ color: 'gray'}, style.text]}>180.0LB</Text>
+          <Text style={[{ color: 'gray'}, style.text]}>{userInfo.startWeight} kg</Text>
         </View>    
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Current</Text>
@@ -27,19 +27,19 @@ export const HomeScreen = () => {
         </View>
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Target</Text>
-          <Text style={[{ color: 'gray'}, style.text]}>177.0LB</Text>
+          <Text style={[{ color: 'gray'}, style.text]}>{ userInfo.weightTarget } kg</Text>
         </View>
       </View>
       <ChartContainer />
       <View style={style.btnUI}>
         <View>
           <Text style={[style.text, {color: themeTextColor}]}>Change</Text>
-          <Text style={[{color: 'gray'}, style.text]}>{changeWeight} Kg</Text>
+          <Text style={[{color: 'gray'}, style.text]}>{changeWeight} kg</Text>
         </View>
         <AddButton />
         <View>
           <Text style={[style.text, {color: themeTextColor}]}>Remaining</Text>
-          <Text style={[{color: 'gray'}, style.text]}>{weightLossJourneyData[weightLossJourneyData.length - 1].weight - userInfo.weightTarget} Kg</Text>
+          <Text style={[{color: 'gray'}, style.text]}>{weightLossJourneyData[weightLossJourneyData.length - 1].weight - userInfo.weightTarget} kg</Text>
         </View>
       </View>
       <RandomPhrase />
