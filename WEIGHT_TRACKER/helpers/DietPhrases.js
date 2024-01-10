@@ -1,0 +1,23 @@
+export const diet_phrases = [
+    "Eat the rainbow for a healthier you!",
+    "Balance is the key to a successful diet.",
+    "Fuel your body with nutritious foods.",
+    "Portion control is crucial for weight management.",
+    "Say no to processed foods, yes to whole foods!",
+    "Make water your go-to beverage for hydration.",
+    "Incorporate more fruits and vegetables into your meals.",
+    "Listen to your body's hunger and fullness cues.",
+    "Aim for progress, not perfection, in your diet.",
+    "Choose lean protein sources for muscle health.",
+    "Enjoy treats in moderation for a sustainable diet.",
+    "Experiment with new and healthy recipes.",
+    "Don't skip meals; prioritize regular and balanced eating.",
+    "Read food labels to make informed choices.",
+    "Practice mindful eating for a better relationship with food.",
+    "Stay active to complement your healthy eating habits.",
+    "Include a variety of nutrients in your daily meals.",
+    "Limit added sugars and salt for better health.",
+    "Preparation is key to sticking to a healthy diet.",
+    "Celebrate small victories on your wellness journey.",
+    "Opt for whole grains for added fiber and nutrients."
+  ]

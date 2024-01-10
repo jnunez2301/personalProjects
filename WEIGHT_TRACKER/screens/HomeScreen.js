@@ -3,12 +3,15 @@ import { useTheme } from '../context/ThemeProvider'
 import { ChartContainer } from '../components/ChartContainer';
 import { weightLossJourneyData } from '../helpers/Info';
 import { AddButton } from '../components/AddButton';
+import { userInfo } from '../helpers/UserInfo';
+import { RandomPhrase } from '../components/RandomPhrase';
 
 
 
 export const HomeScreen = () => {
   const { themeBackgroundColor, themeTextColor } = useTheme();
 
+  const changeWeight = weightLossJourneyData[0].weight - weightLossJourneyData[weightLossJourneyData.length -1 ].weight;
   
 
   return (
@@ -31,14 +34,15 @@ export const HomeScreen = () => {
       <View style={style.btnUI}>
         <View>
           <Text style={[style.text, {color: themeTextColor}]}>Change</Text>
-          <Text style={[{color: 'gray'}, style.text]}>3.0 Kg</Text>
+          <Text style={[{color: 'gray'}, style.text]}>{changeWeight} Kg</Text>
         </View>
         <AddButton />
         <View>
           <Text style={[style.text, {color: themeTextColor}]}>Remaining</Text>
-          <Text style={[{color: 'gray'}, style.text]}>5.0 Kg</Text>
+          <Text style={[{color: 'gray'}, style.text]}>{weightLossJourneyData[weightLossJourneyData.length - 1].weight - userInfo.weightTarget} Kg</Text>
         </View>
       </View>
+      <RandomPhrase />
       </SafeAreaView>
   )
 }
