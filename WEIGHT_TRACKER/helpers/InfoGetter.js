@@ -12,7 +12,7 @@ export const InfoGetter = () => {
 
       if (storedWeights) {
         setAllWeights(storedWeights);
-        setWeightLossJourneyData(storedWeights.slice(-7));
+        setWeightLossJourneyData(storedWeights);
       }
     } catch (e) {
       console.log(e);
@@ -23,5 +23,5 @@ export const InfoGetter = () => {
     getData();
   }, [setAllWeights]); 
 
-  return { allWeights, weightLossJourneyData };
+  return { allWeights, weightLossJourneyData, setAllWeights };
 };

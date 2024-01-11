@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, Pressable, Modal, TextInput, Button } from 'react-native'
 import { useTheme } from '../context/ThemeProvider'
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import WheelPickerExpo from 'react-native-wheel-picker-expo';
 import { weightLossJourneyData } from '../helpers/Info';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { InfoGetter } from '../helpers/InfoGetter';
 
 const generateWeights = () => {
     const weights = [];
@@ -16,7 +17,7 @@ const generateWeights = () => {
 
 export const AddButton = () => {
     const weights = useMemo(generateWeights, []);
-    
+    // const { weightLossJourneyData, setAllWeights } = InfoGetter
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
     const [form, setForm] = useState({});
@@ -43,20 +44,38 @@ export const AddButton = () => {
         showMode('date');
     };
 
-    const handleWeightSubmit= async() => {
+    const handleWeightSubmit = async () => {
         setForm({
             weight: selectedWeight,
-            date: date
-        })
-        setModalVisible(!modalVisible)
-        
-        try{
+            date: date,
+        });
+        setModalVisible(!modalVisible);
+        saveData();
+    };
+    
+    const getData = async () => {
+        try {
+          const jsonValue = await AsyncStorage.getItem('weight_journey');
+          console.log(jsonValue);
+        } catch (e) {
+          console.log(error);
+        }
+      };
+
+    const saveData = async () => {
+        try {
             const jsonValue = JSON.stringify(form);
-            await AsyncStorage.setItem('weightLossJourneyData', jsonValue)
-        }catch(e){
+            await AsyncStorage.setItem('weight_journey', jsonValue);
+        } catch (e) {
             console.log(e);
         }
-    }
+    };
+    
+    useEffect(() => {
+        saveData();
+        getData(); // Call the function to save data to AsyncStorage
+    }, [form]);
+
     return (
         <View style={styles.container}>
             <Modal

@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import { useTheme } from '../context/ThemeProvider'
 import { ChartContainer } from '../components/ChartContainer';
 import { AddButton } from '../components/AddButton';
-import { weightLossJourneyData } from '../helpers/Info';
+// import { weightLossJourneyData } from '../helpers/Info';
 //import { userInfo } from '../helpers/UserInfo';
 import { RandomPhrase } from '../components/RandomPhrase';
 import { InfoGetter } from '../helpers/InfoGetter';
@@ -14,10 +14,9 @@ export const HomeScreen = ({ route }) => {
   const { userInfo }  = params;
   
   const { themeBackgroundColor, themeTextColor } = useTheme();
-  /* const { weightLossJourneyData, allWeights } = InfoGetter(); */
-  const changeWeight = weightLossJourneyData.length > 0 ?
-  weightLossJourneyData[0].weight - weightLossJourneyData[weightLossJourneyData.length -1 ].weight : 0; 
-  
+  const { weightLossJourneyData, allWeights } = InfoGetter();
+  console.log(allWeights);
+    
 
   return (
     <SafeAreaView style={[style.container, { backgroundColor: themeBackgroundColor }]}>
@@ -43,12 +42,18 @@ export const HomeScreen = ({ route }) => {
       <View style={style.btnUI}>
         <View>
           <Text style={[style.text, {color: themeTextColor}]}>Change</Text>
-          <Text style={[{color: 'gray'}, style.text]}>{changeWeight} kg</Text>
+          <Text style={[{color: 'gray'}, style.text]}>
+          {
+          weightLossJourneyData.length > 0 ?
+          weightLossJourneyData[0].weight - weightLossJourneyData[weightLossJourneyData.length -1 ].weight : 'N/A'
+          } kg</Text>
         </View>
         <AddButton />
         <View>
           <Text style={[style.text, {color: themeTextColor}]}>Remaining</Text>
-          <Text style={[{color: 'gray'}, style.text]}>{weightLossJourneyData[weightLossJourneyData.length - 1].weight - userInfo.weightTarget} kg</Text>
+          <Text style={[{color: 'gray'}, style.text]}>{
+            weightLossJourneyData.length > 0 ? weightLossJourneyData[weightLossJourneyData.length - 1].weight - userInfo.weightTarget : 'N/A'
+          } kg</Text>
         </View>
       </View>
       <RandomPhrase />
