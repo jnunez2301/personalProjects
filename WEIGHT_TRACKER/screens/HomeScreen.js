@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import { useTheme } from '../context/ThemeProvider'
 import { ChartContainer } from '../components/ChartContainer';
-import { weightLossJourneyData } from '../helpers/Info';
 import { AddButton } from '../components/AddButton';
-// import { userInfo } from '../helpers/UserInfo';
+import { weightLossJourneyData } from '../helpers/Info';
+//import { userInfo } from '../helpers/UserInfo';
 import { RandomPhrase } from '../components/RandomPhrase';
+import { InfoGetter } from '../helpers/InfoGetter';
 
 
 
@@ -13,7 +14,9 @@ export const HomeScreen = ({ route }) => {
   const { userInfo }  = params;
   
   const { themeBackgroundColor, themeTextColor } = useTheme();
-  const changeWeight = weightLossJourneyData[0].weight - weightLossJourneyData[weightLossJourneyData.length -1 ].weight;
+  /* const { weightLossJourneyData, allWeights } = InfoGetter(); */
+  const changeWeight = weightLossJourneyData.length > 0 ?
+  weightLossJourneyData[0].weight - weightLossJourneyData[weightLossJourneyData.length -1 ].weight : 0; 
   
 
   return (
@@ -25,7 +28,11 @@ export const HomeScreen = ({ route }) => {
         </View>    
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Current</Text>
-          <Text style={[{ color: 'blue'}, style.text]}>{weightLossJourneyData && weightLossJourneyData[weightLossJourneyData.length -1].weight} kg</Text>
+          <Text style={[{ color: 'blue'}, style.text]}>
+          {
+            weightLossJourneyData.length > 0 ?
+            weightLossJourneyData && weightLossJourneyData[weightLossJourneyData.length -1].weight : 'N/A'
+          } kg</Text>
         </View>
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Target</Text>

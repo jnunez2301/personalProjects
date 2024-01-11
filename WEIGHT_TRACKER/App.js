@@ -17,6 +17,8 @@ export default function App() {
       console.log(error);
     }
   };
+
+
   useLayoutEffect(()=> {
     getData();
   }, [setUserData])

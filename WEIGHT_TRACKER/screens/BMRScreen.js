@@ -3,11 +3,13 @@ import { useTheme } from '../context/ThemeProvider'
 import { useLayoutEffect, useState } from 'react';
 import { userInfo } from '../helpers/UserInfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { InfoGetter } from '../helpers/InfoGetter';
 
 export const BMRScreen = () => {
   const { themeBackgroundColor,themeTextColor } = useTheme();
   const [weightData, setWeightData] = useState([]);
-
+  const { allWeights, weightLossJourneyData } = InfoGetter();
+  
   /* const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value);
