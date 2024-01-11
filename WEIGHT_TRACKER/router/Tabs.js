@@ -5,13 +5,12 @@ import { HomeScreen, BMRScreen, HistoryScreen, ProfileScreen, } from '../screens
 import { StatusBar, Text } from 'react-native';
 import { useTheme } from '../context/ThemeProvider';
 
-import { userInfo } from '../helpers/UserInfo';
-
 const Tab = createBottomTabNavigator();
 
-export const Tabs = () => {
+export const Tabs = ({ userInfo }) => {
+    
      const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
-
+    
     return (
         <NavigationContainer>
             <StatusBar barStyle={'default'}/>
@@ -28,6 +27,7 @@ export const Tabs = () => {
                 tabBarLabelStyle: {
                     color: themeTextColor
                 },
+                
                 headerRight: () => {
                     return (
                     <>
@@ -38,16 +38,17 @@ export const Tabs = () => {
                     }}>{`${userInfo.alias}`}</Text>
                     </>)
                 },
+                
                 tabBarActiveBackgroundColor: themeBackgroundColor
             }}>
                 <Tab.Screen name="Home" component={HomeScreen}
                 options={{
                     tabBarIcon: () => <Ionicons name='home' color={themeTextColor} size={20}/>
                 }}/>
-                <Tab.Screen name="TDEE" component={BMRScreen} 
+                <Tab.Screen name="BMI" component={BMRScreen} 
                 options={{
                     tabBarIcon: () => <Text style={{fontWeight: 'bold', 
-                    color: themeTextColor}}>TDEE</Text>
+                    color: themeTextColor}}>BMI</Text>
                 }}/>
                 <Tab.Screen name="History" component={HistoryScreen} 
                 options={{

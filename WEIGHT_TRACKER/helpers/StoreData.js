@@ -1,21 +1,27 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+const [weightData, setWeightData] = useState([]);
 
 const storeData = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('my-key', jsonValue);
-    } catch (e) {
-      // saving error
-      console.log(e);
-    }
-  };
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem('user_info', jsonValue);
+    console.log(jsonValue);
+  } catch (e) {
+    // saving error
+    console.log(e);
+  }
+};
 
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('my-key');
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      // error reading value
-      console.log(error);
-    }
-  };
+const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('user_info');
+    setWeightData(JSON.parse(jsonValue))
+  } catch (e) {
+    console.log(error);
+  }
+};
+
+useLayoutEffect(() => {
+  storeData(userInfo);
+  getData();
+}, [])
+console.log(weightData);

@@ -1,29 +1,40 @@
 import { View, Text, StyleSheet } from 'react-native'
 import { useTheme } from '../context/ThemeProvider'
-
-
-
-function calculateBMR(weight, height, age, gender) {
-  if (gender.toLowerCase() === 'male') {
-      return 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
-  } else if (gender.toLowerCase() === 'female') {
-      return 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
-  } else {
-      console.error('Invalid gender input. Please use "male" or "female".');
-      return null;
-  }
-}
-
-/* // Example usage
-let bmr = calculateBMR(70, 175, 25, 'male');
-console.log('BMR:', bmr); */
-
+import { useLayoutEffect, useState } from 'react';
+import { userInfo } from '../helpers/UserInfo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const BMRScreen = () => {
   const { themeBackgroundColor,themeTextColor } = useTheme();
+  const [weightData, setWeightData] = useState([]);
+
+  /* const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('my-key', jsonValue);
+      console.log(jsonValue);
+    } catch (e) {
+      // saving error
+      console.log(e);
+    }
+  }; */
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('user_info');
+      setWeightData(JSON.parse(jsonValue))
+    } catch (e) {
+      console.log(error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    /* storeData(userInfo); */
+    getData();
+  }, [])
   return (
     <View style={[style.container,{ backgroundColor: themeBackgroundColor, }]}>
-        <Text>BMR</Text>
+        <Text style={{color: themeTextColor}}>{JSON.stringify(weightData)}</Text>
     </View>
   )
 }

@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "startCache": "expo start -c"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "7.2.0",

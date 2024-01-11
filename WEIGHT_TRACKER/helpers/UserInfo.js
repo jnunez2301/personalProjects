@@ -5,3 +5,4 @@ export const userInfo = {
     alias: 'Jonathan',
     startWeight: 80,
 }
+

@@ -16,7 +16,7 @@ export const ThemeProvider = ({ children }) => {
   const themeBackgroundColor = colorScheme === 'dark' ? backgroundDarkMode : 'white';
 
   return (
-    <ThemeContext.Provider value={{ themeColor, themeTextColor, themeBackgroundColor }}>
+    <ThemeContext.Provider value={{ themeColor, themeTextColor, themeBackgroundColor, colorScheme }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -10,7 +10,6 @@ import { RandomPhrase } from '../components/RandomPhrase';
 
 export const HomeScreen = () => {
   const { themeBackgroundColor, themeTextColor } = useTheme();
-
   const changeWeight = weightLossJourneyData[0].weight - weightLossJourneyData[weightLossJourneyData.length -1 ].weight;
   
 
