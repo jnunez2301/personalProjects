@@ -3,12 +3,13 @@ import { useTheme } from '../context/ThemeProvider'
 import { ChartContainer } from '../components/ChartContainer';
 import { weightLossJourneyData } from '../helpers/Info';
 import { AddButton } from '../components/AddButton';
-import { userInfo } from '../helpers/UserInfo';
 import { RandomPhrase } from '../components/RandomPhrase';
 
 
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ route }) => {
+  const { params } = route;
+
   const { themeBackgroundColor, themeTextColor } = useTheme();
   const changeWeight = weightLossJourneyData[0].weight - weightLossJourneyData[weightLossJourneyData.length -1 ].weight;
   
@@ -18,7 +19,7 @@ export const HomeScreen = () => {
       <View style={style.goalsBar}>
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Start</Text>
-          <Text style={[{ color: 'gray'}, style.text]}>{userInfo.startWeight} kg</Text>
+          <Text style={[{ color: 'gray'}, style.text]}>{params.startWeight} kg</Text>
         </View>    
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Current</Text>
@@ -26,7 +27,7 @@ export const HomeScreen = () => {
         </View>
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Target</Text>
-          <Text style={[{ color: 'gray'}, style.text]}>{ userInfo.weightTarget } kg</Text>
+          <Text style={[{ color: 'gray'}, style.text]}>{ params.weightTarget } kg</Text>
         </View>
       </View>
       <ChartContainer />
@@ -38,7 +39,7 @@ export const HomeScreen = () => {
         <AddButton />
         <View>
           <Text style={[style.text, {color: themeTextColor}]}>Remaining</Text>
-          <Text style={[{color: 'gray'}, style.text]}>{weightLossJourneyData[weightLossJourneyData.length - 1].weight - userInfo.weightTarget} kg</Text>
+          <Text style={[{color: 'gray'}, style.text]}>{weightLossJourneyData[weightLossJourneyData.length - 1].weight - params.weightTarget} kg</Text>
         </View>
       </View>
       <RandomPhrase />

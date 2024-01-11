@@ -38,10 +38,10 @@ export const Tabs = ({ userInfo }) => {
                     }}>{`${userInfo.alias}`}</Text>
                     </>)
                 },
-                
                 tabBarActiveBackgroundColor: themeBackgroundColor
             }}>
                 <Tab.Screen name="Home" component={HomeScreen}
+                initialParams={{userInfo}}
                 options={{
                     tabBarIcon: () => <Ionicons name='home' color={themeTextColor} size={20}/>
                 }}/>
