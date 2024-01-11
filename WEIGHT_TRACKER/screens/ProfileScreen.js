@@ -7,14 +7,13 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 export const ProfileScreen = () => {
   const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
   
-  
-
   return (
     <View style={[style.container, { backgroundColor: themeBackgroundColor }]}>
       <View style={[style.inputCardContainer]}>
         <Text style={{color: themeTextColor, fontSize: 24, marginBottom: 10, fontWeight: 'bold'}}>Settings</Text>
         <View style={style.inputCard}>
           <TextInput 
+
           keyboardType='numeric'
           placeholder='Age'
           textAlign='center'

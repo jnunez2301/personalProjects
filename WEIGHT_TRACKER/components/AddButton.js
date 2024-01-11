@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import WheelPickerExpo from 'react-native-wheel-picker-expo';
 import { weightLossJourneyData } from '../helpers/Info';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const generateWeights = () => {
     const weights = [];
@@ -43,13 +43,19 @@ export const AddButton = () => {
         showMode('date');
     };
 
-    const handleWeightSubmit= () => {
+    const handleWeightSubmit= async() => {
         setForm({
             weight: selectedWeight,
             date: date
         })
         setModalVisible(!modalVisible)
-        // weightLossJourneyData.push(form) This must be a post to the server or local server
+        
+        try{
+            const jsonValue = JSON.stringify(form);
+            await AsyncStorage.setItem('weightLossJourneyData', jsonValue)
+        }catch(e){
+            console.log(e);
+        }
     }
     return (
         <View style={styles.container}>

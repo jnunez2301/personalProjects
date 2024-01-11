@@ -23,8 +23,7 @@ export const BMRScreen = () => {
   const { themeBackgroundColor,themeTextColor } = useTheme();
   return (
     <View style={[style.container,{ backgroundColor: themeBackgroundColor, }]}>
-        <Text style={[{color: themeTextColor}, style.article]}>Basal Metabolic Rate (BMR) is the calories your body needs at rest. Crucial in sports and diets, it's the foundation for weight management. Knowing your BMR helps tailor personalized plans, considering factors like age, gender, and muscle mass. Regular monitoring allows adjustments for sustained progress. BMR underscores the significance of balanced nutrition and highlights the impact of physical activity on metabolism. In essence, it's a key metric for anyone new to sports and diets.
-        </Text>
+        <Text>BMR</Text>
     </View>
   )
 }
