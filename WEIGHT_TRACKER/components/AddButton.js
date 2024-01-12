@@ -17,16 +17,21 @@ const generateWeights = () => {
 
 export const AddButton = () => {
     const weights = useMemo(generateWeights, []);
-    // const { weightLossJourneyData, setAllWeights } = InfoGetter
+    const { weightLossJourneyData, setAllWeights, allWeights, getData } = InfoGetter();
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
     const [form, setForm] = useState({});
     const [date, setDate] = useState(new Date());
-    const [selectedWeight, setSelectedWeight] = useState(weightLossJourneyData[weightLossJourneyData.length - 1].weight);
-
+    const [selectedWeight, setSelectedWeight] = useState((prevState) => {
+        /* if(allWeights.length > 1){
+            return weightLossJourneyData[weightLossJourneyData.length - 1].weight;
+        }else{
+            return weightLossJourneyData[0].weight;
+        } */
+    });
+    
     const initialSelectedIndex = generateWeights().findIndex(weight => weight.label === selectedWeight);
-
-
+    
     const onDateChange = (event, selectedDate) => {
         const currentDate = selectedDate;
         setDate(currentDate);
@@ -53,27 +58,23 @@ export const AddButton = () => {
         saveData();
     };
     
-    const getData = async () => {
-        try {
-          const jsonValue = await AsyncStorage.getItem('weight_journey');
-          console.log(jsonValue);
-        } catch (e) {
-          console.log(error);
-        }
-      };
-
     const saveData = async () => {
         try {
             const jsonValue = JSON.stringify(form);
+            const jsonWeights = JSON.stringify(allWeights);
+            
             await AsyncStorage.setItem('weight_journey', jsonValue);
+            
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     };
+
     
+
     useEffect(() => {
         saveData();
-        getData(); // Call the function to save data to AsyncStorage
+        
     }, [form]);
 
     return (
@@ -89,14 +90,14 @@ export const AddButton = () => {
                     <View style={[styles.modalView, { backgroundColor: themeColor }]}>
                         <Pressable onPress={showDatepicker}
                             style={[styles.dateSelector, { backgroundColor: themeColor }]}>
-                            <Text style={{ color: themeTextColor }}>{`${new Date(date).getDay()}/${new Date(date).getMonth()}`}</Text>
+                            <Text style={{ color: themeTextColor }}>{`${new Date(date).getDate()}/${new Date(date).getMonth()}`}</Text>
                         </Pressable>
                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                             <WheelPickerExpo
                                 height={200}
                                 width={40}
                                 backgroundColor={themeColor}
-                                initialSelectedIndex={initialSelectedIndex}
+                                // initialSelectedIndex={initialSelectedIndex}
                                 items={weights}
                                 onChange={({ item }) => setSelectedWeight(item.label)}
                             />

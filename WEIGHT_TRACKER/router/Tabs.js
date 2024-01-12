@@ -10,6 +10,7 @@ const Tab = createBottomTabNavigator();
 export const Tabs = ({ userInfo }) => {
     
      const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
+
     
     return (
         <NavigationContainer>

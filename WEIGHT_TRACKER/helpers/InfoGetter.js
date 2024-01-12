@@ -9,10 +9,17 @@ export const InfoGetter = () => {
     try {
       const jsonValue = await AsyncStorage.getItem('weight_journey');
       const storedWeights = JSON.parse(jsonValue);
-
-      if (storedWeights) {
+      
+      if(!!storedWeights) {
         setAllWeights(storedWeights);
-        setWeightLossJourneyData(storedWeights);
+        setWeightLossJourneyData(() => {
+          if([storedWeights].length > 7){
+            return allWeights.slice(allWeights.length - 7);
+          }
+          else{
+            return allWeights;
+          }
+        });
       }
     } catch (e) {
       console.log(e);
@@ -23,5 +30,5 @@ export const InfoGetter = () => {
     getData();
   }, [setAllWeights]); 
 
-  return { allWeights, weightLossJourneyData, setAllWeights };
+  return { allWeights, weightLossJourneyData, setAllWeights, getData };
 };

@@ -24,6 +24,7 @@ export default function App() {
   }, [setUserData])
 
   
+  
   return (
     <ThemeProvider>
       <SafeAreaView style={styles.container}>

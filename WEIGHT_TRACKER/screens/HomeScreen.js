@@ -15,7 +15,6 @@ export const HomeScreen = ({ route }) => {
   
   const { themeBackgroundColor, themeTextColor } = useTheme();
   const { weightLossJourneyData, allWeights } = InfoGetter();
-  console.log(allWeights);
     
 
   return (
