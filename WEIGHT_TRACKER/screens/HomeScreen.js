@@ -16,7 +16,6 @@ export const HomeScreen = ({ route }) => {
   const { themeBackgroundColor, themeTextColor } = useTheme();
   const { weightLossJourneyData, allWeights } = InfoGetter();
     
-
   return (
     <SafeAreaView style={[style.container, { backgroundColor: themeBackgroundColor }]}>
       <View style={style.goalsBar}>

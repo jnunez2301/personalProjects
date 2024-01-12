@@ -8,8 +8,7 @@ export const InfoGetter = () => {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('weight_journey');
-      const storedWeights = JSON.parse(jsonValue);
-      
+      const storedWeights = JSON.parse(jsonValue);      
       if(!!storedWeights) {
         setAllWeights(storedWeights);
         setWeightLossJourneyData(() => {

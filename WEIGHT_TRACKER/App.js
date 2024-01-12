@@ -14,7 +14,7 @@ export default function App() {
       const jsonValue = await AsyncStorage.getItem('user_info');
       setUserData(JSON.parse(jsonValue))
     } catch (e) {
-      console.log(error);
+      console.error(error);
     }
   };
 
