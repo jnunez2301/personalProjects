@@ -22,15 +22,9 @@ export const AddButton = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [form, setForm] = useState({});
     const [date, setDate] = useState(new Date());
-    const [selectedWeight, setSelectedWeight] = useState((prevState) => {
-        /* if(allWeights.length > 1){
-            return weightLossJourneyData[weightLossJourneyData.length - 1].weight;
-        }else{
-            return weightLossJourneyData[0].weight;
-        } */
-    });
+    const [selectedWeight, setSelectedWeight] = useState(0);
     
-    const initialSelectedIndex = generateWeights().findIndex(weight => weight.label === selectedWeight);
+    /* const initialSelectedIndex = generateWeights().findIndex(weight => weight.label === selectedWeight); */
     
     const onDateChange = (event, selectedDate) => {
         const currentDate = selectedDate;
@@ -61,22 +55,20 @@ export const AddButton = () => {
     const saveData = async () => {
         try {
             const jsonValue = JSON.stringify(form);
-            const jsonWeights = JSON.stringify(allWeights);
-            
             await AsyncStorage.setItem('weight_journey', jsonValue);
-            
+            setAllWeights(JSON.parse(jsonValue))
         } catch (e) {
             console.error(e);
         }
     };
 
     
-
+    console.log(allWeights);
     useEffect(() => {
         saveData();
         
     }, [form]);
-
+    
     return (
         <View style={styles.container}>
             <Modal
@@ -90,7 +82,7 @@ export const AddButton = () => {
                     <View style={[styles.modalView, { backgroundColor: themeColor }]}>
                         <Pressable onPress={showDatepicker}
                             style={[styles.dateSelector, { backgroundColor: themeColor }]}>
-                            <Text style={{ color: themeTextColor }}>{`${new Date(date).getDate()}/${new Date(date).getMonth()}`}</Text>
+                            <Text style={{ color: themeTextColor }}>{`${new Date(date).getDate()}/${new Date(date).getMonth() + 1}`}</Text>
                         </Pressable>
                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                             <WheelPickerExpo
