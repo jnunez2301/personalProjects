@@ -54,20 +54,32 @@ export const AddButton = () => {
     
     const saveData = async () => {
         try {
-            const jsonValue = JSON.stringify(form);
+            const currentWeights = await AsyncStorage.getItem('weight_journey');
+            let existingWeights = currentWeights ? JSON.parse(currentWeights) : [];
+    
+            // Ensure existingWeights is an array
+            if (!Array.isArray(existingWeights)) {
+                existingWeights = [];
+            }
+    
+            const updatedWeights = [...existingWeights, form];
+            const jsonValue = JSON.stringify(updatedWeights);
+    
             await AsyncStorage.setItem('weight_journey', jsonValue);
-            setAllWeights(JSON.parse(jsonValue))
+            setAllWeights(updatedWeights);
         } catch (e) {
             console.error(e);
         }
     };
+    
+    
 
     
     console.log(allWeights);
     useEffect(() => {
         saveData();
         
-    }, [form]);
+    }, [setForm]);
     
     return (
         <View style={styles.container}>
