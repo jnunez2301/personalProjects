@@ -46,7 +46,7 @@ export const HomeScreen = ({ route }) => {
           weightLossJourneyData[0].weight - weightLossJourneyData[weightLossJourneyData.length -1 ].weight : 'N/A'
           } kg</Text>
         </View>
-        <AddButton />
+        <AddButton userData={userInfo}/>
         <View>
           <Text style={[style.text, {color: themeTextColor}]}>Remaining</Text>
           <Text style={[{color: 'gray'}, style.text]}>{

@@ -18,7 +18,7 @@ export const NoInfo = ({ setUserData }) => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem('user_info', jsonValue);
-      setUserData(jsonValue)
+      setUserData(JSON.parse(jsonValue))
     } catch (e) {
       // saving error
       console.log(e);
