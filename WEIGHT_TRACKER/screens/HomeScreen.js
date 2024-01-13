@@ -14,14 +14,15 @@ export const HomeScreen = ({ route }) => {
   const {params} = route;
   const { userInfo }  = params;
   const { themeBackgroundColor, themeTextColor } = useTheme();
-  const { weightLossJourneyData, allWeights } = InfoGetter();
+  const { weightLossJourneyData, allWeights, getData } = InfoGetter();
   const [refreshing, setRefreshing] = useState(false)
   
   
-  const onRefresh = () => {
-    setRefreshing(true);
+  const onRefresh= () => {
+    setRefreshing(true)
     setTimeout(() => {
-      setRefreshing(false);
+      getData();
+      setRefreshing(false)
     }, 1000)
   }
 
@@ -50,7 +51,7 @@ export const HomeScreen = ({ route }) => {
           <Text style={[{ color: 'gray'}, style.text]}>{ userInfo.weightTarget } kg</Text>
         </View>
       </View>
-      <ChartContainer />
+      <ChartContainer allWeights={allWeights}/>
       <View style={style.btnUI}>
         <View>
           <Text style={[style.text, {color: themeTextColor}]}>Change</Text>

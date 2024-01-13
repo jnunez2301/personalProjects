@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 export const ChartContainer = () => {
 
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
-    const { allWeights } = InfoGetter();
+    const { allWeights, getData, setAllWeights } = InfoGetter();
     
     
     

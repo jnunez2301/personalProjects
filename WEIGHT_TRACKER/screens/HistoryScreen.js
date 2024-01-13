@@ -16,7 +16,7 @@ export const HistoryScreen = () => {
     setTimeout(() => {
       getData();
       setRefreshing(false)
-    }, 2000)
+    }, 1000)
   }
   return (
     <View style={[style.container, { backgroundColor: themeBackgroundColor }]}>
