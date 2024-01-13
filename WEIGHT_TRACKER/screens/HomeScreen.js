@@ -14,20 +14,23 @@ export const HomeScreen = ({ route }) => {
   const {params} = route;
   const { userInfo }  = params;
   const { themeBackgroundColor, themeTextColor } = useTheme();
-  const { weightLossJourneyData, allWeights, getData } = InfoGetter();
+  const { weightLossJourneyData, allWeights } = InfoGetter();
   const [refreshing, setRefreshing] = useState(false)
+  
   
   const onRefresh = () => {
     setRefreshing(true);
-    getData();
     setTimeout(() => {
       setRefreshing(false);
     }, 1000)
   }
 
+  
   return (
     <ScrollView
-    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
+    refreshControl={<RefreshControl 
+      
+      refreshing={refreshing} onRefresh={onRefresh}/>}
      style={[style.container, { backgroundColor: themeBackgroundColor }]}
     >
       <View
@@ -39,10 +42,8 @@ export const HomeScreen = ({ route }) => {
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Current</Text>
           <Text style={[{ color: 'blue'}, style.text]}>
-          {
-            weightLossJourneyData.length > 0 ?
-            weightLossJourneyData && weightLossJourneyData[weightLossJourneyData.length -1].weight : 'N/A'
-          } kg</Text>
+          
+          {allWeights.length > 0 && allWeights[allWeights.length - 1].weight} kg</Text>
         </View>
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Target</Text>
@@ -55,8 +56,8 @@ export const HomeScreen = ({ route }) => {
           <Text style={[style.text, {color: themeTextColor}]}>Change</Text>
           <Text style={[{color: 'gray'}, style.text]}>
           {
-          weightLossJourneyData.length > 0 ?
-          weightLossJourneyData[0].weight - weightLossJourneyData[weightLossJourneyData.length -1 ].weight : 'N/A'
+          allWeights.length > 0 ?
+          allWeights[0].weight - allWeights[allWeights.length -1 ].weight : 'N/A'
           } kg</Text>
         </View>
         <AddButton userData={userInfo}/>

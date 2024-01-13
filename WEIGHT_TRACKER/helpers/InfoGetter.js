@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const InfoGetter = () => {
-  const [allWeights, setAllWeights] = useState([]);
+  const [allWeights, setAllWeights] = useState([{weight: 0, date: new Date()}]);
   const [weightLossJourneyData, setWeightLossJourneyData] = useState([]);
   const [userData, setUserData] = useState([]);
 
 
   const getData = async () => {
-    console.log('data retrieved');
     try {
       const jsonValue = await AsyncStorage.getItem('weight_journey');
       if (jsonValue) {

@@ -54,8 +54,9 @@ export const AddButton = ({ userData }) => {
     const saveData = async () => {
         if (form === null) return;
         try {
-          const updatedWeights = [...allWeights, form];
-          const jsonValue = JSON.stringify(updatedWeights);
+            const updatedWeights = [...allWeights, form];
+            const jsonValue = JSON.stringify(updatedWeights);
+            
     
           await AsyncStorage.setItem('weight_journey', jsonValue);
     
