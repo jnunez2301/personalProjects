@@ -15,8 +15,9 @@ export const AddButton = ({ userData }) => {
     const [date, setDate] = useState(new Date());
     const [selectedWeight, setSelectedWeight] = useState(parseInt(userData.startWeight));
     const [weights, setWeights] = useState([{label: 0, value: 0}]);
-
-    // const initialSelectedIndex = newWeights.findIndex(weight => weight.label === selectedWeight);
+    
+    
+    
     useEffect(() => {
         const newWeights = Array.from({ length: 251 }, (_, i) => ({ label: i, value: i }));
         setWeights((prevWeights) => prevWeights.concat(newWeights));
@@ -47,19 +48,17 @@ export const AddButton = ({ userData }) => {
             const updatedWeights = [...allWeights, {date: date, selectedWeight: selectedWeight}];
             const jsonValue = JSON.stringify(updatedWeights);
             await AsyncStorage.setItem('weight_journey', jsonValue);
-          
             setModalVisible(!modalVisible);
             setAllWeights(updatedWeights);
         } catch (e) {
           console.error(e);
         }
       };
-          
-      
-    useEffect(()=>{
+          /* 
+      useEffect(() => {
         getData();
-    },[setAllWeights])
-    
+        setAllWeights(allWeights)
+      }, [setAllWeights]) */
     
    
     

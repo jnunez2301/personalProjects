@@ -1,20 +1,20 @@
-import { View, Text, Dimensions } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { useTheme } from '../context/ThemeProvider';
-// import { weightLossJourneyData as oldData } from '../helpers/Info'
-
-import { InfoGetter } from '../helpers/InfoGetter';
 import { useEffect } from 'react';
 
 export const ChartContainer = ({ newInfo }) => {
     
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
-    
+
+    // Sort the newInfo array by date
+    newInfo.sort((a, b) => new Date(a.date) - new Date(b.date));
+
     return (
         <View>
             <LineChart
                 data={{
-                    labels: newInfo.map(weight => `${new Date(weight.date).getDay()}/${new Date(weight.date).getMonth() + 1}`),
+                    labels: newInfo.slice(-7).map(weight => `${new Date(weight.date).getDate()}/${new Date(weight.date).getMonth() + 1}`),
                     datasets: [{
                         data: newInfo.slice(-7).map(weight => weight.selectedWeight)
                     }],
@@ -52,5 +52,5 @@ export const ChartContainer = ({ newInfo }) => {
                 }}
             />
         </View>
-    )
-}
+    );
+};

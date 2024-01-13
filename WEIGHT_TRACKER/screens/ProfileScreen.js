@@ -7,6 +7,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 export const ProfileScreen = () => {
   const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
   
+  
   return (
     <View style={[style.container, { backgroundColor: themeBackgroundColor }]}>
       <View style={[style.inputCardContainer]}>

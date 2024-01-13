@@ -20,7 +20,7 @@ export const Tabs = ({ userInfo }) => {
                     backgroundColor: themeColor,
                 },
                 tabBarStyle: {
-                    backgroundColor: themeColor,
+                    backgroundColor: themeColor
                 },
                 headerTitleStyle: {
                     color: themeTextColor
@@ -39,6 +39,7 @@ export const Tabs = ({ userInfo }) => {
                     }}>{`${userInfo.alias}`}</Text>
                     </>)
                 },
+                
                 tabBarActiveBackgroundColor: themeBackgroundColor
             }}>
                 <Tab.Screen name="Home" component={HomeScreen}
@@ -56,10 +57,10 @@ export const Tabs = ({ userInfo }) => {
                     tabBarIcon: () => <Ionicons name='document-text-sharp' color={themeTextColor} size={20}/>
                 }}/>
                 
-                <Tab.Screen name="Profile" component={ProfileScreen} 
+                {/* <Tab.Screen name="Profile" component={ProfileScreen} 
                 options={{
                     tabBarIcon: () => <Ionicons name='person-circle-outline' color={themeTextColor} size={20}/>
-                }}/>
+                }}/> */}
             </Tab.Navigator>
         </NavigationContainer>
     )

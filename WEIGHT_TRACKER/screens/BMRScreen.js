@@ -9,17 +9,6 @@ export const BMRScreen = () => {
   const { themeBackgroundColor,themeTextColor } = useTheme();
   const [weightData, setWeightData] = useState([]);
   const { allWeights, weightLossJourneyData } = InfoGetter();
-  
-  /* const storeData = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('my-key', jsonValue);
-      console.log(jsonValue);
-    } catch (e) {
-      // saving error
-      console.log(e);
-    }
-  }; */
 
   const getData = async () => {
     try {
@@ -31,7 +20,7 @@ export const BMRScreen = () => {
   };
 
   useLayoutEffect(() => {
-    /* storeData(userInfo); */
+   
     getData();
   }, [])
   return (
