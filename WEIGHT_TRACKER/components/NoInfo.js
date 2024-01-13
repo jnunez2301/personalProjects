@@ -60,6 +60,7 @@ export const NoInfo = ({ setUserData }) => {
         placeholderTextColor={colorScheme === 'dark' ? 'gray' : 'gray'}
         placeholder='Your start height in cm'
         style={[styles.inputContainer, {borderColor: `${colorScheme === 'dark' ? 'gray' : 'gray'}`}, {color: themeTextColor}]}
+        autoComplete='off'
         />
       <Text style={textStyle}>Age</Text>
       <TextInput
@@ -69,6 +70,7 @@ export const NoInfo = ({ setUserData }) => {
         value={userInfo.age.toString()}
         onChangeText={(text) => handleInputChange('age', text)}
         keyboardType="numeric"
+        autoComplete='off'
       />
 
       <Text style={textStyle}>Alias:</Text>
@@ -78,6 +80,7 @@ export const NoInfo = ({ setUserData }) => {
         placeholderTextColor={colorScheme === 'dark' ? 'gray' : 'gray'}
         placeholder='Your name/alias however you feel comfy'
         style={[styles.inputContainer, {borderColor: `${colorScheme === 'dark' ? 'gray' : 'gray'}`}, {color: themeTextColor}]}
+        autoComplete='off'
       />
 
       <Text style={textStyle}>Start Weight:</Text>
@@ -88,6 +91,7 @@ export const NoInfo = ({ setUserData }) => {
         placeholderTextColor={colorScheme === 'dark' ? 'gray' : 'gray'}
         placeholder='Your starting weight on kg'
         style={[styles.inputContainer, {borderColor: `${colorScheme === 'dark' ? 'gray' : 'gray'}`}, {color: themeTextColor}]}
+        autoComplete='off'
       />
       <Text style={textStyle}>Weight Target</Text>
       <TextInput
@@ -97,11 +101,15 @@ export const NoInfo = ({ setUserData }) => {
         value={userInfo.weightTarget.toString()}
         onChangeText={(text) => handleInputChange('weightTarget', text)}
         keyboardType="numeric"
+        autoComplete='off'
       />
       <Pressable onPress={handleSave}
       style={styles.btnCircle}
+      onFocus={{color: 'plum'}}
       >
-        <Text style={[{textAlign: 'center', justifyContent: 'center',alignItems: 'center', fontSize: 25, color: 'white'}]}>+</Text>
+        <Text style={[{textAlign: 'center', justifyContent: 'center',alignItems: 'center', fontSize: 25, color: 'white'}]}>
+          +
+        </Text>
     </Pressable>
     </View>
   );

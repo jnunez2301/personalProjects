@@ -1,22 +1,14 @@
 import { View, Text, StyleSheet, Pressable, Modal, TextInput, Button } from 'react-native'
 import { useTheme } from '../context/ThemeProvider'
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import WheelPickerExpo from 'react-native-wheel-picker-expo';
 import { weightLossJourneyData } from '../helpers/Info';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { InfoGetter } from '../helpers/InfoGetter';
 
-const generateWeights = () => {
-    const weights = [];
-    for (let i = 40; i <= 250; i++) {
-        weights.push({ label: i, value: i });
-    }
-    return weights;
-};
 
 export const AddButton = () => {
-    const weights = useMemo(generateWeights, []);
     const { weightLossJourneyData, setAllWeights, allWeights, getData } = InfoGetter();
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
@@ -25,6 +17,12 @@ export const AddButton = () => {
     const [selectedWeight, setSelectedWeight] = useState(0);
     
     /* const initialSelectedIndex = generateWeights().findIndex(weight => weight.label === selectedWeight); */
+    const [weights, setWeights] = useState([{label: 0, value: 0}])
+    useEffect(() => {
+        const newWeights = Array.from({ length: 251 }, (_, i) => ({ label: i, value: i }));
+        setWeights((prevWeights) => prevWeights.concat(newWeights));
+      }, []);
+      
     
     const onDateChange = (event, selectedDate) => {
         const currentDate = selectedDate;
@@ -49,7 +47,6 @@ export const AddButton = () => {
             date: date,
         });
         setModalVisible(!modalVisible);
-        saveData();
     };
     
     const saveData = async () => {
@@ -72,14 +69,9 @@ export const AddButton = () => {
         }
     };
     
-    
 
-    
-    console.log(allWeights);
-    useEffect(() => {
-        saveData();
-        
-    }, [setForm]);
+
+   
     
     return (
         <View style={styles.container}>
