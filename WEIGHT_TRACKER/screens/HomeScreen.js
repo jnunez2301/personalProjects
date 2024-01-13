@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, ScrollViewComponent, RefreshControl } from 'react-native'
 import { useTheme } from '../context/ThemeProvider'
 import { ChartContainer } from '../components/ChartContainer';
 import { AddButton } from '../components/AddButton';
@@ -6,19 +6,32 @@ import { AddButton } from '../components/AddButton';
 //import { userInfo } from '../helpers/UserInfo';
 import { RandomPhrase } from '../components/RandomPhrase';
 import { InfoGetter } from '../helpers/InfoGetter';
+import { useState } from 'react';
 
 
 
 export const HomeScreen = ({ route }) => {
   const {params} = route;
   const { userInfo }  = params;
-  
   const { themeBackgroundColor, themeTextColor } = useTheme();
-  const { weightLossJourneyData, allWeights } = InfoGetter();
-    
+  const { weightLossJourneyData, allWeights, getData } = InfoGetter();
+  const [refreshing, setRefreshing] = useState(false)
+  
+  const onRefresh = () => {
+    setRefreshing(true);
+    getData();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000)
+  }
+
   return (
-    <SafeAreaView style={[style.container, { backgroundColor: themeBackgroundColor }]}>
-      <View style={style.goalsBar}>
+    <ScrollView
+    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
+     style={[style.container, { backgroundColor: themeBackgroundColor }]}
+    >
+      <View
+       style={style.goalsBar}>
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Start</Text>
           <Text style={[{ color: 'gray'}, style.text]}>{userInfo.startWeight} kg</Text>
@@ -55,7 +68,7 @@ export const HomeScreen = ({ route }) => {
         </View>
       </View>
       <RandomPhrase />
-      </SafeAreaView>
+      </ScrollView>
   )
 }
 

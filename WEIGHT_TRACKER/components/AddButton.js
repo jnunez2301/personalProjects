@@ -66,11 +66,11 @@ export const AddButton = ({ userData }) => {
         }
       };
           
-    //   AsyncStorage.clear();
       
     useEffect(()=>{
         saveData();
     },[setFormFinished])
+    
     
    
     

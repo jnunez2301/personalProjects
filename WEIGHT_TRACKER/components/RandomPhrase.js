@@ -31,11 +31,12 @@ export const RandomPhrase = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 10,
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10,
-        margin: 10,
+        margin: 15,
+        height: 230
     },
     text: {
       fontSize: 18,

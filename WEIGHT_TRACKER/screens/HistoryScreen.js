@@ -18,7 +18,6 @@ export const HistoryScreen = () => {
           <Pressable style={style.historyData}>
             <Text style={{color: themeTextColor}}>{item.weight} kg</Text>
             <Text style={{color: themeTextColor}}>{`${item.date.getDate()}/${item.date.getMonth()}/${item.date.getFullYear()}`}
-            
             </Text>
           </Pressable>
         )}

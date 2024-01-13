@@ -8,6 +8,7 @@ export const InfoGetter = () => {
 
 
   const getData = async () => {
+    console.log('data retrieved');
     try {
       const jsonValue = await AsyncStorage.getItem('weight_journey');
       if (jsonValue) {

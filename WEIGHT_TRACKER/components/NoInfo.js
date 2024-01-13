@@ -40,13 +40,16 @@ export const NoInfo = ({ setUserData }) => {
     storeData(userInfo);
   };
 
-  const textStyle = {color: themeTextColor, fontSize: 18,
-    fontWeight: 'bold', marginBottom: 5}
+  const textStyle = {
+    color: themeTextColor, 
+    fontSize: 18,
+    fontWeight: 'bold', 
+    marginBottom: 5,
+    }
   return (
     <View style={[styles.container, {backgroundColor: themeColor}]}>
       <Text style={[textStyle, {fontSize: 30, marginBottom: 10}]}>🏋️ Weight Tracker 🏋️</Text>
       <Text style={{color: 'gray', margin: 30, textAlign: 'center'}}>This info will be private and will only be stored on your phone, this info will be just used for the app to work properly.</Text>
-
       {errorAlert.length > 0 && 
       <Text style={[textStyle, {color: 'red'}]}>
         {errorAlert}
@@ -61,6 +64,7 @@ export const NoInfo = ({ setUserData }) => {
         placeholder='Your start height in cm'
         style={[styles.inputContainer, {borderColor: `${colorScheme === 'dark' ? 'gray' : 'gray'}`}, {color: themeTextColor}]}
         autoComplete='off'
+        onFocus={() => setErrorAlert('')}
         />
       <Text style={textStyle}>Age</Text>
       <TextInput
@@ -71,6 +75,7 @@ export const NoInfo = ({ setUserData }) => {
         onChangeText={(text) => handleInputChange('age', text)}
         keyboardType="numeric"
         autoComplete='off'
+        onFocus={() => setErrorAlert('')}
       />
 
       <Text style={textStyle}>Alias:</Text>
@@ -78,9 +83,11 @@ export const NoInfo = ({ setUserData }) => {
         value={userInfo.alias}
         onChangeText={(text) => handleInputChange('alias', text)}
         placeholderTextColor={colorScheme === 'dark' ? 'gray' : 'gray'}
-        placeholder='Your name/alias however you feel comfy'
+        placeholder='Your name/alias'
         style={[styles.inputContainer, {borderColor: `${colorScheme === 'dark' ? 'gray' : 'gray'}`}, {color: themeTextColor}]}
+        autoCorrect={false}
         autoComplete='off'
+        onFocus={() => setErrorAlert('')}
       />
 
       <Text style={textStyle}>Start Weight:</Text>
@@ -92,6 +99,7 @@ export const NoInfo = ({ setUserData }) => {
         placeholder='Your starting weight on kg'
         style={[styles.inputContainer, {borderColor: `${colorScheme === 'dark' ? 'gray' : 'gray'}`}, {color: themeTextColor}]}
         autoComplete='off'
+        onFocus={() => setErrorAlert('')}
       />
       <Text style={textStyle}>Weight Target</Text>
       <TextInput
@@ -102,10 +110,11 @@ export const NoInfo = ({ setUserData }) => {
         onChangeText={(text) => handleInputChange('weightTarget', text)}
         keyboardType="numeric"
         autoComplete='off'
+        onFocus={() => setErrorAlert('')}
       />
-      <Pressable onPress={handleSave}
+      <Pressable 
+      onPress={handleSave}
       style={styles.btnCircle}
-      onFocus={{color: 'plum'}}
       >
         <Text style={[{textAlign: 'center', justifyContent: 'center',alignItems: 'center', fontSize: 25, color: 'white'}]}>
           +
@@ -130,7 +139,7 @@ const styles = StyleSheet.create({
         padding: 5,
         width: 250,
         borderRadius: 5,
-        marginBottom: 10,
+        marginBottom: 12,
         
     },
     btnCircle: {
@@ -140,6 +149,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'plum',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 10
     },
 })
