@@ -3,11 +3,12 @@ import { LineChart } from 'react-native-chart-kit';
 import { useTheme } from '../context/ThemeProvider';
 import { weightLossJourneyData } from '../helpers/Info'
 import { useEffect } from 'react';
+import { InfoGetter } from '../helpers/InfoGetter';
 
 export const ChartContainer = () => {
 
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
-
+    /* const { weightLossJourneyData } = InfoGetter(); */
     if(!weightLossJourneyData) return [];
 
     return (
@@ -21,7 +22,7 @@ export const ChartContainer = () => {
                 }}
                 width={Dimensions.get("window").width}
                 height={220}
-                yAxisLabel=""
+                yAxisLabel="" 
                 yAxisSuffix="kg"
                 yAxisInterval={1}
                 chartConfig={{

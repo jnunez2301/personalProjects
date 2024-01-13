@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Pressable, Modal, TextInput, Button } from 'react-native'
 import { useTheme } from '../context/ThemeProvider'
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import WheelPickerExpo from 'react-native-wheel-picker-expo';
 import { weightLossJourneyData } from '../helpers/Info';
@@ -12,12 +12,13 @@ export const AddButton = ({ userData }) => {
     const { weightLossJourneyData, setAllWeights, allWeights, getData } = InfoGetter();
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
-    const [form, setForm] = useState({});
+    const [form, setForm] = useState(null);
     const [date, setDate] = useState(new Date());
     const [selectedWeight, setSelectedWeight] = useState(parseInt(userData.startWeight));
     const [initialSelectedIndex, setInitialSelectedIndex] = useState(0);
     const [weights, setWeights] = useState([{label: 0, value: 0}]);
-    
+    const [formFinished, setFormFinished] = useState(false);
+
     // const initialSelectedIndex = newWeights.findIndex(weight => weight.label === selectedWeight);
     useEffect(() => {
         const newWeights = Array.from({ length: 251 }, (_, i) => ({ label: i, value: i }));
@@ -51,31 +52,26 @@ export const AddButton = ({ userData }) => {
     };
     
     const saveData = async () => {
+        if (form === null) return;
         try {
-          const currentWeights = await AsyncStorage.getItem('weight_journey');
-          let existingWeights = currentWeights ? JSON.parse(currentWeights) : [];
-      
-          if (!Array.isArray(existingWeights)) {
-            console.warn('Stored data is not an array. Resetting to an empty array.');
-            existingWeights = [];
-          }
-      
-          const updatedWeights = [...existingWeights, form];
+          const updatedWeights = [...allWeights, form];
           const jsonValue = JSON.stringify(updatedWeights);
-          
+    
           await AsyncStorage.setItem('weight_journey', jsonValue);
-          
+    
+          setForm(null); // Reset the form after saving data
           setAllWeights(updatedWeights);
         } catch (e) {
           console.error(e);
         }
-      };      
+      };
+          
+    //   AsyncStorage.clear();
       
-    useEffect(() => {
+    useEffect(()=>{
         saveData();
-        
-        
-    }, [setAllWeights])
+    },[setFormFinished])
+    
    
     
     return (
@@ -102,7 +98,7 @@ export const AddButton = ({ userData }) => {
                                 items={weights}
                                 onChange={({ item }) => setSelectedWeight(item.label)}
                             />
-                            <Text style={[{ color: themeTextColor }]}>KG</Text>
+                            <Text style={[{ color: themeTextColor, marginLeft: 10 }]}>KG</Text>
                         </View>
                         <View style={{ flexDirection: 'row', gap: 45 }}>
                             <Pressable
