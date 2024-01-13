@@ -51,7 +51,7 @@ export const HomeScreen = ({ route }) => {
           <Text style={[{ color: 'gray'}, style.text]}>{ userInfo.weightTarget } kg</Text>
         </View>
       </View>
-      <ChartContainer allWeights={allWeights}/>
+      <ChartContainer newInfo={allWeights}/>
       <View style={style.btnUI}>
         <View>
           <Text style={[style.text, {color: themeTextColor}]}>Change</Text>
