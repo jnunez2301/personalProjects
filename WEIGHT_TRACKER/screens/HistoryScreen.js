@@ -29,7 +29,7 @@ export const HistoryScreen = () => {
         refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing}/>}
         renderItem={({ item }) => (
           <Pressable style={style.historyData}>
-            <Text style={{color: themeTextColor}}>{item.weight} kg</Text>
+            <Text style={{color: themeTextColor}}>{item.selectedWeight} kg</Text>
             <Text style={{color: themeTextColor}}>{`${new Date(item.date).getDate()}/${new Date(item.date).getMonth() + 1}/${new Date(item.date).getFullYear()}`}
             </Text>
           </Pressable>

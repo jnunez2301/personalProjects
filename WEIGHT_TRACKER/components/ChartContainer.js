@@ -4,20 +4,22 @@ import { useTheme } from '../context/ThemeProvider';
 // import { weightLossJourneyData as oldData } from '../helpers/Info'
 
 import { InfoGetter } from '../helpers/InfoGetter';
+import { useEffect } from 'react';
 
 export const ChartContainer = () => {
 
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
     const { allWeights } = InfoGetter();
     
-
+    
+    
     return (
         <View>
             <LineChart
                 data={{
                     labels: allWeights.map(weight => `${new Date(weight.date).getDay()}/${new Date(weight.date).getMonth() + 1}`),
                     datasets: [{
-                        data: allWeights.map(weight => weight.weight)
+                        data: allWeights.map(weight => weight.selectedWeight)
                     }],
                 }}
                 width={Dimensions.get("window").width}

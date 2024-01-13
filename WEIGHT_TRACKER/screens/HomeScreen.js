@@ -43,7 +43,7 @@ export const HomeScreen = ({ route }) => {
           <Text style={[{ color: themeTextColor}, style.text]}>Current</Text>
           <Text style={[{ color: 'blue'}, style.text]}>
           
-          {allWeights.length > 0 && allWeights[allWeights.length - 1].weight} kg</Text>
+          {allWeights.length > 0 && allWeights[allWeights.length - 1].selectedWeight} kg</Text>
         </View>
         <View>
           <Text style={[{ color: themeTextColor}, style.text]}>Target</Text>
@@ -57,14 +57,14 @@ export const HomeScreen = ({ route }) => {
           <Text style={[{color: 'gray'}, style.text]}>
           {
           allWeights.length > 0 ?
-          allWeights[0].weight - allWeights[allWeights.length -1 ].weight : 'N/A'
+          allWeights[allWeights.length - 1].selectedWeight - userInfo.startWeight : 'N/A'
           } kg</Text>
         </View>
         <AddButton userData={userInfo}/>
         <View>
           <Text style={[style.text, {color: themeTextColor}]}>Remaining</Text>
           <Text style={[{color: 'gray'}, style.text]}>{
-            weightLossJourneyData.length > 0 ? weightLossJourneyData[weightLossJourneyData.length - 1].weight - userInfo.weightTarget : 'N/A'
+            weightLossJourneyData.length > 0 ? weightLossJourneyData[weightLossJourneyData.length - 1].selectedWeight - userInfo.weightTarget : 'N/A'
           } kg</Text>
         </View>
       </View>

@@ -12,12 +12,9 @@ export const AddButton = ({ userData }) => {
     const { weightLossJourneyData, setAllWeights, allWeights, getData } = InfoGetter();
     const { themeColor, themeTextColor, themeBackgroundColor } = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
-    const [form, setForm] = useState(null);
     const [date, setDate] = useState(new Date());
     const [selectedWeight, setSelectedWeight] = useState(parseInt(userData.startWeight));
-    const [initialSelectedIndex, setInitialSelectedIndex] = useState(0);
     const [weights, setWeights] = useState([{label: 0, value: 0}]);
-    const [formFinished, setFormFinished] = useState(false);
 
     // const initialSelectedIndex = newWeights.findIndex(weight => weight.label === selectedWeight);
     useEffect(() => {
@@ -43,25 +40,16 @@ export const AddButton = ({ userData }) => {
         showMode('date');
     };
 
-    const handleWeightSubmit = async () => {
-        setForm({
-            weight: selectedWeight,
-            date: date,
-        });
-        setModalVisible(!modalVisible);
-    };
+    
     
     const saveData = async () => {
-        if (form === null) return;
         try {
-            const updatedWeights = [...allWeights, form];
+            const updatedWeights = [...allWeights, {date: date, selectedWeight: selectedWeight}];
             const jsonValue = JSON.stringify(updatedWeights);
-            
-    
-          await AsyncStorage.setItem('weight_journey', jsonValue);
-    
-          setForm(null); // Reset the form after saving data
-          setAllWeights(updatedWeights);
+            await AsyncStorage.setItem('weight_journey', jsonValue);
+          
+            setModalVisible(!modalVisible);
+            setAllWeights(updatedWeights);
         } catch (e) {
           console.error(e);
         }
@@ -69,8 +57,8 @@ export const AddButton = ({ userData }) => {
           
       
     useEffect(()=>{
-        saveData();
-    },[setFormFinished])
+        getData();
+    },[setAllWeights])
     
     
    
@@ -108,7 +96,7 @@ export const AddButton = ({ userData }) => {
                             </Pressable>
                             <Pressable
                                 onPress={() => {
-                                    handleWeightSubmit()
+                                    saveData()
                                 }
                                 }>
                             <Text style={[styles.textStyle, {color: themeTextColor}]}>Add</Text>
