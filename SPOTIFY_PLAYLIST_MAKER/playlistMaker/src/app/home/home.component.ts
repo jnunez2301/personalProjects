@@ -5,6 +5,7 @@ import { Aritst } from '../../_models/Artist';
 import { GlobalServiceService } from '../_service/global-service.service';
 import { RouterModule } from '@angular/router';
 import { ArrayType, Token } from '@angular/compiler';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,13 @@ import { ArrayType, Token } from '@angular/compiler';
 export class HomeComponent implements OnInit {
   token$!: Observable<Token>;
   current_artists: Aritst[] = [];
+  CLIENT_ID =  environment.CLIENT_ID;
+  REDIRECT_URI = environment.redirectURI;
 
   constructor(private globalService: GlobalServiceService) {}
+
   ngOnInit(): void {
     this.globalService.getToken().subscribe((d) => (this.token$ = d));
-    this.globalService.getArtists(this.token$).subscribe(d => this.current_artists = d)    
+    this.globalService.getArtists(this.token$).subscribe(d => this.current_artists = d) 
   }
-  
 }
