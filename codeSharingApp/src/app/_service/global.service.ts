@@ -21,7 +21,7 @@ export class GlobalService {
     return this.http.post<UrlSchema>(this.baseUrl, nuevoSchema);
   }
   
-  modificarUrlSchema(nuevoSchema: UrlSchema, idParam: string): Observable<UrlSchema> {
-    return this.http.put<UrlSchema>(`${this.baseUrl}/${idParam}`, nuevoSchema);
+  modificarUrlSchema(nuevoSchema: UrlSchema): Observable<UrlSchema> {
+    return this.http.put<UrlSchema>(`${this.baseUrl}`, nuevoSchema);
   }
 }

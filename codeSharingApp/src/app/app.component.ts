@@ -89,6 +89,14 @@ export class AppComponent implements OnInit {
     });
     this.clipboard.copy(this.code);
   }
+  saveCode() {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Saved',
+      detail: 'Your code has been updated',
+    });
+    this.urlSchemaService.modificarUrlSchema({generatedUrl: this.idParam, code: this.code}).subscribe(d => console.log(d))
+  }
 
   editorOptions = {
     theme: `vs-${this.current_theme}`,

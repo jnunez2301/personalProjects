@@ -13,46 +13,48 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get('/:idParam', (req, res) => {
-    UrlSchema.find({ generatedUrl: req.params.idParam})
-    .then(data => res.status(200).json(data))
-    .catch(error => res.status(404).json({msg: 'id does not exist'}))
-})
+router.get("/:idParam", (req, res) => {
+  UrlSchema.find({ generatedUrl: req.params.idParam })
+    .then((data) => res.status(200).json(data))
+    .catch((error) => res.status(404).json({ msg: "id does not exist" }));
+});
 
 router.post("/", (req, res) => {
   const body = req.body;
   const newURL = new UrlSchema({
     generatedUrl: body.generatedUrl,
-    code: body.code
+    code: body.code,
   });
 
-  newURL.save().then((savedURL) => {
-    res.status(201).json(savedURL);
-  }).catch(error => {
-    console.log(error);
-    res.status(400).json({ msg: 'Malformed JSON make sure all field are in' })
-  })
+  newURL
+    .save()
+    .then((savedURL) => {
+      res.status(201).json(savedURL);
+    })
+    .catch((error) => {
+      console.log(error);
+      res
+        .status(400)
+        .json({ msg: "Malformed JSON make sure all field are in" });
+    });
 });
 
-router.put('/:idParam', (req, res) => {
-  const id = req.params.idParam;
+router.put("/", (req, res) => {
   const body = req.body;
 
-  UrlSchema.findOneAndUpdate(
-    { generatedUrl: id },
-    body,
-    { new: true }
-  )
-  .then(updatedURL => {
-    if (!updatedURL) {
-      return res.status(404).json({ msg: 'URL not found' });
-    }
-    res.status(200).json(updatedURL);
+  UrlSchema.findOneAndUpdate({ generatedUrl: body.generatedUrl }, body, {
+    new: true,
   })
-  .catch(error => {
-    console.error(error);
-    res.status(500).json({ msg: 'Internal server error' });
-  });
+    .then((updatedURL) => {
+      if (!updatedURL) {
+        return res.status(404).json({ msg: "URL not found" });
+      }
+      res.status(200).json(updatedURL);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ msg: "Internal server error" });
+    });
 });
 
 module.exports = router;

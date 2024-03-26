@@ -1,19 +1,20 @@
 <div class="container">
+  <div class="btn-container"> 
+    <div>
+      <p-dropdown [options]="themes_options" [(ngModel)]="current_theme" optionLabel="name" [placeholder]="current_theme" (onChange)="onThemeChange($event)"></p-dropdown>
+      <p-dropdown [options]="languageOptions" [(ngModel)]="current_language" optionLabel="name" [placeholder]="current_language" (onChange)="onLanguageChange($event)"></p-dropdown>
+  </div>
+  <div>
+    <p-toast [life]="2000"></p-toast>
+    <p-button icon="pi pi-share-alt" label="Share" [outlined]="true" (click)="showSuccessShare()"></p-button>
+    <p-button icon="pi pi-copy" [rounded]="true" (click)="showInfoCopy()"></p-button>
+    <p-button icon="pi pi-save" [rounded]="true" (click)="saveCode()"></p-button>
+    </div>
+  </div>
   <ngx-monaco-editor
     [options]="editorOptions"
     [(ngModel)]="code"
     style="height: 100%; width: 100%;"
   ></ngx-monaco-editor>
-  <div class="btn-container"> 
-    <div>
-      <p-dropdown [options]="themes_options" [(ngModel)]="current_theme" optionLabel="name" [placeholder]="current_theme" (onChange)="onThemeChange($event)"></p-dropdown>
-    <p-dropdown [options]="languageOptions" [(ngModel)]="current_language" optionLabel="name" [placeholder]="current_language" (onChange)="onLanguageChange($event)"></p-dropdown>
-    </div>
-    <div>
-      <p-toast [life]="1000"></p-toast>
-      <p-button icon="pi pi-share-alt" label="Share" [outlined]="true" (click)="showSuccessShare()"></p-button>
-      <p-button icon="pi pi-copy" [rounded]="true" (click)="showInfoCopy()"></p-button>
-    </div>
-  </div>
 </div>
 
