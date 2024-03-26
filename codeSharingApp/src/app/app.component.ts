@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 import { Clipboard } from '@angular/cdk/clipboard';
@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AppComponent implements OnInit {
   public listaUrlSchemas$!: UrlSchema[];
   randomString: string = '';
-  idParam: string = '';
+  @Input() idParam: string = '';
 
   title = 'codeSharingApp';
   current_theme = 'dark';
@@ -35,14 +35,15 @@ export class AppComponent implements OnInit {
     private messageService: MessageService,
     private clipboard: Clipboard,
     private urlSchemaService: GlobalService,
-  ) {}
+    private route: ActivatedRoute
+  ) {
+  }
 
   ngOnInit(): void {
     this.urlSchemaService
       .getUrlSchemas()
       .subscribe((d) => (this.listaUrlSchemas$ = d));
-    this.generateRandomString()
-    console.log(this.randomString);
+    this.generateRandomString()  
   }
 
   generateRandomString(): void {
@@ -70,7 +71,7 @@ export class AppComponent implements OnInit {
       } else {
         this.randomString = str;
       }
-    }
+  }
 
   showSuccessShare() {
     this.messageService.add({
@@ -79,6 +80,8 @@ export class AppComponent implements OnInit {
       detail: 'Now you can share the code with anyone',
     });
     this.clipboard.copy(window.location.href);
+    console.log(this.route.snapshot.paramMap.get('id'));
+
   }
 
   showInfoCopy() {
