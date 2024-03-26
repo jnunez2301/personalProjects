@@ -47,22 +47,24 @@ export class AppComponent implements OnInit {
     this.urlSchemaService
       .getUrlSchemas()
       .subscribe((d) => (this.listaUrlSchemas$ = d));
-      /*TODO: If randomstring.length === 0 generate randomString and if saved post it, else just load the current randomString */
-    this.sub = this.route.params.subscribe(params => {
-      this.id = params['id']
-    })
-    if(this.id && this.id.length > 0){
-      this.urlSchemaService.getUrlSchemaById(this.id).subscribe(d => {
-        this.currentUrlSchema$ = d;
-      })
-    }  
-   if(this.currentUrlSchema$.length > 0) {
-        this.urlExists = true
-    }
-    if(this.currentUrlSchema$.length === 0) {
-      this.generateRandomString();
-      this.router.navigate([`/home/${this.randomString}`]);
-      this.urlExists = false
+    /*TODO: If randomstring.length === 0 generate randomString and if saved post it, else just load the current randomString */
+    this.sub = this.route.params.subscribe((params) => {
+      this.id = params['id'];
+    });
+    if (this.id && this.id.length > 0) {
+      this.urlSchemaService.getUrlSchemaById(this.id).subscribe((d) => {
+        if (d.length > 0) {
+          this.urlExists = true;
+          console.log('true as fk');
+          
+        }
+        if (d.length === 0) {
+          this.generateRandomString();
+          this.router.navigate([`/home/${this.randomString}`]);
+          this.urlExists = false;
+          console.log('fake as fk');
+        }
+      });
     }
   }
 
@@ -85,13 +87,12 @@ export class AppComponent implements OnInit {
     const urlExists = this.listaUrlSchemas$
       .map((d) => d.generatedUrl)
       .includes(this.randomString);
-
-    if(urlExists) {
-        this.generateRandomString();
-        /* If it exists on the db don't search for it */
-      } else {
-        this.randomString = str;
-      }
+    if (urlExists) {
+      this.generateRandomString();
+      /* If it exists on the db don't search for it */
+    } else {
+      this.randomString = str;
+    }
   }
 
   showSuccessShare() {
@@ -116,7 +117,8 @@ export class AppComponent implements OnInit {
       severity: 'info',
       summary: 'Saved',
       detail: 'Your code has been updated',
-    });   
+    });
+
     // if(this.urlExists) {
     //   // this.urlSchemaService.modificarUrlSchema({generatedUrl: this.id, code: this.code}).subscribe(d => console.log(d))
     //   console.log('modify');
