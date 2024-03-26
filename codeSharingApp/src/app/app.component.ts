@@ -35,7 +35,6 @@ export class AppComponent implements OnInit {
     private messageService: MessageService,
     private clipboard: Clipboard,
     private urlSchemaService: GlobalService,
-    private route: ActivatedRoute
   ) {
   }
 
@@ -80,8 +79,6 @@ export class AppComponent implements OnInit {
       detail: 'Now you can share the code with anyone',
     });
     this.clipboard.copy(window.location.href);
-    console.log(this.route.snapshot.paramMap.get('id'));
-
   }
 
   showInfoCopy() {

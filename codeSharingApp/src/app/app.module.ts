@@ -12,7 +12,6 @@ import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { provideHttpClient } from '@angular/common/http';
-import { provideRouter, RouterModule, withComponentInputBinding } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -27,13 +26,11 @@ import { provideRouter, RouterModule, withComponentInputBinding } from '@angular
     DropdownModule,
     ButtonModule,
     ToastModule,
-    RouterModule
   ],
   providers: [
     provideClientHydration(),
     MessageService,
     provideHttpClient(),
-    provideRouter(routes, withComponentInputBinding())
   ],
   bootstrap: [AppComponent]
 })
