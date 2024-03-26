@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
     this.urlSchemaService
       .getUrlSchemas()
       .subscribe((d) => (this.listaUrlSchemas$ = d));
-    this.generateRandomString()  
+    this.generateRandomString();    
   }
 
   generateRandomString(): void {
