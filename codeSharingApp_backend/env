@@ -1,0 +1,2 @@
+PORT=4000
+MONGODB_URI=mongodb+srv://jmoisesn23:SsLntseIeorBQOF9@cluster0.fh9x2un.mongodb.net/UrlBuild?retryWrites=true&w=majority&appName=Cluster0
