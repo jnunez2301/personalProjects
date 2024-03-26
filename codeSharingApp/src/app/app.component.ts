@@ -13,10 +13,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   public listaUrlSchemas$!: UrlSchema[];
+  public currentUrlSchema$!: UrlSchema[];
   randomString: string = '';
   id: string = '';
   urlExists = false;
   private sub: any;
+  code: string = 'function x() {\n console.log("Hello world!");\n}';
 
   title = 'codeSharingApp';
   current_theme = 'dark';
@@ -51,18 +53,17 @@ export class AppComponent implements OnInit {
     })
     if(this.id && this.id.length > 0){
       this.urlSchemaService.getUrlSchemaById(this.id).subscribe(d => {
-        if(d.length > 0){
-          this.randomString = d[0].generatedUrl;
-          this.code = d[0].code;
-          this.urlExists = true
-        }
-        else {
-          this.generateRandomString();
-          this.router.navigate([`/home/${this.randomString}`]);
-          this.urlExists = false
-        }
+        this.currentUrlSchema$ = d;
       })
-    }    
+    }  
+   if(this.currentUrlSchema$.length > 0) {
+        this.urlExists = true
+    }
+    if(this.currentUrlSchema$.length === 0) {
+      this.generateRandomString();
+      this.router.navigate([`/home/${this.randomString}`]);
+      this.urlExists = false
+    }
   }
 
   generateRandomString(): void {
@@ -115,15 +116,21 @@ export class AppComponent implements OnInit {
       severity: 'info',
       summary: 'Saved',
       detail: 'Your code has been updated',
-    });
-    this.urlSchemaService.modificarUrlSchema({generatedUrl: this.id, code: this.code}).subscribe(d => console.log(d))
+    });   
+    // if(this.urlExists) {
+    //   // this.urlSchemaService.modificarUrlSchema({generatedUrl: this.id, code: this.code}).subscribe(d => console.log(d))
+    //   console.log('modify');
+    // } else{
+    //   /* this.urlSchemaService.postUrlSchema({generatedUrl: this.id, code: this.code}); */
+    //   console.log('save');
+    //   console.log(this.urlExists);
+    // }
   }
 
   editorOptions = {
     theme: `vs-${this.current_theme}`,
     language: this.current_language,
   };
-  code: string = 'function x() {\n console.log("Hello world!");\n}';
 
   onThemeChange(e: DropdownChangeEvent) {
     this.current_theme = e.value.code;
