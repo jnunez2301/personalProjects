@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
+import {Clipboard} from '@angular/cdk/clipboard';
+
 
 @Component({
   selector: 'app-root',
@@ -23,14 +25,24 @@ export class AppComponent {
     { name: 'Typescript', code: 'typescript' },
   ];
 
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService, private clipboard: Clipboard) {}
 
-  showSuccess() {
+  showSuccessShare() {
     this.messageService.add({
       severity: 'success',
-      summary: 'Success',
-      detail: 'Message Content',
+      summary: 'URL copied',
+      detail: 'Now you can share the code with anyone',
     });
+    this.clipboard.copy(window.location.href)
+  }
+
+  showInfoCopy() {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Copied to clipboard',
+      detail: 'The code is on your clipboard now',
+    });
+    this.clipboard.copy(this.code)
   }
 
   editorOptions = {
