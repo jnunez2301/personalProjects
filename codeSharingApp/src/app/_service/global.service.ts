@@ -17,6 +17,11 @@ export class GlobalService {
   getUrlSchemas(): Observable<UrlSchema[]>{
     return this.http.get<UrlSchema[]>(this.baseUrl)
   }
+
+  getUrlSchemaById(idParam: string): Observable<UrlSchema[]> {
+    return this.http.get<UrlSchema[]>(`${this.baseUrl}/${idParam}`)
+  }
+
   postUrlSchema(nuevoSchema: UrlSchema): Observable<UrlSchema> {
     return this.http.post<UrlSchema>(this.baseUrl, nuevoSchema);
   }

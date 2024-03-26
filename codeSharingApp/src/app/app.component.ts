@@ -4,7 +4,7 @@ import { DropdownChangeEvent } from 'primeng/dropdown';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { UrlSchema } from './_modelo/UrlSchema';
 import { GlobalService } from './_service/global.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   public listaUrlSchemas$!: UrlSchema[];
   randomString: string = '';
   id: string = '';
+  urlExists = false;
   private sub: any;
 
   title = 'codeSharingApp';
@@ -36,7 +37,8 @@ export class AppComponent implements OnInit {
     private messageService: MessageService,
     private clipboard: Clipboard,
     private urlSchemaService: GlobalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -44,11 +46,23 @@ export class AppComponent implements OnInit {
       .getUrlSchemas()
       .subscribe((d) => (this.listaUrlSchemas$ = d));
       /*TODO: If randomstring.length === 0 generate randomString and if saved post it, else just load the current randomString */
-    this.generateRandomString();
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id']
     })
-    console.log(this.id);
+    if(this.id && this.id.length > 0){
+      this.urlSchemaService.getUrlSchemaById(this.id).subscribe(d => {
+        if(d.length > 0){
+          this.randomString = d[0].generatedUrl;
+          this.code = d[0].code;
+          this.urlExists = true
+        }
+        else {
+          this.generateRandomString();
+          this.router.navigate([`/home/${this.randomString}`]);
+          this.urlExists = false
+        }
+      })
+    }    
   }
 
   generateRandomString(): void {
