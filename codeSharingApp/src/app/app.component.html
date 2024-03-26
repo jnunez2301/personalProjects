@@ -1,0 +1,12 @@
+<main class="container">
+  <ngx-monaco-editor
+    [options]="editorOptions"
+    [(ngModel)]="code"
+  ></ngx-monaco-editor>
+  <p-dropdown [options]="themes_options" [(ngModel)]="current_theme" optionLabel="name" [placeholder]="current_theme" (onChange)="onThemeChange($event)"></p-dropdown>
+  <p-dropdown [options]="languageOptions" [(ngModel)]="current_language" optionLabel="name" [placeholder]="current_language" (onChange)="onLanguageChange($event)"></p-dropdown>
+  <p-button icon="pi pi-share-alt" label="Share" [outlined]="true"></p-button>
+  <p-toast></p-toast>
+  <button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"></button>
+</main>
+
