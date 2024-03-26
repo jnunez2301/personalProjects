@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
-import {Clipboard} from '@angular/cdk/clipboard';
-
+import { Clipboard } from '@angular/cdk/clipboard';
+import { UrlSchema } from './_modelo/UrlSchema';
+import { GlobalService } from './_service/global.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  public listaUrlSchemas$!: UrlSchema[];
+  randomString: string = '';
+  idParam: string = '';
+
   title = 'codeSharingApp';
   current_theme = 'dark';
   current_language = 'javascript';
@@ -25,7 +31,46 @@ export class AppComponent {
     { name: 'Typescript', code: 'typescript' },
   ];
 
-  constructor(private messageService: MessageService, private clipboard: Clipboard) {}
+  constructor(
+    private messageService: MessageService,
+    private clipboard: Clipboard,
+    private urlSchemaService: GlobalService,
+  ) {}
+
+  ngOnInit(): void {
+    this.urlSchemaService
+      .getUrlSchemas()
+      .subscribe((d) => (this.listaUrlSchemas$ = d));
+    this.generateRandomString()
+    console.log(this.randomString);
+  }
+
+  generateRandomString(): void {
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const randomLength = Math.floor(Math.random() * (5 - 3 + 1)) + 3;
+
+    for (let i = 0; i < randomLength; i++) {
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+
+    this.checkIfStringExists(result);
+  }
+
+  checkIfStringExists(str: string): void {
+    const urlExists = this.listaUrlSchemas$
+      .map((d) => d.generatedUrl)
+      .includes(this.randomString);
+
+    if(urlExists) {
+        this.generateRandomString();
+      } else {
+        this.randomString = str;
+      }
+    }
 
   showSuccessShare() {
     this.messageService.add({
@@ -33,7 +78,7 @@ export class AppComponent {
       summary: 'URL copied',
       detail: 'Now you can share the code with anyone',
     });
-    this.clipboard.copy(window.location.href)
+    this.clipboard.copy(window.location.href);
   }
 
   showInfoCopy() {
@@ -42,14 +87,14 @@ export class AppComponent {
       summary: 'Copied to clipboard',
       detail: 'The code is on your clipboard now',
     });
-    this.clipboard.copy(this.code)
+    this.clipboard.copy(this.code);
   }
 
   editorOptions = {
     theme: `vs-${this.current_theme}`,
     language: this.current_language,
   };
-  code: string = 'function x() {\nconsole.log("Hello world!");\n}';
+  code: string = 'function x() {\n console.log("Hello world!");\n}';
 
   onThemeChange(e: DropdownChangeEvent) {
     this.current_theme = e.value.code;
