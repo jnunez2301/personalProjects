@@ -14,7 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 export class AppComponent implements OnInit {
   public listaUrlSchemas$!: UrlSchema[];
   randomString: string = '';
-  @Input() idParam: string = '';
+  id: string = '';
+  private sub: any;
 
   title = 'codeSharingApp';
   current_theme = 'dark';
@@ -35,14 +36,19 @@ export class AppComponent implements OnInit {
     private messageService: MessageService,
     private clipboard: Clipboard,
     private urlSchemaService: GlobalService,
-  ) {
-  }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.urlSchemaService
       .getUrlSchemas()
       .subscribe((d) => (this.listaUrlSchemas$ = d));
-    this.generateRandomString();    
+      /*TODO: If randomstring.length === 0 generate randomString and if saved post it, else just load the current randomString */
+    this.generateRandomString();
+    this.sub = this.route.params.subscribe(params => {
+      this.id = params['id']
+    })
+    console.log(this.id);
   }
 
   generateRandomString(): void {
@@ -67,6 +73,7 @@ export class AppComponent implements OnInit {
 
     if(urlExists) {
         this.generateRandomString();
+        /* If it exists on the db don't search for it */
       } else {
         this.randomString = str;
       }
@@ -95,7 +102,7 @@ export class AppComponent implements OnInit {
       summary: 'Saved',
       detail: 'Your code has been updated',
     });
-    this.urlSchemaService.modificarUrlSchema({generatedUrl: this.idParam, code: this.code}).subscribe(d => console.log(d))
+    this.urlSchemaService.modificarUrlSchema({generatedUrl: this.id, code: this.code}).subscribe(d => console.log(d))
   }
 
   editorOptions = {

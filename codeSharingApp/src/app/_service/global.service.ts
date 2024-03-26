@@ -9,7 +9,7 @@ import { UrlSchema } from '../_modelo/UrlSchema';
 
 
 export class GlobalService {
-  private baseUrl = 'https://localhost:4000/api/url'
+  private baseUrl = 'http://localhost:4000/api/url'
   // private baseUrl = 'https://codesharingapp-backend.fly.dev/api/url'
 
   constructor(private http: HttpClient) { }
