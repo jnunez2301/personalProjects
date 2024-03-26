@@ -9,11 +9,19 @@ import { UrlSchema } from '../_modelo/UrlSchema';
 
 
 export class GlobalService {
-  private baseUrl = 'https://codesharingapp-backend.fly.dev/api/url'
+  private baseUrl = 'https://localhost:4000/api/url'
+  // private baseUrl = 'https://codesharingapp-backend.fly.dev/api/url'
 
   constructor(private http: HttpClient) { }
 
   getUrlSchemas(): Observable<UrlSchema[]>{
     return this.http.get<UrlSchema[]>(this.baseUrl)
+  }
+  postUrlSchema(nuevoSchema: UrlSchema): Observable<UrlSchema> {
+    return this.http.post<UrlSchema>(this.baseUrl, nuevoSchema);
+  }
+  
+  modificarUrlSchema(nuevoSchema: UrlSchema, idParam: string): Observable<UrlSchema> {
+    return this.http.put<UrlSchema>(`${this.baseUrl}/${idParam}`, nuevoSchema);
   }
 }

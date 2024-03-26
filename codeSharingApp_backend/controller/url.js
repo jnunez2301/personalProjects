@@ -34,4 +34,25 @@ router.post("/", (req, res) => {
   })
 });
 
+router.put('/:idParam', (req, res) => {
+  const id = req.params.idParam;
+  const body = req.body;
+
+  UrlSchema.findOneAndUpdate(
+    { generatedUrl: id },
+    body,
+    { new: true }
+  )
+  .then(updatedURL => {
+    if (!updatedURL) {
+      return res.status(404).json({ msg: 'URL not found' });
+    }
+    res.status(200).json(updatedURL);
+  })
+  .catch(error => {
+    console.error(error);
+    res.status(500).json({ msg: 'Internal server error' });
+  });
+});
+
 module.exports = router;
