@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   public currentUrlSchema$!: UrlSchema[];
   randomString: string = '';
   id: string = '';
-  urlExists = false;
+  urlExists: boolean = false;
   private sub: any;
   code: string = 'function x() {\n console.log("Hello world!");\n}';
 
@@ -44,56 +44,56 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.urlSchemaService
-      .getUrlSchemas()
-      .subscribe((d) => (this.listaUrlSchemas$ = d));
-    /*TODO: If randomstring.length === 0 generate randomString and if saved post it, else just load the current randomString */
+    this.urlSchemaService.getUrlSchemas().subscribe((d) => {
+      this.listaUrlSchemas$ = d;
+    });
+  
     this.sub = this.route.params.subscribe((params) => {
       this.id = params['id'];
+      if (this.id && this.id.length > 0) {
+        this.urlSchemaService.getUrlSchemaById(this.id).subscribe((d) => {
+          if (d.length > 0) {
+            this.urlExists = true;
+            this.currentUrlSchema$ = d;
+            console.log('true as fk');
+          } else {
+            if (!this.randomString) {
+              this.generateRandomString();
+            }
+            this.checkIfStringExists();
+          }
+        });
+      }
     });
-    
-    if (this.id && this.id.length > 0) {
-      this.urlSchemaService.getUrlSchemaById(this.id).subscribe((d) => {
-        if (d.length > 0) {
-          this.urlExists = true;
-          console.log('true as fk');
-          
-        }
-        if (d.length === 0) {
-          this.generateRandomString();
-          this.router.navigate([`/${this.randomString}`]);
-          this.urlExists = false;
-          console.log('fake as fk');
-        }
-      });
-    }
-    
   }
-
+  
   generateRandomString(): void {
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
     const randomLength = Math.floor(Math.random() * (5 - 3 + 1)) + 3;
-
+  
     for (let i = 0; i < randomLength; i++) {
       result += characters.charAt(
         Math.floor(Math.random() * characters.length)
       );
     }
-
-    this.checkIfStringExists(result);
+  
+    this.randomString = result;
   }
-
-  checkIfStringExists(str: string): void {
+  
+  checkIfStringExists(): void {
     const urlExists = this.listaUrlSchemas$
       .map((d) => d.generatedUrl)
       .includes(this.randomString);
     if (urlExists) {
-      this.generateRandomString();
-      /* If it exists on the db don't search for it */
+      this.generateRandomString(); // Regenerate random string if it already exists
+      this.checkIfStringExists(); // Check again recursively
     } else {
-      this.randomString = str;
+      // Proceed with the unique random string
+      this.urlExists = false;
+      console.log('fake as fk');
+      this.router.navigate([`/${this.randomString}`]);
     }
   }
 
@@ -120,6 +120,7 @@ export class AppComponent implements OnInit {
       summary: 'Saved',
       detail: 'Your code has been updated',
     });
+    console.log(this.urlExists);
 
     // if(this.urlExists) {
     //   // this.urlSchemaService.modificarUrlSchema({generatedUrl: this.id, code: this.code}).subscribe(d => console.log(d))
