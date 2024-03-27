@@ -47,14 +47,17 @@ export class AppComponent implements OnInit {
     this.urlSchemaService.getUrlSchemas().subscribe((d) => {
       this.listaUrlSchemas$ = d;
     });
+    
     this.sub = this.route.params.subscribe((params) => {
       this.id = params['id'];
+
       if (this.id && this.id.length > 0) {
         this.urlSchemaService.getUrlSchemaById(this.id).subscribe((d) => {
           this.urlExists = d.length > 0;
           if (d.length > 0) {
             this.currentUrlSchema$ = d;
             sessionStorage.setItem('id', this.id)
+            sessionStorage.setItem('code', d[0].code)
           } else {
             if (!this.randomString) {
               this.generateRandomString();
@@ -66,6 +69,10 @@ export class AppComponent implements OnInit {
       }
     });
     this.id = sessionStorage.getItem('id') || '';
+    const newCode = sessionStorage.getItem('code');
+    if(newCode) {
+      this.code = newCode;
+    }
   }
   
   generateRandomString(): void {
