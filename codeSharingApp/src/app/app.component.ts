@@ -121,7 +121,25 @@ export class AppComponent implements OnInit {
       summary: 'Saved',
       detail: 'Your code has been updated',
     });
-    console.log(sessionStorage.getItem('id'));
+    const id = sessionStorage.getItem('id')
+    if(id){
+      console.log(id);
+      this.urlSchemaService.getUrlSchemaById(id).subscribe(d => {
+        if(d.length > 0){
+          this.urlSchemaService.modificarUrlSchema({
+            generatedUrl: id,
+            code: this.code
+          }).subscribe()
+        } else {
+          this.urlSchemaService.postUrlSchema({
+            generatedUrl: id,
+            code: this.code
+          }).subscribe()
+        }
+        
+      })
+    }
+    
   }
 
   editorOptions = {
