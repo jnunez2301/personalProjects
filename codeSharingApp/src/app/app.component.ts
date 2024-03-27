@@ -50,13 +50,13 @@ export class AppComponent implements OnInit {
     
     this.sub = this.route.params.subscribe((params) => {
       this.id = params['id'];
-
+      
       if (this.id && this.id.length > 0) {
         this.urlSchemaService.getUrlSchemaById(this.id).subscribe((d) => {
           this.urlExists = d.length > 0;
           if (d.length > 0) {
             this.currentUrlSchema$ = d;
-            sessionStorage.setItem('id', this.id)
+            sessionStorage.setItem('id', d[0].generatedUrl)
             sessionStorage.setItem('code', d[0].code)
           } else {
             if (!this.randomString) {
@@ -93,7 +93,7 @@ export class AppComponent implements OnInit {
   checkIfStringExists(): void {
     const urlExists = this.listaUrlSchemas$
       .map((d) => d.generatedUrl)
-      .includes(this.randomString);
+      .includes(this.randomString);    
     if (urlExists) {
       
       this.generateRandomString(); // Regenerate random string if it already exists
@@ -128,7 +128,7 @@ export class AppComponent implements OnInit {
       summary: 'Saved',
       detail: 'Your code has been updated',
     });
-    const id = sessionStorage.getItem('id')
+    const id = sessionStorage.getItem('id');
     if(id){
       console.log(id);
       this.urlSchemaService.getUrlSchemaById(id).subscribe(d => {
