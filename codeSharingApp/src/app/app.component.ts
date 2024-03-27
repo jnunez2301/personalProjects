@@ -56,6 +56,7 @@ export class AppComponent implements OnInit {
           this.urlExists = d.length > 0;
           if (d.length > 0) {
             this.currentUrlSchema$ = d;
+            this.randomString = d[0].generatedUrl;
             sessionStorage.setItem('id', d[0].generatedUrl)
             sessionStorage.setItem('code', d[0].code)
           } else {
@@ -67,8 +68,19 @@ export class AppComponent implements OnInit {
           }
         });
       }
+      
     });
+    
+    /* if(this.listaUrlSchemas$.map(d => d.generatedUrl).includes(this.id)){
+        console.log(true);        
+      } else {
+        this.generateRandomString();
+        this.router.navigate([`${this.randomString}`])
+    } */
+    
     this.id = sessionStorage.getItem('id') || '';
+    
+
     const newCode = sessionStorage.getItem('code');
     if(newCode) {
       this.code = newCode;
