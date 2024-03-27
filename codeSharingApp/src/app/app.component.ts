@@ -50,10 +50,9 @@ export class AppComponent implements OnInit {
     
     this.sub = this.route.params.subscribe((params) => {
       this.id = params['id'];
-      
       if (this.id && this.id.length > 0) {
         this.urlSchemaService.getUrlSchemaById(this.id).subscribe((d) => {
-          this.urlExists = d.length > 0;
+          this.urlExists = d.length > 0;          
           if (d.length > 0) {
             this.currentUrlSchema$ = d;
             this.randomString = d[0].generatedUrl;
@@ -69,8 +68,7 @@ export class AppComponent implements OnInit {
         });
       }
       
-    });
-    
+    });   
     /* if(this.listaUrlSchemas$.map(d => d.generatedUrl).includes(this.id)){
         console.log(true);        
       } else {
@@ -106,8 +104,8 @@ export class AppComponent implements OnInit {
     const urlExists = this.listaUrlSchemas$
       .map((d) => d.generatedUrl)
       .includes(this.randomString);    
+
     if (urlExists) {
-      
       this.generateRandomString(); // Regenerate random string if it already exists
       this.checkIfStringExists(); // Check again recursively
     } else {
