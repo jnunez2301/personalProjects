@@ -47,7 +47,6 @@ export class AppComponent implements OnInit {
     this.urlSchemaService.getUrlSchemas().subscribe((d) => {
       this.listaUrlSchemas$ = d;
     });
-  
     this.sub = this.route.params.subscribe((params) => {
       this.id = params['id'];
       if (this.id && this.id.length > 0) {
@@ -55,23 +54,25 @@ export class AppComponent implements OnInit {
           this.urlExists = d.length > 0;
           if (d.length > 0) {
             this.currentUrlSchema$ = d;
-            console.log('true as fk');
+            sessionStorage.setItem('id', this.id)
           } else {
             if (!this.randomString) {
               this.generateRandomString();
             }
             this.checkIfStringExists();
+            sessionStorage.setItem('id', this.randomString)            
           }
         });
       }
     });
+    this.id = sessionStorage.getItem('id') || '';
   }
   
   generateRandomString(): void {
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
-    const randomLength = Math.floor(Math.random() * (5 - 3 + 1)) + 3;
+    const randomLength = Math.floor(Math.random() * (10 - 3 + 1)) + 3;
   
     for (let i = 0; i < randomLength; i++) {
       result += characters.charAt(
@@ -87,12 +88,12 @@ export class AppComponent implements OnInit {
       .map((d) => d.generatedUrl)
       .includes(this.randomString);
     if (urlExists) {
+      
       this.generateRandomString(); // Regenerate random string if it already exists
       this.checkIfStringExists(); // Check again recursively
     } else {
       // Proceed with the unique random string
       this.urlExists = false;
-      console.log('fake as fk');
       this.router.navigate([`/${this.randomString}`]);
     }
   }
@@ -120,6 +121,7 @@ export class AppComponent implements OnInit {
       summary: 'Saved',
       detail: 'Your code has been updated',
     });
+    console.log(sessionStorage.getItem('id'));
   }
 
   editorOptions = {
