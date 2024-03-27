@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
     this.sub = this.route.params.subscribe((params) => {
       this.id = params['id'];
     });
+    
     if (this.id && this.id.length > 0) {
       this.urlSchemaService.getUrlSchemaById(this.id).subscribe((d) => {
         if (d.length > 0) {
@@ -60,12 +61,13 @@ export class AppComponent implements OnInit {
         }
         if (d.length === 0) {
           this.generateRandomString();
-          this.router.navigate([`/home/${this.randomString}`]);
+          this.router.navigate([`/${this.randomString}`]);
           this.urlExists = false;
           console.log('fake as fk');
         }
       });
     }
+    
   }
 
   generateRandomString(): void {
