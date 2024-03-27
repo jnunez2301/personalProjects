@@ -52,8 +52,8 @@ export class AppComponent implements OnInit {
       this.id = params['id'];
       if (this.id && this.id.length > 0) {
         this.urlSchemaService.getUrlSchemaById(this.id).subscribe((d) => {
+          this.urlExists = d.length > 0;
           if (d.length > 0) {
-            this.urlExists = true;
             this.currentUrlSchema$ = d;
             console.log('true as fk');
           } else {
@@ -120,16 +120,6 @@ export class AppComponent implements OnInit {
       summary: 'Saved',
       detail: 'Your code has been updated',
     });
-    console.log(this.urlExists);
-
-    // if(this.urlExists) {
-    //   // this.urlSchemaService.modificarUrlSchema({generatedUrl: this.id, code: this.code}).subscribe(d => console.log(d))
-    //   console.log('modify');
-    // } else{
-    //   /* this.urlSchemaService.postUrlSchema({generatedUrl: this.id, code: this.code}); */
-    //   console.log('save');
-    //   console.log(this.urlExists);
-    // }
   }
 
   editorOptions = {
