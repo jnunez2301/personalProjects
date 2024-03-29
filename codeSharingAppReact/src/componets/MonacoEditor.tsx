@@ -1,10 +1,11 @@
 import Editor from "@monaco-editor/react";
-import { useRef, useState } from "react";
-import { ProgramingLanguage } from "../models/SharedCode";
+import { useEffect, useRef, useState } from "react";
+import { ProgramingLanguage, SharedCode } from "../models/SharedCode";
 import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { useResolveAPi } from "../hooks/useResolveApi";
+import { useQuery } from "@tanstack/react-query";
 
 export const MonacoEditor = () => {
   const [theme, setTheme] = useState("dark");
@@ -14,10 +15,22 @@ export const MonacoEditor = () => {
   );
   const toast = useRef<Toast>(null);
   const urlParams = new URLSearchParams();
-  console.log(urlParams);
 
   /* API usage*/
   const { getCodes } = useResolveAPi();
+
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ['codes'],
+    queryFn: () => getCodes(),
+  })
+  useEffect(() => {
+    if(data) {
+      console.log(data);
+    }
+    
+    
+    
+  }, [data])
 
   /* btn toast's */
   const showInfoCopy = () => {
