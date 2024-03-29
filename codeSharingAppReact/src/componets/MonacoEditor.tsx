@@ -14,22 +14,19 @@ export const MonacoEditor = () => {
     ProgramingLanguage.JAVASCRIPT
   );
   const toast = useRef<Toast>(null);
-  const urlParams = new URLSearchParams();
 
   /* API usage*/
   const { getCodes } = useResolveAPi();
 
-  const { isPending, isError, data, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ['codes'],
-    queryFn: () => getCodes(),
+    queryFn:  getCodes,
+    staleTime: Infinity
   })
   useEffect(() => {
     if(data) {
       console.log(data);
     }
-    
-    
-    
   }, [data])
 
   /* btn toast's */

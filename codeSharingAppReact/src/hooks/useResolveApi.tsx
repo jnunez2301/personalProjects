@@ -3,11 +3,15 @@ import { SharedCode } from "../models/SharedCode";
 
 export const useResolveAPi = () => {
   const baseURL = import.meta.env.VITE_BASE_URL;
-  const getCodes = () => {
+  const getCodes = () => {   
     axios
       .get(baseURL)
       .then((response) => {
-        return response.data;
+        if(response.data) {
+          return response.data;
+        }else {
+          return []
+        }
       })
       .catch((error) => {
         console.log(error);
