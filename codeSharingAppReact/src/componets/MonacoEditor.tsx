@@ -4,7 +4,6 @@ import { ProgramingLanguage } from "../models/SharedCode";
 import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export const MonacoEditor = () => {
   const [theme, setTheme] = useState("dark");
@@ -13,52 +12,84 @@ export const MonacoEditor = () => {
     ProgramingLanguage.JAVASCRIPT
   );
   const toast = useRef<Toast>(null);
+  const urlParams = new URLSearchParams();
+  console.log(urlParams);
 
+  /* btn toast's */
   const showInfoCopy = () => {
     toast.current?.show({
       severity: "info",
       summary: "Copied code to clipboard",
       detail: "The code is on your clipboard now",
     });
+    navigator.clipboard.writeText(currentCode);
   };
-  const handleEditorChange = (value: string) => {
-      console.log('value', value);
+  const saveCode = () => {
+    toast.current?.show({
+      severity: 'info',
+      summary: 'Saved',
+      detail: 'Your code has been updated',
+    });
   }
+  const shareCode = () => {
+    toast.current?.show({
+      severity: 'success',
+      summary: 'URL copied',
+      detail: 'Now you can share the code with anyone',
+    });
+    navigator.clipboard.writeText(window.location.href)
+  }
+  const handleEditorChange = (value: string | undefined) => {
+    if(value) {
+      setCurrentCode(value);
+    }
+  };
+
   return (
     <div style={{ display: "flex", gap: ".3rem", flexDirection: "column" }}>
-      <div style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
-        <Dropdown
-          placeholder={currentLanguage.toLocaleUpperCase()}
-          value={currentLanguage}
-          onChange={(e) => setCurrentLanguage(e.value)}
-          options={[
-            "python",
-            "javascript",
-            "html",
-            "css",
-            "typescript",
-            "java",
-          ]}
-        />
-        <Dropdown
-          options={["dark", "light"]}
-          value={theme}
-          placeholder={theme.toUpperCase()}
-          onChange={(e) => setTheme(e.value)}
-        />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "1rem",
+        }}
+      >
+        <div style={{ display: "flex", gap: ".3rem" }}>
+          <Dropdown
+            placeholder={currentLanguage.toUpperCase()}
+            value={currentLanguage}
+            onChange={(e) => setCurrentLanguage(e.value)}
+            options={[
+              "python",
+              "javascript",
+              "html",
+              "css",
+              "typescript",
+              "java",
+            ]}
+          />
+          <Dropdown
+            options={["dark", "light"]}
+            value={theme}
+            placeholder={theme.toUpperCase()}
+            onChange={(e) => setTheme(e.value)}
+          />
+        </div>
+        <div style={{display: 'flex', gap: '.5rem'}}>
+          <Toast ref={toast} />
+          <Button icon="pi pi-share-alt" label="Share" outlined onClick={shareCode} />
+          <Button icon="pi pi-copy" rounded onClick={showInfoCopy} />
+          <Button icon="pi pi-save" rounded onClick={saveCode} />
+        </div>
       </div>
       <Editor
-        height="80vh"
+        height="90vh"
         width={"100%"}
         language={currentLanguage}
         value={currentCode}
         theme={`vs-${theme}`}
         onChange={handleEditorChange}
       />
-      <div className="card flex justify-content-center">
-        <Toast ref={toast} />
-        <Button onClick={showInfoCopy} label="Show" />
-      </div>
     </div>
   );
 };
