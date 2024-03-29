@@ -4,6 +4,7 @@ import { ProgramingLanguage } from "../models/SharedCode";
 import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
+import { useResolveAPi } from "../hooks/useResolveApi";
 
 export const MonacoEditor = () => {
   const [theme, setTheme] = useState("dark");
@@ -15,6 +16,9 @@ export const MonacoEditor = () => {
   const urlParams = new URLSearchParams();
   console.log(urlParams);
 
+  /* API usage*/
+  const { getCodes } = useResolveAPi();
+
   /* btn toast's */
   const showInfoCopy = () => {
     toast.current?.show({
@@ -23,6 +27,7 @@ export const MonacoEditor = () => {
       detail: "The code is on your clipboard now",
     });
     navigator.clipboard.writeText(currentCode);
+    getCodes()
   };
   const saveCode = () => {
     toast.current?.show({
