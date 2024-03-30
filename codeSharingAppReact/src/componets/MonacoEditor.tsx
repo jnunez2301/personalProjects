@@ -7,7 +7,11 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { useResolveApi } from "../hooks/useResolveApi";
 import { useQuery } from "@tanstack/react-query";
-import { createBrowserHistory, useNavigate, useParams } from "@tanstack/react-router";
+import {
+  createBrowserHistory,
+  useNavigate,
+  useParams,
+} from "@tanstack/react-router";
 
 function generateRandomString(length = 8) {
   const characters =
@@ -27,12 +31,13 @@ export const MonacoEditor = () => {
     ProgramingLanguage.JAVASCRIPT
   );
   const [codeDataList, setCodeDataList] = useState<SharedCode[]>([]);
-  const [codeById, setCodeById] = useState<SharedCode>();
+  const [idParam, setIdParam] = useState<string>("");
+  const [, setCodeById] = useState<SharedCode>();
   const [codeExists, setCodeExists] = useState<boolean>(false);
   const toast = useRef<Toast>(null);
 
   /* Routing params */
-  const { codeId } = useParams({ strict: false });  
+  const { codeId } = useParams({ strict: false });
   const history = createBrowserHistory();
   /* API usage*/
   const { getCodes, getCodeById, postCodes, updateCode } = useResolveApi();
@@ -42,27 +47,33 @@ export const MonacoEditor = () => {
     queryFn: getCodes,
     staleTime: Infinity,
   });
-
   useEffect(() => {
-    if(query.data) {
+    if (query.data) {
       setCodeDataList(query.data);
     }
-  }, [query.data])
+  }, [query.data]);
 
   useEffect(() => {
-    if(codeDataList.length > 0) {
-      const codeInData = codeDataList.map(d => d.generatedUrl).includes(codeId);
-      if(codeInData) {
-        setCodeExists(true)
-        getCodeById(codeId).then(response => setCodeById(response[0])).catch(error => console.log(error))
+    if (codeDataList.length > 0) {
+      const codeInData = codeDataList
+        .map((d) => d.generatedUrl)
+        .includes(codeId);
+      if (codeInData) {
+        setCodeExists(true);
+        getCodeById(codeId)
+          .then((response) => setCodeById(response[0]))
+          .catch((error) => console.log(error));
+        setIdParam(codeId);
       } else {
-        setCodeExists(false)
-        const newCodeId = generateRandomString()
-        history.replace(newCodeId)
+        setCodeExists(false);
+        const newCodeId = generateRandomString();
+        setIdParam(newCodeId);
+        history.replace(newCodeId);
       }
     }
-  }, [codeDataList, codeExists])
-  
+  }, [codeDataList, codeExists]);
+  console.log(idParam);
+
   /* btn toast's config*/
   const showInfoCopy = () => {
     toast.current?.show({
@@ -79,12 +90,15 @@ export const MonacoEditor = () => {
       summary: "Saved",
       detail: "Your code has been updated",
     });
-    if(codeExists && codeById) {
-      updateCode(codeById)
-    }
-    if(!codeExists && codeById) {
-      postCodes(codeById)
-    }
+    const saveCode = {
+      generatedUrl: idParam,
+      code: currentCode,
+      languageOptions: {
+        name: currentLanguage,
+        code: currentLanguage,
+      },
+    };
+    postCodes(saveCode);
   };
   const shareCode = () => {
     toast.current?.show({
@@ -99,6 +113,7 @@ export const MonacoEditor = () => {
       setCurrentCode(value);
     }
   };
+
   /* btn toast's config*/
   return (
     <div style={{ display: "flex", gap: ".3rem", flexDirection: "column" }}>
