@@ -1,53 +1,53 @@
 import axios from "axios";
 import { SharedCode } from "../models/SharedCode";
 
-export const useResolveAPi = () => {
+export const useResolveApi = () => {
   const baseURL = import.meta.env.VITE_BASE_URL;
-  const getCodes = () => {   
-    axios
-      .get(baseURL)
-      .then((response) => {
-        if(response.data) {
-          return response.data;
-        }else {
-          return []
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  const getCodeById = (idParam: string) => {
-    axios
-    .get(`${baseURL}/${idParam}`)
-    .then(response => {
-      return response.data
-    })
-    .catch(error => console.log(error))
+
+  async function getCodes() {
+    try {
+      const response = await axios.get(baseURL);
+      return response.data || [];
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
   }
-  const postCodes = (idParam: string) => {
-    axios
-    .post(`${baseURL}/${idParam}`)
-    .then((response) => {
-      return {data: response.data, status: response.status};
-    })
-    .catch(error => console.log(error))
+
+  async function getCodeById(idParam: string) {
+    try {
+      const response = await axios.get(`${baseURL}/${idParam}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
-  const updateCode = (newCode: SharedCode) => {
-    axios
-    .post(baseURL, newCode)
-    .then(response => {
-      return {
-        data: response.data,
-        status: response.status
-      }
-    })
-    .catch(error => console.log(error))
+
+  async function postCodes(idParam: string) {
+    try {
+      const response = await axios.post(`${baseURL}/${idParam}`);
+      return { data: response.data, status: response.status };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
+
+  async function updateCode(newCode: SharedCode) {
+    try {
+      const response = await axios.post(baseURL, newCode);
+      return { data: response.data, status: response.status };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
   return {
     getCodes,
     getCodeById,
     postCodes,
-    updateCode
+    updateCode,
   };
 };

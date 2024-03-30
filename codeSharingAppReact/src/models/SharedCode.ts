@@ -6,7 +6,7 @@ export enum ProgramingLanguage{
     TYPESCRIPT = 'typescript'
 }
 export interface SharedCode {
-    generatedURL: string;
+    generatedUrl: string;
     code: string;
     languageOptions: {
         name: ProgramingLanguage,

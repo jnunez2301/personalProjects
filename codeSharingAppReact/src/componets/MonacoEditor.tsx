@@ -1,11 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Editor from "@monaco-editor/react";
 import { useEffect, useRef, useState } from "react";
 import { ProgramingLanguage, SharedCode } from "../models/SharedCode";
 import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
-import { useResolveAPi } from "../hooks/useResolveApi";
+import { useResolveApi } from "../hooks/useResolveApi";
 import { useQuery } from "@tanstack/react-query";
+import { createBrowserHistory, useNavigate, useParams } from "@tanstack/react-router";
+
+function generateRandomString(length = 8) {
+  const characters =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 
 export const MonacoEditor = () => {
   const [theme, setTheme] = useState("dark");
@@ -13,23 +26,44 @@ export const MonacoEditor = () => {
   const [currentLanguage, setCurrentLanguage] = useState<ProgramingLanguage>(
     ProgramingLanguage.JAVASCRIPT
   );
+  const [codeDataList, setCodeDataList] = useState<SharedCode[]>([]);
+  const [codeById, setCodeById] = useState<SharedCode>();
+  const [codeExists, setCodeExists] = useState<boolean>(false);
   const toast = useRef<Toast>(null);
 
+  /* Routing params */
+  const { codeId } = useParams({ strict: false });  
+  const history = createBrowserHistory();
   /* API usage*/
-  const { getCodes } = useResolveAPi();
+  const { getCodes, getCodeById } = useResolveApi();
 
-  const { data } = useQuery({
-    queryKey: ['codes'],
-    queryFn:  getCodes,
-    staleTime: Infinity
-  })
+  const query = useQuery<SharedCode[]>({
+    queryKey: ["codes"],
+    queryFn: getCodes,
+    staleTime: Infinity,
+  });
+
   useEffect(() => {
-    if(data) {
-      console.log(data);
+    if(query.data) {
+      setCodeDataList(query.data);
     }
-  }, [data])
+  }, [query.data])
 
-  /* btn toast's */
+  useEffect(() => {
+    if(codeDataList.length > 0) {
+      const codeInData = codeDataList.map(d => d.generatedUrl).includes(codeId);
+      if(codeInData) {
+        setCodeExists(true)
+      } else {
+        setCodeExists(false)
+        const newCodeId = generateRandomString()
+        history.replace(newCodeId)
+
+      }
+    }
+  }, [codeDataList, codeExists])
+
+  /* btn toast's config*/
   const showInfoCopy = () => {
     toast.current?.show({
       severity: "info",
@@ -37,29 +71,29 @@ export const MonacoEditor = () => {
       detail: "The code is on your clipboard now",
     });
     navigator.clipboard.writeText(currentCode);
-    getCodes()
+    getCodes();
   };
   const saveCode = () => {
     toast.current?.show({
-      severity: 'info',
-      summary: 'Saved',
-      detail: 'Your code has been updated',
+      severity: "info",
+      summary: "Saved",
+      detail: "Your code has been updated",
     });
-  }
+  };
   const shareCode = () => {
     toast.current?.show({
-      severity: 'success',
-      summary: 'URL copied',
-      detail: 'Now you can share the code with anyone',
+      severity: "success",
+      summary: "URL copied",
+      detail: "Now you can share the code with anyone",
     });
-    navigator.clipboard.writeText(window.location.href)
-  }
+    navigator.clipboard.writeText(window.location.href);
+  };
   const handleEditorChange = (value: string | undefined) => {
-    if(value) {
+    if (value) {
       setCurrentCode(value);
     }
   };
-
+  /* btn toast's config*/
   return (
     <div style={{ display: "flex", gap: ".3rem", flexDirection: "column" }}>
       <div
@@ -90,9 +124,14 @@ export const MonacoEditor = () => {
             onChange={(e) => setTheme(e.value)}
           />
         </div>
-        <div style={{display: 'flex', gap: '.5rem'}}>
+        <div style={{ display: "flex", gap: ".5rem" }}>
           <Toast ref={toast} />
-          <Button icon="pi pi-share-alt" label="Share" outlined onClick={shareCode} />
+          <Button
+            icon="pi pi-share-alt"
+            label="Share"
+            outlined
+            onClick={shareCode}
+          />
           <Button icon="pi pi-copy" rounded onClick={showInfoCopy} />
           <Button icon="pi pi-save" rounded onClick={saveCode} />
         </div>
