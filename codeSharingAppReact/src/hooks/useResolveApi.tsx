@@ -24,9 +24,9 @@ export const useResolveApi = () => {
     }
   }
 
-  async function postCodes(idParam: string) {
+  async function postCodes(newCode: SharedCode) {
     try {
-      const response = await axios.post(`${baseURL}/${idParam}`);
+      const response = await axios.post(baseURL, newCode);
       return { data: response.data, status: response.status };
     } catch (error) {
       console.log(error);
@@ -36,7 +36,7 @@ export const useResolveApi = () => {
 
   async function updateCode(newCode: SharedCode) {
     try {
-      const response = await axios.post(baseURL, newCode);
+      const response = await axios.put(baseURL, newCode);
       return { data: response.data, status: response.status };
     } catch (error) {
       console.log(error);

@@ -79,6 +79,12 @@ export const MonacoEditor = () => {
       summary: "Saved",
       detail: "Your code has been updated",
     });
+    if(codeExists && codeById) {
+      updateCode(codeById)
+    }
+    if(!codeExists && codeById) {
+      postCodes(codeById)
+    }
   };
   const shareCode = () => {
     toast.current?.show({

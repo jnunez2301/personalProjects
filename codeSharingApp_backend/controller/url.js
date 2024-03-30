@@ -24,6 +24,7 @@ router.post("/", (req, res) => {
   const newURL = new UrlSchema({
     generatedUrl: body.generatedUrl,
     code: body.code,
+    languageOptions: body.languageOptions
   });
 
   newURL
