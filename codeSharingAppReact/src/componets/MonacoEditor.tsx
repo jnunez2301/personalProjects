@@ -7,10 +7,7 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { useResolveApi } from "../hooks/useResolveApi";
 import { useQuery } from "@tanstack/react-query";
-import {
-  createBrowserHistory,
-  useParams,
-} from "@tanstack/react-router";
+import { createBrowserHistory, useParams } from "@tanstack/react-router";
 
 function generateRandomString(length = 8) {
   const characters =
@@ -62,7 +59,7 @@ export const MonacoEditor = () => {
         setCodeExists(true);
         getCodeById(codeId)
           .then((response) => {
-            setCodeById(response[0])
+            setCodeById(response[0]);
           })
           .catch((error) => console.log(error));
         setIdParam(codeId);
@@ -76,11 +73,11 @@ export const MonacoEditor = () => {
   }, [codeDataList, codeExists]);
 
   useEffect(() => {
-    if(codeById) {
-      setCurrentCode(codeById.code)
-      setCurrentLanguage(codeById.languageOptions.name)
+    if (codeById) {
+      setCurrentCode(codeById.code);
+      setCurrentLanguage(codeById.languageOptions.name);
     }
-  }, [codeById])
+  }, [codeById]);
   /* btn toast's config*/
   const showInfoCopy = () => {
     toast.current?.show({
@@ -129,6 +126,7 @@ export const MonacoEditor = () => {
           display: "flex",
           justifyContent: "space-between",
           gap: "1rem",
+          flexWrap: 'wrap'
         }}
       >
         <div style={{ display: "flex", gap: ".3rem" }}>
@@ -152,7 +150,7 @@ export const MonacoEditor = () => {
             onChange={(e) => setTheme(e.value)}
           />
         </div>
-        <div style={{ display: "flex", gap: ".5rem" }}>
+        <div style={{ display: "flex", gap: ".5rem", flexWrap: 'wrap' }}>
           <Toast ref={toast} />
           <Button
             icon="pi pi-share-alt"
