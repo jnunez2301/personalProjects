@@ -36,6 +36,7 @@ export const MonacoEditor = () => {
   const toast = useRef<Toast>(null);
 
   /* Routing params */
+  // @ts-expect-error: String type exists on useParams
   const { codeId } = useParams({ strict: false });
   const history = createBrowserHistory();
   /* API usage*/
