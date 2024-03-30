@@ -1,5 +1,4 @@
 import {
-  Outlet,
   RouterProvider,
   createRouter,
   createRootRoute,
@@ -11,7 +10,6 @@ const rootRoute = createRootRoute({
   component: () => (
     <>
       <MonacoEditor />
-      <Outlet />
     </>
   ),
 });

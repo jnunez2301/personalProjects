@@ -35,7 +35,7 @@ export const MonacoEditor = () => {
   const { codeId } = useParams({ strict: false });  
   const history = createBrowserHistory();
   /* API usage*/
-  const { getCodes, getCodeById } = useResolveApi();
+  const { getCodes, getCodeById, postCodes, updateCode } = useResolveApi();
 
   const query = useQuery<SharedCode[]>({
     queryKey: ["codes"],
@@ -54,15 +54,15 @@ export const MonacoEditor = () => {
       const codeInData = codeDataList.map(d => d.generatedUrl).includes(codeId);
       if(codeInData) {
         setCodeExists(true)
+        getCodeById(codeId).then(response => setCodeById(response[0])).catch(error => console.log(error))
       } else {
         setCodeExists(false)
         const newCodeId = generateRandomString()
         history.replace(newCodeId)
-
       }
     }
   }, [codeDataList, codeExists])
-
+  
   /* btn toast's config*/
   const showInfoCopy = () => {
     toast.current?.show({
