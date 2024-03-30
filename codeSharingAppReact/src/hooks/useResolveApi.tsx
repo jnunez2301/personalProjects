@@ -34,20 +34,9 @@ export const useResolveApi = () => {
     }
   }
 
-  async function updateCode(newCode: SharedCode) {
-    try {
-      const response = await axios.put(baseURL, newCode);
-      return { data: response.data, status: response.status };
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  }
-
   return {
     getCodes,
     getCodeById,
-    postCodes,
-    updateCode,
+    postCodes
   };
 };

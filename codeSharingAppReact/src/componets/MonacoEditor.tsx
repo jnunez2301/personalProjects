@@ -9,7 +9,6 @@ import { useResolveApi } from "../hooks/useResolveApi";
 import { useQuery } from "@tanstack/react-query";
 import {
   createBrowserHistory,
-  useNavigate,
   useParams,
 } from "@tanstack/react-router";
 
@@ -32,7 +31,7 @@ export const MonacoEditor = () => {
   );
   const [codeDataList, setCodeDataList] = useState<SharedCode[]>([]);
   const [idParam, setIdParam] = useState<string>("");
-  const [, setCodeById] = useState<SharedCode>();
+  const [codeById, setCodeById] = useState<SharedCode>();
   const [codeExists, setCodeExists] = useState<boolean>(false);
   const toast = useRef<Toast>(null);
 
@@ -40,7 +39,7 @@ export const MonacoEditor = () => {
   const { codeId } = useParams({ strict: false });
   const history = createBrowserHistory();
   /* API usage*/
-  const { getCodes, getCodeById, postCodes, updateCode } = useResolveApi();
+  const { getCodes, getCodeById, postCodes } = useResolveApi();
 
   const query = useQuery<SharedCode[]>({
     queryKey: ["codes"],
@@ -61,7 +60,9 @@ export const MonacoEditor = () => {
       if (codeInData) {
         setCodeExists(true);
         getCodeById(codeId)
-          .then((response) => setCodeById(response[0]))
+          .then((response) => {
+            setCodeById(response[0])
+          })
           .catch((error) => console.log(error));
         setIdParam(codeId);
       } else {
@@ -72,8 +73,13 @@ export const MonacoEditor = () => {
       }
     }
   }, [codeDataList, codeExists]);
-  console.log(idParam);
 
+  useEffect(() => {
+    if(codeById) {
+      setCurrentCode(codeById.code)
+      setCurrentLanguage(codeById.languageOptions.name)
+    }
+  }, [codeById])
   /* btn toast's config*/
   const showInfoCopy = () => {
     toast.current?.show({
